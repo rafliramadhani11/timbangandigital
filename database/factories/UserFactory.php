@@ -23,22 +23,41 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
+        $type = fake()->randomElement(
+            ['Ayah', 'Ibu', 'Wali']
+        );
+        $jeniskelamin = fake()->randomElement(
+            ['Laki Laki', 'Wanita']
+        );
+
+
+
         return [
+            'region_id' => rand(1, 6),
+
             'name' => fake()->name(),
-            'email' => fake()->unique()->safeEmail(),
-            'email_verified_at' => now(),
-            'password' => static::$password ??= Hash::make('password'),
-            'remember_token' => Str::random(10),
+            'username' => fake()->bothify('user###'),
+            'type' => $type,
+            'password' => bcrypt(123),
+
+            'jeniskelamin' => $jeniskelamin,
+            'nohp' => rand(),
+            'tgllahir' => fake()->date(),
+            'pekerjaan' => fake()->jobTitle(),
+
+            'kecamatan' => fake()->state(),
+            'kelurahan' => fake()->streetName(),
+            'alamat' => fake()->address()
         ];
     }
 
     /**
      * Indicate that the model's email address should be unverified.
      */
-    public function unverified(): static
-    {
-        return $this->state(fn (array $attributes) => [
-            'email_verified_at' => null,
-        ]);
-    }
+    // public function unverified(): static
+    // {
+    //     return $this->state(fn (array $attributes) => [
+    //         'email_verified_at' => null,
+    //     ]);
+    // }
 }
