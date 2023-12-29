@@ -21,7 +21,7 @@ return new class extends Migration
 
             $table->float('tb');
             $table->float('bb');
-            $table->float('imt');
+            $table->float('imt')->nullable();
 
             $table->timestamps();
         });

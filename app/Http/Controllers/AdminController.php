@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 
+use App\Models\Anak;
 use App\Models\User;
 use App\Models\Region;
 use App\Http\Controllers\Controller;
@@ -32,22 +33,26 @@ class AdminController extends Controller
     public function allRegions($slug)
     {
         $user = Auth::user();
-        $regions = Region::where('id', '!=', Auth::user()->region_id)->latest();
         $region = Region::where('slug', $slug)->first();
-
         return view('admin.regions', [
             'user' => $user,
-            'regions' => $regions,
+            'regions' => Region::all(),
+            'users' => $region->users->where('admin', '!=', 1),
             'region' => $region
         ]);
     }
 
     public function showUser($username)
     {
+
         $user = User::where('username', $username)->first();
+        $anak = Anak::where("user_id", $user->id)->first();
+
+
         return view('admin.show', [
             'user' => $user,
-            'anaks' => $user->anaks
+            'anaks' => $user->anaks,
+            'anak' => $anak
         ]);
     }
 
@@ -74,6 +79,14 @@ class AdminController extends Controller
         } else {
             return redirect()->route('admin.show', $user->username);
         }
+    }
+
+    public function timbang()
+    {
+        $user = Auth::user();
+        return view('admin.timbang', [
+            'user' => $user
+        ]);
     }
 
     public function delete($username)

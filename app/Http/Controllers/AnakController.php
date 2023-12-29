@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use DateTime;
 use App\Models\Anak;
+use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AnakUpdateRequest;
-use DateTime;
 
 class AnakController extends Controller
 {
@@ -17,20 +20,48 @@ class AnakController extends Controller
         ]);
     }
 
-    public function update(AnakUpdateRequest $request, $user_id)
+    public function store($username, Request $request)
     {
-        $anak = Anak::where('user_id', $user_id)->first();
+        $user = User::where('username', $username)->first();
+        $request->validate([
+            'name' => 'required',
+            'umur' => 'required',
+            'gender' => 'required|in:Laki Laki,Perempuan',
 
-        $validated = $request->validated();
-        $id = Anak::find($anak->id);
+            'tb' => 'required',
+            'bb' => 'required',
+        ]);
 
-        $changes = array_diff_assoc($validated, $id->toArray());
+        $anak = new Anak([
+            'user_id' => $user->id,
 
-        if (!empty($changes)) {
-            $id->update($validated);
-            return redirect()->route('user.show', $anak->user->username)->with('updatedBaby', 'Berhasil mngubah data anak !');
-        } else {
-            return redirect()->route('user.show', $anak->user->username);
-        }
+            'name' => $request->input('name'),
+            'umur' => $request->input('umur'),
+            'gender' => $request->input('gender'),
+
+            'tb' => $request->input('tb'),
+            'bb' => $request->input('bb'),
+        ]);
+
+
+
+        $anak->save();
+
+        return redirect()->back()->with('storedAnak', 'Berhasil menambah data anak !');
+    }
+
+    public function update($id, Request $request)
+    {
+        DB::table('anaks')
+            ->where('id', $id)
+            ->update(['name' => $request->input('name')]);
+
+        return redirect()->back()->with('updatedName', 'Berhasil memperbarui nama !');
+    }
+
+    public function delete($id)
+    {
+        Anak::where('id', $id)->delete();
+        return redirect()->back();
     }
 }

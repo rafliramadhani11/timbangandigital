@@ -2,6 +2,7 @@
     <div class="relative flex flex-col flex-1 min-h-0 pt-0 bg-white border-r border-gray-200 dark:bg-gray-800 dark:border-gray-700">
         <div class="flex flex-col flex-1 pt-3 pb-4 overflow-y-auto">
             <div class="flex-1 px-3 space-y-1 bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
+                <!-- USER -->
                 @cannot('admin')
                 <ul class="pb-2 space-y-2">
                     <!-- DASHBOARD -->
@@ -32,10 +33,12 @@
                     </li>
                     @endcannot
                 </ul>
+                <!-- ------------------------------------------ -->
+
                 <!-- ADMIN -->
                 @can('admin')
                 <ul class="pb-2 space-y-2">
-                    <span class="text-slate-500  px-3 text-muted text-xs tracking-wide font-semibold ">ADMINISTRATOR</span>
+                    <span class="px-3 text-xs font-semibold tracking-wide text-slate-500 text-muted ">ADMINISTRATOR</span>
                     <li class="mt-2">
                         <a href="{{ route('admin.index') }}" class="flex items-center p-2 text-sm text-gray-900 hover:font-semibold rounded-lg hover:bg-gray-100 group dark:text-gray-200 dark:hover:bg-gray-700
                         {{ Request::is('dashboard/admin')? 'bg-gray-100 font-semibold dark:bg-gray-700 dark:text-gray-200' : '' }}">
@@ -57,9 +60,7 @@
                             </svg>
                             <path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z"></path>
                             <path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"></path>
-
                             <span class="ml-3" sidebar-toggle-item>All Users</span>
-
                         </a>
                     </li>
                     @endcan

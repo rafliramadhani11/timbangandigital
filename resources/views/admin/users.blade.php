@@ -8,14 +8,14 @@
         <main class="px-4 py-6">
             <!-- HEAD -->
             <div class="p-4 mb-5 bg-white block sm:flex items-center justify-between  border-gray-200 lg:mt-1.5 dark:bg-gray-800 dark:border-gray-700">
-                <div class="w-full mb-1 ">
+                <div class="w-full ">
                     <div class="mb-4">
                         <h1 class="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white">Semua User</h1>
                     </div>
-                    <div class="sm:flex">
-                        <div class="items-center gap-5 mb-3 sm:flex sm:divide-x sm:divide-gray-100 sm:mb-0 dark:divide-gray-700">
+                    <div class="sm:flex sm:items-center sm:justify-between">
+                        <div class="items-center gap-5 sm:flex sm:divide-x sm:divide-gray-100 sm:mb-0 dark:divide-gray-700">
                             <!-- SEARCH -->
-                            <form class="mb-5 w-96 lg:mb-0" method="get" action="/dashboard/admin/users">
+                            <form class="mt-3 w-96 lg:mb-0" method="get" action="/dashboard/admin/users">
                                 <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
                                 <div class="relative">
                                     <div class="absolute inset-y-0 flex items-center pointer-events-none start-0 ps-3">
@@ -28,7 +28,8 @@
                             </form>
                             <!-- ---------------------------- -->
                             <!-- Dropdown menu Regions -->
-                            <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">Cari Berdasarkan Kota<svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                            <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 mt-3 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">Cari Berdasarkan Kota
+                                <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4" />
                                 </svg>
                             </button>
@@ -43,7 +44,14 @@
                             </div>
                             <!-- ------------------------------------- -->
                         </div>
-
+                        <div class="items-center gap-5 sm:flex sm:divide-x sm:divide-gray-100 dark:divide-gray-700">
+                            <a href="#" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg mt-3 text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"">
+                                <svg class=" w-3.5 h-3.5 me-3 text-white dark:text-white " aria-hidden=" true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16" />
+                                </svg>
+                                Create Users
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>

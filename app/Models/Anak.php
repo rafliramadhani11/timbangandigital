@@ -11,7 +11,7 @@ class Anak extends Model
 {
     use HasFactory;
 
-    protected $guarded = ['id', 'user_id'];
+    protected $guarded = ['id'];
 
     public function user()
     {

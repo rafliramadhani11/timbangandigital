@@ -18,16 +18,24 @@ Route::middleware(['guest'])->group(function () {
 
 Route::middleware('auth')->group(function () {
     Route::post('/logout', [AuthenticationController::class, 'logout'])->name('logout');
-    Route::resource('/dashboard/user', UserController::class)->except(['store', 'create', 'destroy']);
+    Route::resource('/dashboard/user', UserController::class)->except(['store', 'destroy']);
 });
 
 
 Route::middleware('admin')->group(function () {
+    // ANAK
+    Route::post('/dashboard/admin/users/{username}/anak/create', [AnakController::class, 'store'])->name('anak.store');
+    Route::put('/dashboard/admin/users/anak/{id}', [AnakController::class, 'update'])->name('anak.update');
+    Route::delete('/dashboard/admin/users/anak/{id}', [AnakController::class, 'delete'])->name('anak.delete');
+    // ------------------------------
+
     Route::get('/dashboard/admin', [AdminController::class, 'index'])->name('admin.index');
     Route::get('/dashboard/admin/users', [AdminController::class, 'allUsers'])->name('admin.users');
     Route::get('/dashboard/admin/users/{username}', [AdminController::class, 'showUser'])->name('admin.show');
     Route::get('/dashboard/admin/{username}/edit', [AdminController::class, 'editUser'])->name('admin.edit');
     Route::get('/dashboard/admin/users/regions/{city:slug}', [AdminController::class, 'allRegions'])->name('admin.regions');
+    Route::get('/dashboard/admin/timbang', [AdminController::class, 'timbang'])->name('admin.timbang');
+
 
     Route::put('/dashboard/admin/{username}', [AdminController::class, 'updateUser'])->name('admin.user.update');
 
