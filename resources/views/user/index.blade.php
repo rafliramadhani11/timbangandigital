@@ -2,7 +2,7 @@
 
 @section('content')
 @include('partials.navbar')
-<div class="flex pt-16 overflow-hidden bg-gray-50 dark:bg-gray-900">
+<div class="flex pt-16 overflow-hidden min-h-screen bg-gray-50 dark:bg-gray-900">
     @include('partials.sidebar')
     <div id="main-content" class="relative w-full h-full overflow-y-auto bg-gray-50 lg:ml-64 dark:bg-gray-900">
         <main class="px-4 py-6">
@@ -35,7 +35,7 @@
                     </div>
                 </div>
                 @else
-                <h1>Biodata sudah di isi</h1>
+                <h1 class="dark:text-white">Biodata sudah di isi</h1>
                 @endif
 
 
