@@ -2,9 +2,9 @@
 
 @section('content')
 @include('partials.navbar')
-<div class="flex pt-16 overflow-hidden bg-gray-50 dark:bg-gray-900">
+<div class="flex pt-16 overflow-hidden min-h-screen bg-gray-50 dark:bg-gray-900">
     @include('partials.sidebar')
-    <div id="main-content" class="relative w-full min-h-screen overflow-y-auto bg-gray-50 lg:ml-64 dark:bg-gray-900">
+    <div id="main-content" class="relative w-full h-full overflow-y-auto bg-gray-50 lg:ml-64 dark:bg-gray-900">
         <main class="px-4 py-6 ">
             <div class="md:grid md:grid-cols-2 md:gap-5">
                 <!-- DATA ORANG TUA -->
@@ -31,7 +31,7 @@
                                     <p class="text-2xl font-bold ">Data Orang Tua</p>
                                 </div>
                                 <div>
-                                    <a href="{{ route('admin.edit' , $user->username) }}" class="text-white text-center bg-green-500 shadow-md hover:bg-green-600 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-green-600 dark:hover:bg-green-700 focus:outline-none dark:focus:ring-green-800">Ubah Data</a>
+                                    <a href="{{ route('user.edit' , $user->username) }}" class="text-white text-center bg-green-500 shadow-md hover:bg-green-600 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-green-600 dark:hover:bg-green-700 focus:outline-none dark:focus:ring-green-800">Ubah Data</a>
                                 </div>
                             </div>
 
@@ -175,12 +175,12 @@
                         @endforeach
                     </tbody>
                 </table>
-                @else
-                <div class="p-4 mb-3 text-center text-red-800 bg-red-100 rounded-lg dark:bg-gray-800 dark:text-red-400" role="alert">
-                    <span class="text-2xl font-medium">Data Anak belum ada</span>
-                </div>
-                @endif
             </div>
+            @else
+            <div class="p-4 mb-3 text-center text-red-800 bg-red-300 rounded-lg dark:bg-red-400 dark:text-red-800" role="alert">
+                <span class="text-2xl font-medium">Data Anak belum ada</span>
+            </div>
+            @endif
             <!-- ------------------------ -->
         </main>
     </div>
