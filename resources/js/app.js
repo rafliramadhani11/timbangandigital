@@ -2,6 +2,7 @@ import "./bootstrap";
 import "flowbite";
 import "./dark-mode.js";
 import "./sidebar.js";
+import Swal from "sweetalert2";
 
 if (
     localStorage.getItem("color-theme") === "dark" ||
@@ -12,16 +13,3 @@ if (
 } else {
     document.documentElement.classList.remove("dark");
 }
-
-// var inputTanggalLahir = document.getElementById("tgllahir");
-// inputTanggalLahir.addEventListener("change", function () {
-//     var selectedDate = new Date(inputTanggalLahir.value);
-
-//     var tanggal = selectedDate.getDate();
-//     var bulan = selectedDate.getMonth() + 1;
-//     var tahun = selectedDate.getFullYear();
-
-//     console.log("Tanggal: " + tanggal);
-//     console.log("Bulan: " + bulan);
-//     console.log("Tahun: " + tahun);
-// });

@@ -6,9 +6,10 @@ namespace App\Http\Controllers;
 use App\Models\Anak;
 use App\Models\User;
 use App\Models\Region;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreOrangtuaRequest;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\StoreOrangtuaRequest;
 use App\Http\Requests\UpdateOrangtuaRequest;
 
 
@@ -111,5 +112,17 @@ class AdminController extends Controller
         $user = User::where('username', $username)->first();
         $user->delete();
         return redirect()->route('admin.users')->with('deleted', 'Data berhasil di hapus !');
+    }
+
+    public function search(Request $request)
+    {
+
+        $users = User::where('name', 'like', '%' . $request->search . '%')
+            ->where('admin', '=', 0)
+            ->latest()
+            ->paginate(10)
+            ->withQueryString();
+
+        return view('partials.table', compact('users'));
     }
 }

@@ -32,6 +32,8 @@ Route::middleware('admin')->group(function () {
 
     Route::get('/dashboard/admin', [AdminController::class, 'index'])->name('admin.index');
     Route::get('/dashboard/admin/users', [AdminController::class, 'allUsers'])->name('admin.users');
+    Route::get('/search', [AdminController::class, 'search'])->name('search');
+
     Route::get('/dashboard/admin/users/{username}', [AdminController::class, 'showUser'])->name('admin.show');
     Route::get('/dashboard/admin/{username}/edit', [AdminController::class, 'editUser'])->name('admin.edit');
     Route::get('/dashboard/admin/users/regions/{city:slug}', [AdminController::class, 'allRegions'])->name('admin.regions');
