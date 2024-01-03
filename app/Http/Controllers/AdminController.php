@@ -6,9 +6,10 @@ namespace App\Http\Controllers;
 use App\Models\Anak;
 use App\Models\User;
 use App\Models\Region;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreOrangtuaRequest;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\StoreOrangtuaRequest;
 use App\Http\Requests\UpdateOrangtuaRequest;
 
 
@@ -17,16 +18,16 @@ class AdminController extends Controller
     public function index()
     {
         return view('admin.index', [
-            "user" => Auth::user()
+            "user" => Auth::user(),
+            'regions' => Region::all()
         ]);
     }
 
     public function create()
     {
-        $regions = Region::all();
         return view('admin.create', [
             'user' => Auth::user(),
-            'regions' => $regions
+            'regions' => Region::all()
         ]);
     }
 
@@ -98,18 +99,24 @@ class AdminController extends Controller
         }
     }
 
-    public function timbang()
-    {
-        $user = Auth::user();
-        return view('admin.timbang', [
-            'user' => $user
-        ]);
-    }
+
 
     public function delete($username)
     {
         $user = User::where('username', $username)->first();
         $user->delete();
         return redirect()->route('admin.users')->with('deleted', 'Data berhasil di hapus !');
+    }
+
+    public function search(Request $request)
+    {
+
+        $users = User::where('name', 'like', '%' . $request->search . '%')
+            ->where('admin', '=', 0)
+            ->latest()
+            ->paginate(10)
+            ->withQueryString();
+
+        return view('partials.table', compact('users'));
     }
 }

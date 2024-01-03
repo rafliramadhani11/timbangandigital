@@ -2,9 +2,9 @@
 
 @section('content')
 @include('partials.navbar')
-<div class="flex pt-16 min-h-screen overflow-hidden bg-gray-50 dark:bg-gray-900">
+<div class="flex min-h-screen pt-16 overflow-hidden bg-gray-50 dark:bg-gray-900">
     @include('partials.sidebar')
-    <div id="main-content" class="relative w-full  h-full overflow-y-auto bg-gray-50 lg:ml-64 dark:bg-gray-900">
+    <div id="main-content" class="relative w-full h-full overflow-y-auto bg-gray-50 lg:ml-64 dark:bg-gray-900">
         <main class="px-4 py-6 ">
             <a href="{{ route('admin.users') }}" class="inline-flex items-center justify-center p-2 mb-5 text-base font-medium text-gray-500 rounded-lg shadow-sm bg-gray-50 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700 dark:hover:text-white">
                 <svg class="w-6 h-6 text-gray-500 me-3 hover:text-gray-900 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
@@ -18,12 +18,12 @@
                 <div class="container max-w-screen-lg">
                     <div class="p-4 px-4 mb-6 bg-white rounded shadow-md dark:bg-gray-800 md:p-8">
                         @if (session()->has('updatedParent'))
-                        <div id="alert-3" class="flex items-center p-4 mb-4 text-green-800 rounded-lg bg-green-100 dark:bg-gray-800 dark:text-green-400 w-1/2" role="alert">
+                        <div id="alert-3" class="flex items-center w-1/2 p-4 mb-4 text-green-800 bg-green-100 rounded-lg dark:bg-gray-800 dark:text-green-400" role="alert">
                             <svg class="flex-shrink-0 w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                                 <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
                             </svg>
                             <span class="sr-only">Info</span>
-                            <div class="ms-3 text-sm font-medium">
+                            <div class="text-sm font-medium ms-3">
                                 {{ session('updatedParent') }}
                             </div>
                             <button type="button" class="ms-auto -mx-1.5 -my-1.5 bg-green-100 text-green-500 rounded-lg focus:ring-2 focus:ring-green-400 p-1.5 hover:bg-green-200 inline-flex items-center justify-center h-8 w-8 dark:bg-gray-800 dark:text-green-400 dark:hover:bg-gray-700" data-dismiss-target="#alert-3" aria-label="Close">
@@ -114,12 +114,12 @@
                                 <p class="text-2xl font-bold ">Tambah Data Anak</p>
                             </div>
                             @if (session()->has('storedAnak'))
-                            <div id="alert-3" class="flex items-center p-4 mb-4 text-green-800 rounded-lg bg-green-100 dark:bg-gray-800 dark:text-green-400 w-1/2" role="alert">
+                            <div id="alert-3" class="flex items-center w-1/2 p-4 mb-4 text-green-800 bg-green-100 rounded-lg dark:bg-gray-800 dark:text-green-400" role="alert">
                                 <svg class="flex-shrink-0 w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                                     <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
                                 </svg>
                                 <span class="sr-only">Info</span>
-                                <div class="ms-3 text-sm font-medium">
+                                <div class="text-sm font-medium ms-3">
                                     {{ session('storedAnak') }}
                                 </div>
                                 <button type="button" class="ms-auto -mx-1.5 -my-1.5 bg-green-100 text-green-500 rounded-lg focus:ring-2 focus:ring-green-400 p-1.5 hover:bg-green-200 inline-flex items-center justify-center h-8 w-8 dark:bg-gray-800 dark:text-green-400 dark:hover:bg-gray-700" data-dismiss-target="#alert-3" aria-label="Close">
@@ -189,12 +189,12 @@
                     <p class="text-2xl font-bold ">Data Anak</p>
                 </div>
                 @if (session()->has('updatedName'))
-                <div id="alert-3" class="flex items-center p-4 mb-4 text-green-800 rounded-lg bg-green-100 dark:bg-gray-800 dark:text-green-400 w-1/2" role="alert">
+                <div id="alert-3" class="flex items-center w-1/2 p-4 mb-4 text-green-800 bg-green-100 rounded-lg dark:bg-gray-800 dark:text-green-400" role="alert">
                     <svg class="flex-shrink-0 w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                         <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
                     </svg>
                     <span class="sr-only">Info</span>
-                    <div class="ms-3 text-sm font-medium">
+                    <div class="text-sm font-medium ms-3">
                         {{ session('updatedName') }}
                     </div>
                     <button type="button" class="ms-auto -mx-1.5 -my-1.5 bg-green-100 text-green-500 rounded-lg focus:ring-2 focus:ring-green-400 p-1.5 hover:bg-green-200 inline-flex items-center justify-center h-8 w-8 dark:bg-gray-800 dark:text-green-400 dark:hover:bg-gray-700" data-dismiss-target="#alert-3" aria-label="Close">
@@ -349,7 +349,7 @@
                 @endforeach
 
                 @else
-                <div class="p-4 mb-3 text-center text-red-800  rounded-lg bg-red-300 dark:bg-red-400 dark:text-red-800" role="alert">
+                <div class="p-4 mb-3 text-center text-red-800 bg-red-300 rounded-lg dark:bg-red-400 dark:text-red-800" role="alert">
                     <span class="text-2xl font-medium">Data Anak belum ada</span>
                 </div>
                 @endif
