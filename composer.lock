@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9c491b8531eec05ba41a11d9276a5749",
+    "content-hash": "ff1e679f70443f37429461745193f870",
     "packages": [
         {
             "name": "brick/math",
@@ -1044,6 +1044,46 @@
                 }
             ],
             "time": "2023-12-03T19:50:20+00:00"
+        },
+        {
+            "name": "ifaqih/iffuzzy",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ifaqih/IFFuzzy.git",
+                "reference": "9b36bcbb9ff5ae446f64ca9d899a7d9ac8a6f62f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ifaqih/IFFuzzy/zipball/9b36bcbb9ff5ae446f64ca9d899a7d9ac8a6f62f",
+                "reference": "9b36bcbb9ff5ae446f64ca9d899a7d9ac8a6f62f",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">= 8.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "IFaqih\\AIMethods\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "ifaqih",
+                    "email": "awah.if@gmail.com"
+                }
+            ],
+            "description": "Fuzzy Logic library for PHP based on the Mamdani, Sugeno or Tsukamoto methods.",
+            "support": {
+                "issues": "https://github.com/ifaqih/IFFuzzy/issues",
+                "source": "https://github.com/ifaqih/IFFuzzy/tree/1.0.0"
+            },
+            "time": "2023-02-04T06:50:08+00:00"
         },
         {
             "name": "laravel/framework",
@@ -8156,5 +8196,5 @@
         "php": "^8.1"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.3.0"
+    "plugin-api-version": "2.6.0"
 }
