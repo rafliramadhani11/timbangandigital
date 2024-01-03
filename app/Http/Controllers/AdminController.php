@@ -18,16 +18,16 @@ class AdminController extends Controller
     public function index()
     {
         return view('admin.index', [
-            "user" => Auth::user()
+            "user" => Auth::user(),
+            'regions' => Region::all()
         ]);
     }
 
     public function create()
     {
-        $regions = Region::all();
         return view('admin.create', [
             'user' => Auth::user(),
-            'regions' => $regions
+            'regions' => Region::all()
         ]);
     }
 
@@ -99,13 +99,7 @@ class AdminController extends Controller
         }
     }
 
-    public function timbang()
-    {
-        $user = Auth::user();
-        return view('admin.timbang', [
-            'user' => $user
-        ]);
-    }
+
 
     public function delete($username)
     {
