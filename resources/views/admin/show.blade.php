@@ -66,14 +66,12 @@
 
                             </div>
 
-
-
                             <span class="mt-5 text-gray-400">Personal Info</span>
                             <hr class="h-0.5 border-0 dark:bg-gray-500 bg-gray-200" />
                             <div class="grid grid-cols-2 my-2 gap-y-8 md:grid-cols-4">
                                 <div>
                                     <label class="font-bold text-gray-400 dark:text-gray-400">No Handphone</label>
-                                    <p class="font-semibold text-gray-800 dark:text-white">+62 {{ $user->nohp }}</p>
+                                    <p class="font-semibold text-gray-800 dark:text-white">{{ $user->nohp }}</p>
                                 </div>
                                 <div>
                                     <label class="font-bold text-gray-400 dark:text-gray-400">Tanggal Lahir</label>
@@ -108,7 +106,7 @@
                 <!-- CREATE ANAK -->
                 <div class="container max-w-screen-lg">
                     <div class="p-4 px-4 mb-6 bg-white rounded shadow-md dark:bg-gray-800 md:p-8">
-                        <form method="post" action="{{ route('anak.store', $user->username) }}">
+                        <form method="post" action="{{ route('admin.anak.store', $user->username) }}">
                             @csrf
                             <div class="grid text-gray-600 dark:text-white">
                                 <p class="text-2xl font-bold ">Tambah Data Anak</p>
@@ -132,7 +130,7 @@
                             @endif
                             <div class="grid gap-4 mt-6 lg:grid-cols-2">
                                 <div>
-                                    <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama Lengkap</label>
+                                    <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama Lengkap Bayi</label>
                                     <input type="text" id="name" name="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                     @error('name')
                                     <small class="text-red-500 text-start ">{{ $message }}</small>
@@ -153,21 +151,21 @@
                                     @enderror
                                 </div>
                                 <div>
-                                    <label for="umur" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Umur Bayi</label>
+                                    <label for="umur" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Umur Bayi ( Bulan )</label>
                                     <input type="number" id="umur" name="umur" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
                                     @error('umur')
                                     <small class="text-xs text-red-500 dark:text-red-500">{{$message}}</small>
                                     @enderror
                                 </div>
                                 <div>
-                                    <label for="tb" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tinggi / Panjang Badan (cm)</label>
+                                    <label for="tb" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Panjang Badan (cm)</label>
                                     <input type="number" id="tb" name="tb" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
                                     @error('tb')
                                     <small class="text-xs text-red-500 dark:text-red-500">{{$message}}</small>
                                     @enderror
                                 </div>
                                 <div>
-                                    <label for="bb" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Berat Badan (gram)</label>
+                                    <label for="bb" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Berat Badan (Kg)</label>
                                     <input type="number" id="bb" name="bb" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
                                     @error('bb')
                                     <small class="text-xs text-red-500 dark:text-red-500">{{$message}}</small>
@@ -212,7 +210,7 @@
                                 No
                             </th>
                             <th class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                Nama Lengkap
+                                Nama Lengkap Bayi
                             </th>
                             <th class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 Jenis Kelamin
@@ -221,7 +219,7 @@
                                 Umur
                             </th>
                             <th class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                Tinggi/Panjang Badan
+                                Panjang Badan
                             </th>
                             <th class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 Berat Badan
@@ -251,7 +249,7 @@
                                 {{ $anak->umur }} Bulan
                             </td>
                             <td class="px-4 py-2 text-gray-700 whitespace-nowrap dark:text-gray-200">
-                                {{ $anak->tb }} cm
+                                {{ floatval($anak->tb) }} cm
                             </td>
                             <td class="px-4 py-2 text-gray-700 whitespace-nowrap dark:text-gray-200">
                                 {{ $anak->bb }} g
@@ -262,92 +260,22 @@
                             <td class="flex px-4 py-2 text-gray-700 gap-x-2 whitespace-nowrap dark:text-gray-200">
                                 <span class="inline-flex -space-x-px overflow-hidden bg-white border rounded-md shadow-sm dark:border-gray-700 dark:bg-gray-800">
 
-                                    <a role="button" id="ubahNama" data-modal-target="ubah-nama-{{ $anak->id }}" data-modal-toggle="ubah-nama-{{ $anak->id }}" class="inline-block px-4 py-2 text-sm font-medium text-gray-700 hover:bg-green-100 focus:relative dark:text-gray-200 dark:hover:bg-green-800" type="button">
-                                        Edit
+                                    <a href="{{ route('admin.anak.show', ['username' => $anak->user->username, 'anak' => $anak->id]) }}" role="button" id="ubahNama" class="inline-block px-4 py-2 text-sm font-medium text-gray-700 hover:bg-green-100 focus:relative dark:text-gray-200 dark:hover:bg-green-800" type="button">
+                                        Lihat
                                     </a>
-                                    <a data-modal-target="modal-hapus-{{ $anak->id }}" data-modal-toggle="modal-hapus-{{ $anak->id }}" class="inline-block px-4 py-2 text-sm font-medium text-gray-700 hover:bg-red-100 focus:relative dark:text-gray-200 dark:hover:bg-red-800" role="button">
-                                        Hapus
-                                    </a>
+                                    <form action="{{ route('admin.anak.delete', $anak->id) }}" method="post">
+                                        @method('delete')
+                                        @csrf
+                                        <button type="submit" class="inline-block px-4 py-2 text-sm font-medium text-gray-700 hover:bg-red-100 focus:relative dark:text-gray-200 dark:hover:bg-red-800" role="button" onclick="return confirm('Anda Yakin ingin mneghapus data tersebut ?')">
+                                            Hapus
+                                        </button>
+                                    </form>
                                 </span>
-                                <div id="modal-hapus-{{ $anak->id }}" tabindex="-1" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-                                    <div class="relative w-full max-w-md max-h-full p-4">
-                                        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                                            <button type="button" class="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="modal-hapus-{{ $anak->id }}">
-                                                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-                                                </svg>
-                                                <span class="sr-only">Close modal</span>
-                                            </button>
-                                            <!-- MODAL -->
-                                            <div class="p-4 text-center md:p-5">
-                                                <svg class="w-12 h-12 mx-auto mb-4 text-gray-400 dark:text-gray-200" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                                                </svg>
-                                                <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Kamu yakin ingin menghapus data tersebut ?</h3>
-                                                <div class="flex justify-center">
-                                                    <form method="post" action="{{ route('anak.delete', $anak->id) }}" class="block">
-                                                        @method('delete')
-                                                        @csrf
-                                                        <button data-modal-hide="modal-hapus-{{ $anak->id }}" type="submit" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center me-2">
-                                                            Hapus
-                                                        </button>
-                                                    </form>
-
-                                                    <button data-modal-hide="modal-hapus-{{ $anak->id }}" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Kembali
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <!-- ----------------------------------- -->
-                                        </div>
-                                    </div>
-                                </div>
-
                             </td>
                         </tr>
                         @endforeach
                     </tbody>
                 </table>
-
-                @foreach ($anaks as $anak)
-                <!-- MODAL UBAH -->
-                <div id="ubah-nama-{{ $anak->id }}" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-                    <div class="relative w-full max-w-md max-h-full p-2">
-                        <!-- Modal content -->
-                        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                            <!-- Modal header -->
-                            <div class="flex items-center justify-between px-2 border-b rounded-t md:p-5 dark:border-gray-600">
-                                <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
-                                    Edit Data
-                                </h3>
-                                <button type="button" class="inline-flex items-center justify-center w-8 h-8 text-sm text-gray-400 bg-transparent rounded-lg hover:bg-gray-200 hover:text-gray-900 ms-auto dark:hover:bg-gray-600 dark:hover:text-white" data-modal-toggle="ubah-nama-{{ $anak->id }}">
-                                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-                                    </svg>
-                                    <span class="sr-only">Close modal</span>
-                                </button>
-                            </div>
-                            <!-- Modal body -->
-                            <form method="POST" action="{{ route('anak.update', $anak->id) }}">
-                                @method('put')
-                                @csrf
-                                <div class="grid grid-cols-2 gap-4 ">
-                                    <div class="col-span-2 p-4">
-                                        <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama Lengkap</label>
-                                        <input type="text" name="name" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" value="{{ $anak->name }}" required>
-                                    </div>
-                                </div>
-                                <div class="p-4">
-                                    <button type="submit" class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                                        Submit
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                <!-- ------------------------------- -->
-                @endforeach
-
                 @else
                 <div class="p-4 mb-3 text-center text-red-800 bg-red-300 rounded-lg dark:bg-red-400 dark:text-red-800" role="alert">
                     <span class="text-2xl font-medium">Data Anak belum ada</span>
@@ -358,9 +286,4 @@
         </main>
     </div>
 </div>
-
-
-
-
-
 @endsection

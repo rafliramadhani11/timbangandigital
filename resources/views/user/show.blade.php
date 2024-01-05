@@ -2,7 +2,7 @@
 
 @section('content')
 @include('partials.navbar')
-<div class="flex pt-16 overflow-hidden min-h-screen bg-gray-50 dark:bg-gray-900">
+<div class="flex min-h-screen pt-16 overflow-hidden bg-gray-50 dark:bg-gray-900">
     @include('partials.sidebar')
     <div id="main-content" class="relative w-full h-full overflow-y-auto bg-gray-50 lg:ml-64 dark:bg-gray-900">
         <main class="px-4 py-6 ">
@@ -127,7 +127,7 @@
                                 No
                             </th>
                             <th class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                Nama Lengkap
+                                Nama Lengkap Bayi
                             </th>
                             <th class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 Jenis Kelamin
@@ -136,13 +136,16 @@
                                 Umur
                             </th>
                             <th class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                Tinggi/Panjang Badan
+                                Panjang Badan
                             </th>
                             <th class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 Berat Badan
                             </th>
                             <th class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                Indeks Massa Tubuh
+                                Indeks Massa Tubuh (IMT)
+                            </th>
+                            <th class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+
                             </th>
                         </tr>
                     </thead>
@@ -166,10 +169,17 @@
                                 {{ $anak->tb }} cm
                             </td>
                             <td class="px-4 py-2 text-gray-700 whitespace-nowrap dark:text-gray-200">
-                                {{ $anak->bb }} g
+                                {{ $anak->bb }} kg
                             </td>
                             <td class="px-4 py-2 text-gray-700 whitespace-nowrap dark:text-gray-200">
                                 {{ $anak->imt }}
+                            </td>
+                            <td class="px-4 py-2 text-gray-700 whitespace-nowrap dark:text-gray-200">
+                                <span class="inline-flex -space-x-px overflow-hidden bg-white border rounded-md shadow-sm dark:border-gray-700 dark:bg-gray-800">
+                                    <a href="{{ route('anak.show', ['user' => $anak->user->username, 'anak' => $anak->id]) }}" role="button" id="ubahNama" class="inline-block px-4 py-2 text-sm font-medium text-gray-700 hover:bg-green-100 focus:relative dark:text-gray-200 dark:hover:bg-green-800" type="button">
+                                        Lihat
+                                    </a>
+                                </span>
                             </td>
                         </tr>
                         @endforeach

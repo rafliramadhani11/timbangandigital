@@ -136,7 +136,7 @@
                                     <form method="post" action="{{ route('admin.user.delete', $user->username) }}">
                                         @method('delete')
                                         @csrf
-                                        <button href="{{ route('admin.user.delete', $user->username) }}" class="px-4 py-2 text-sm font-medium text-gray-700 hover:bg-red-100 focus:relative dark:text-gray-200 dark:hover:bg-red-800" onclick="return confirm('Kamu Yakin ingin menghapus data ? ')">
+                                        <button href="{{ route('admin.user.delete', $user->username) }}" class="px-4 py-2 text-sm font-medium text-gray-700 hover:bg-red-100 focus:relative dark:text-gray-200 dark:hover:bg-red-800" onclick="return confirm('Anda Yakin ingin mneghapus data tersebut ?')">
                                             Hapus
                                         </button>
                                     </form>

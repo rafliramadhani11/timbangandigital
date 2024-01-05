@@ -32,10 +32,18 @@
                 </div>
                 <!-- Dropdown menu -->
                 <div id="userDropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
+                    @cannot('admin')
                     <div class="px-4 py-3 text-sm text-gray-900 dark:text-white">
                         <div>Selamat Datang !!</div>
                         <div class="font-medium truncate">{{ $user->name }}</div>
                     </div>
+                    @endcan
+                    @can('admin')
+                    <div class="px-4 py-3 text-sm text-gray-900 dark:text-white">
+                        <div>Selamat Datang !!</div>
+                        <div class="font-medium truncate">{{ $user_nav->name }}</div>
+                    </div>
+                    @endcan
                     <!-- USER -->
                     @cannot('admin')
                     <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="avatarButton">

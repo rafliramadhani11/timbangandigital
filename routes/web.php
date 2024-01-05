@@ -18,15 +18,19 @@ Route::middleware(['guest'])->group(function () {
 
 Route::middleware('auth')->group(function () {
     Route::post('/logout', [AuthenticationController::class, 'logout'])->name('logout');
+
+    Route::get('/dashboard/user/{user}/anak/{anak:id}', [AnakController::class, 'show'])->name('anak.show');
+    Route::put('/dashboard/user/anak/{id}', [AnakController::class, 'update'])->name('anak.update');
     Route::resource('/dashboard/user', UserController::class)->except(['store', 'destroy', 'create']);
 });
 
 
 Route::middleware('admin')->group(function () {
     // ANAK
-    Route::post('/dashboard/admin/users/{username}/anak/create', [AnakController::class, 'store'])->name('anak.store');
-    Route::put('/dashboard/admin/users/anak/{id}', [AnakController::class, 'update'])->name('anak.update');
-    Route::delete('/dashboard/admin/users/anak/{id}', [AnakController::class, 'delete'])->name('anak.delete');
+    Route::get('/dashboard/admin/users/{username}/anak/{anak:id}', [AdminController::class, 'showAnak'])->name('admin.anak.show')->scopeBindings();
+    Route::post('/dashboard/admin/users/{username}/anak/create', [AdminController::class, 'storeAnak'])->name('admin.anak.store');
+    Route::put('/dashboard/admin/users/anak/{id}', [AdminController::class, 'updateAnak'])->name('admin.anak.update');
+    Route::delete('/dashboard/admin/users/anak/{id}', [AdminController::class, 'deleteAnak'])->name('admin.anak.delete');
     // ------------------------------
     Route::post('/dashboard/admin/create/user', [AdminController::class, 'store'])->name('admin.store');
 

@@ -5,49 +5,27 @@ namespace App\Http\Controllers;
 use DateTime;
 use App\Models\Anak;
 use App\Models\User;
+use App\Models\Region;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\AnakUpdateRequest;
 
 class AnakController extends Controller
 {
-    public function edit($id)
+    public function show($username, $id)
     {
-        $anak = Anak::where('id', $id)->first();
-        return view('user.anak.edit', [
-            'anak' => $anak
+        $username = User::where('username', $username)->first();
+        $anak_id = Anak::where('id', $id)->first();
+        $user = Auth::user();
+        return view('user.anak.show', [
+            'user' => $user,
+            'regions' => Region::all(),
+
+            'username' => $username,
+            'anak' => $anak_id,
         ]);
-    }
-
-    public function store($username, Request $request)
-    {
-        $user = User::where('username', $username)->first();
-        $request->validate([
-            'name' => 'required',
-            'umur' => 'required',
-            'gender' => 'required|in:Laki Laki,Perempuan',
-
-            'tb' => 'required',
-            'bb' => 'required',
-        ]);
-
-        $anak = new Anak([
-            'user_id' => $user->id,
-
-            'name' => $request->input('name'),
-            'umur' => $request->input('umur'),
-            'gender' => $request->input('gender'),
-
-            'tb' => $request->input('tb'),
-            'bb' => $request->input('bb'),
-        ]);
-
-
-
-        $anak->save();
-
-        return redirect()->back()->with('storedAnak', 'Berhasil menambah data anak !');
     }
 
     public function update($id, Request $request)
@@ -57,11 +35,5 @@ class AnakController extends Controller
             ->update(['name' => $request->input('name')]);
 
         return redirect()->back()->with('updatedName', 'Berhasil memperbarui nama !');
-    }
-
-    public function delete($id)
-    {
-        Anak::where('id', $id)->delete();
-        return redirect()->back();
     }
 }
