@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use App\Models\Anak;
 use App\Models\User;
 use App\Models\Region;
+use App\Models\Timbangan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
@@ -46,21 +47,20 @@ class AdminController extends Controller
         $request->validate([
             'name' => 'required',
             'umur' => 'required',
-            'gender' => 'required|in:Laki Laki,Perempuan',
+            'jeniskelamin' => 'required|in:Laki Laki,Perempuan',
 
             'tb' => 'required',
             'bb' => 'required',
-            ''
         ]);
         $anak = new Anak([
             'user_id' => $user->id,
 
             'name' => $request->input('name'),
-            'umur' => $request->input('umur'),
-            'gender' => $request->input('gender'),
+            'jeniskelamin' => $request->input('jeniskelamin'),
+        ]);
 
-            'tb' => $request->input('tb'),
-            'bb' => $request->input('bb'),
+        $timbangan = new Timbangan([
+            'anak_id' => $request->input('anak_id')
         ]);
 
         $anak->save();
@@ -90,13 +90,13 @@ class AdminController extends Controller
     public function showUser($username)
     {
         $user = User::where('username', $username)->first();
-        $anak = Anak::where("user_id", $user->id)->first();
+        $anaks = $user->anaks()->with('timbangans')->get();
+
 
         return view('admin.show', [
             "user_nav" => Auth::user(),
             'user' => $user,
-            'anaks' => $user->anaks,
-            'anak' => $anak,
+            'anaks' => $anaks,
             'regions' => Region::all()
         ]);
     }

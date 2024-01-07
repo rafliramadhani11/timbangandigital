@@ -137,16 +137,16 @@
                                     @enderror
                                 </div>
                                 <div>
-                                    <label for="gender" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jenis Kelamin</label>
-                                    <select id="gender" name="gender" class="mt-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 " required>
+                                    <label for="jeniskelamin" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jenis Kelamin</label>
+                                    <select id="jeniskelamin" name="jeniskelamin" class="mt-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 " required>
                                         <option selected disabled></option>
-                                        @if(old('gender'))
-                                        <option>{{ old('gender') }}</option>
+                                        @if(old('jeniskelamin'))
+                                        <option>{{ old('jeniskelamin') }}</option>
                                         @endif
                                         <option>Laki Laki</option>
                                         <option>Perempuan</option>
                                     </select>
-                                    @error('gender')
+                                    @error('jeniskelamin')
                                     <small class="text-xs text-red-500 dark:text-red-500">{{$message}}</small>
                                     @enderror
                                 </div>
@@ -158,9 +158,9 @@
                                     @enderror
                                 </div>
                                 <div>
-                                    <label for="tb" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Panjang Badan (cm)</label>
-                                    <input type="number" id="tb" name="tb" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
-                                    @error('tb')
+                                    <label for="pb" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Panjang Badan (cm)</label>
+                                    <input type="number" id="pb" name="pb" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+                                    @error('pb')
                                     <small class="text-xs text-red-500 dark:text-red-500">{{$message}}</small>
                                     @enderror
                                 </div>
@@ -235,6 +235,9 @@
                     <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
                         @if ($anaks->count())
                         @foreach ($anaks as $anak)
+                        <span>
+
+                        </span>
                         <tr>
                             <td class="px-4 py-2 text-gray-700 whitespace-nowrap dark:text-gray-200">
                                 {{ $loop->iteration }}
@@ -243,19 +246,19 @@
                                 {{ $anak->name }}
                             </td>
                             <td class="px-4 py-2 text-gray-700 whitespace-nowrap dark:text-gray-200">
-                                {{ $anak->gender }}
+                                {{ $anak->jeniskelamin }}
                             </td>
                             <td class="px-4 py-2 text-gray-700 whitespace-nowrap dark:text-gray-200">
-                                {{ $anak->umur }} Bulan
+                                {{ optional($anak->timbangans->first())->umur }} Bulan
                             </td>
                             <td class="px-4 py-2 text-gray-700 whitespace-nowrap dark:text-gray-200">
-                                {{ floatval($anak->tb) }} cm
+                                {{ optional($anak->timbangans->first())->pb }} cm
                             </td>
                             <td class="px-4 py-2 text-gray-700 whitespace-nowrap dark:text-gray-200">
-                                {{ $anak->bb }} g
+                                {{ optional($anak->timbangans->first())->bb }} kg
                             </td>
                             <td class="px-4 py-2 text-gray-700 whitespace-nowrap dark:text-gray-200">
-                                {{ $anak->imt? '$anak->imt' : '-' }}
+                                {{ optional($anak->timbangans->first())->imt }}
                             </td>
                             <td class="flex px-4 py-2 text-gray-700 gap-x-2 whitespace-nowrap dark:text-gray-200">
                                 <span class="inline-flex -space-x-px overflow-hidden bg-white border rounded-md shadow-sm dark:border-gray-700 dark:bg-gray-800">

@@ -76,26 +76,26 @@
                                 </div>
                                 <div>
                                     <label class="font-bold text-gray-400 dark:text-gray-400">Jenis Kelamin</label>
-                                    <p class="font-semibold text-gray-800 dark:text-white">{{ $anak->gender }}</p>
+                                    <p class="font-semibold text-gray-800 dark:text-white">{{ $anak->jeniskelamin }}</p>
                                 </div>
                                 <div>
                                     <label class="font-bold text-gray-400 dark:text-gray-400">Umur</label>
-                                    <p class="font-semibold text-gray-800 dark:text-white">{{ $anak->umur }} Bulan</p>
+                                    <p class="font-semibold text-gray-800 dark:text-white">{{ optional($anak->timbangans->first())->umur }} Bulan</p>
                                 </div>
 
                             </div>
                             <div class="grid grid-cols-2 my-2 gap-y-8 md:grid-cols-3">
                                 <div>
                                     <label class="font-bold text-gray-400 dark:text-gray-400">Panjang Badan</label>
-                                    <p class="font-semibold text-gray-800 dark:text-white">{{ $anak->tb }} cm</p>
+                                    <p class="font-semibold text-gray-800 dark:text-white">{{ optional($anak->timbangans->first())->pb }} cm</p>
                                 </div>
                                 <div>
                                     <label class="font-bold text-gray-400 dark:text-gray-400">Berat Badan</label>
-                                    <p class="font-semibold text-gray-800 dark:text-white">{{ $anak->bb }} Kg</p>
+                                    <p class="font-semibold text-gray-800 dark:text-white">{{ optional($anak->timbangans->first())->bb }} Kg</p>
                                 </div>
                                 <div>
                                     <label class="font-bold text-gray-400 dark:text-gray-400">Indeks Massa Tubuh (IMT)</label>
-                                    <p class="font-semibold text-gray-800 dark:text-white">{{ $anak->imt }}</p>
+                                    <p class="font-semibold text-gray-800 dark:text-white">{{ optional($anak->timbangans->first())->imt }}</p>
                                 </div>
                             </div>
 
