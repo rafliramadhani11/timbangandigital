@@ -151,7 +151,7 @@
                             <!-- KECAMATAN -->
                             <div class="mb-5">
                                 <label for="kecamatan" class="dark:text-white">Kecamatan</label>
-                                <input type="text" name="kecamatan" id="kecamatan" class="mt-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="{{ old('kecamatan', $user->kecamatan) }}" placeholder="Dukuh Pakis" required />
+                                <input type="text" name="kecamatan" id="kecamatan" class="mt-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="{{ old('kecamatan') }}" placeholder="Dukuh Pakis" required />
                                 @error('kecamatan')
                                 <small class="text-xs text-red-500 dark:text-red-500">{{ $message }}</small>
                                 @enderror
@@ -160,7 +160,7 @@
                             <!-- KELURAHAN -->
                             <div class="mb-5">
                                 <label for="kelurahan" class="dark:text-white">Kelurahan</label>
-                                <input type="text" name="kelurahan" id="kelurahan" class="mt-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 " placeholder="Dukuh Pakis" value="{{ old('kelurahan', $user->kelurahan) }}" required />
+                                <input type="text" name="kelurahan" id="kelurahan" class="mt-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 " placeholder="Dukuh Pakis" value="{{ old('kelurahan') }}" required />
                                 @error('kelurahan')
                                 <small class="text-xs text-red-500 dark:text-red-500">{{ $message }}</small>
                                 @enderror
@@ -171,7 +171,7 @@
                         <!-- ALAMAT -->
                         <div class="mb-3">
                             <label for="alamat" class="dark:text-white">Alamat</label>
-                            <input type="text" name="alamat" id="alamat" class="mt-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 " placeholder="Jl. Dukuh Pakis no.4 RT.1 RW.2" value="{{ old('alamat', $user->alamat) }}" required />
+                            <input type="text" name="alamat" id="alamat" class="mt-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 " placeholder="Jl. Dukuh Pakis no.4 RT.1 RW.2" value="{{ old('alamat') }}" required />
                             @error('alamat')
                             <small class="text-xs text-red-500 dark:text-red-500">{{ $message }}</small>
                             @enderror
