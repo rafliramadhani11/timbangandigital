@@ -13,6 +13,8 @@ class RegionController extends Controller
         $region = Region::where('slug', $slug)->first();
         $user = Auth::user();
         return view('admin.region.index', [
+            "user_nav" => Auth::user(),
+
             'user' => $user,
             'regions' => Region::all(),
             'region' => $region

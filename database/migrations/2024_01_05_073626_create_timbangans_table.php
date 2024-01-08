@@ -13,14 +13,15 @@ return new class extends Migration
     {
         Schema::create('timbangans', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('anak_id')->references('id')->on('anaks')->cascadeOnDelete();
 
-            $table->string('status');
-            $table->integer('umur');
+            $table->foreignId('anak_id')->nullable()->references('id')->on('anaks')->onDelete('cascade');
 
-            $table->float('pb');
-            $table->float('bb');
-            $table->float('imt')->nullable();
+            $table->string('status')->nullable();
+            $table->integer('umur')->nullable();
+
+            $table->decimal('pb');
+            $table->decimal('bb');
+            $table->decimal('imt')->nullable();
 
             $table->timestamps();
         });

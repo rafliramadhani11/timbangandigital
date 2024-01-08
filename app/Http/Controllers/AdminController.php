@@ -46,26 +46,41 @@ class AdminController extends Controller
         $user = User::where('username', $username)->first();
         $request->validate([
             'name' => 'required',
+            'jeniskelamin' => 'required',
             'umur' => 'required',
-            'jeniskelamin' => 'required|in:Laki Laki,Perempuan',
 
-            'tb' => 'required',
+            'pb' => 'required',
             'bb' => 'required',
         ]);
         $anak = new Anak([
             'user_id' => $user->id,
-
             'name' => $request->input('name'),
             'jeniskelamin' => $request->input('jeniskelamin'),
         ]);
-
-        $timbangan = new Timbangan([
-            'anak_id' => $request->input('anak_id')
-        ]);
-
         $anak->save();
+
+        $pb = $request->input('pb');
+        $bb = $request->input('bb');
+        $imt = 0;
+        if ($pb > 0) {
+            $imt = $bb / ($pb * $pb);
+        } else {
+            $imt = null;
+        };
+        $dataTimbangan = [
+            'anak_id' => $anak->id,
+
+            'umur' => $request->input('umur'),
+            'pb' => $pb,
+            'bb' => $bb,
+            'imt' =>  round($imt, 1)
+        ];
+
+        Timbangan::where('anak_id', null)->update($dataTimbangan);
         return redirect()->back()->with('storedAnak', 'Berhasil menambah data anak !');
     }
+
+
     public function allUsers()
     {
         return view('admin.users', [
@@ -80,6 +95,8 @@ class AdminController extends Controller
         $user = Auth::user();
         $region = Region::where('slug', $slug)->first();
         return view('admin.regions', [
+            "user_nav" => Auth::user(),
+
             'user' => $user,
             'regions' => Region::all(),
             'users' => $region->users->where('admin', '!=', 1),
@@ -91,13 +108,16 @@ class AdminController extends Controller
     {
         $user = User::where('username', $username)->first();
         $anaks = $user->anaks()->with('timbangans')->get();
-
+        $timbangan = Timbangan::where('anak_id', null)->first();
 
         return view('admin.show', [
             "user_nav" => Auth::user(),
+
             'user' => $user,
+            'regions' => Region::all(),
+
             'anaks' => $anaks,
-            'regions' => Region::all()
+            'timbangan' => $timbangan,
         ]);
     }
 
@@ -161,7 +181,7 @@ class AdminController extends Controller
     public function deleteAnak($id)
     {
         Anak::where('id', $id)->delete();
-        return redirect()->back();
+        return redirect()->back()->with('deletedAnak', 'Data berhasil di hapus');
     }
 
     public function search(Request $request)
