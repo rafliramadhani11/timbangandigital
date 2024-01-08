@@ -17,7 +17,6 @@
                         <div class="items-center gap-5 sm:flex sm:divide-x sm:divide-gray-100 sm:mb-0 dark:divide-gray-700">
                             <!-- SEARCH -->
                             <form class="mt-3 w-96 lg:mb-0" method="get" action="">
-                                <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
                                 <div class="relative">
                                     <div class="absolute inset-y-0 flex items-center pointer-events-none start-0 ps-3">
                                         <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
