@@ -10,6 +10,8 @@ class Timbangan extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['anak_id', 'umur', 'pb', 'bb'];
+
     public function anak()
     {
         return $this->belongsTo(Anak::class);
