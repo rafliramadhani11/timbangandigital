@@ -1,0 +1,4 @@
+@section('content')
+{{ "Hello"  }}
+
+@endsection
