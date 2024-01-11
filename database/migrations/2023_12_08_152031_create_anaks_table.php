@@ -16,12 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id')->references('id')->on('users')->cascadeOnDelete();
 
             $table->string('name');
-            $table->string('gender');
-            $table->integer('umur');
-
-            $table->float('tb');
-            $table->float('bb');
-            $table->float('imt');
+            $table->string('jeniskelamin');
 
             $table->timestamps();
         });

@@ -16,7 +16,7 @@
                 </a>
             </div>
             <div class="flex items-center ">
-                <button id="theme-toggle" data-tooltip-target="tooltip-toggle" type="button" class="text-gray-500 mx-5 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700  dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 transition duration-200">
+                <button id="theme-toggle" type="button" class="text-gray-500 mx-5 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700  dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 transition duration-200">
                     <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                         <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
                     </svg>
@@ -32,10 +32,18 @@
                 </div>
                 <!-- Dropdown menu -->
                 <div id="userDropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
+                    @cannot('admin')
                     <div class="px-4 py-3 text-sm text-gray-900 dark:text-white">
                         <div>Selamat Datang !!</div>
                         <div class="font-medium truncate">{{ $user->name }}</div>
                     </div>
+                    @endcan
+                    @can('admin')
+                    <div class="px-4 py-3 text-sm text-gray-900 dark:text-white">
+                        <div>Selamat Datang !!</div>
+                        <div class="font-medium truncate">{{ $user_nav->name }}</div>
+                    </div>
+                    @endcan
                     <!-- USER -->
                     @cannot('admin')
                     <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="avatarButton">

@@ -14,7 +14,7 @@
                 <!-- GRID -->
                 <!-- NAMA AYAH / IBU -->
                 <div>
-                    <label for="name" class="block text-sm font-medium text-slate-700">Nama Ayah / Ibu / Wali</label>
+                    <label for="name" class="block text-sm font-medium text-slate-700">Nama Lengkap Orang Tua</label>
                     <input type="text" id="name" name="name" class="block w-full px-3 pt-2 mt-1 text-sm bg-white border rounded-md shadow-sm placeholder-slate-400 " placeholder="John Dee" value="{{ old('name') }}" autofocus required />
                     @error('name')
                     <small class="text-red-500 text-start ">{{ $message }}</small>

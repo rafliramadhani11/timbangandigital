@@ -71,7 +71,15 @@ function calculateIMTU($umur, $imt, $isMale){
             'imt' =>  $imt
         ])
         ->execute();
-    return $res;
+    if($res >= 10.15 && $res <= 13.05){
+        $status = "Wasted";
+    }else if($res >= 11.1 && $res <= 19.7){
+        $status = "Normal";
+    }else{
+        $status = "Resiko Obesitas";
+    }
+
+    return $status;
 }
 
 function calculateBBU($umur, $bb, $isMale){
@@ -142,7 +150,16 @@ function calculateBBU($umur, $bb, $isMale){
             'bb' =>  $bb
         ])
         ->execute();
-    return $res;
+
+    if($res >= 2.05 && $res <= 6.6){
+        $status = "Underweight";
+    }else if($res >= 2.45 && $res <= 11.75){
+        $status = "Normal";
+    }else{
+        $status = "Resiko Obesitas";
+    }
+
+    return $status;
 }
 
 function calculateTBU($umur, $tb, $isMale){
@@ -213,5 +230,14 @@ function calculateTBU($umur, $tb, $isMale){
             'tb' =>  $tb
         ])
         ->execute();
-    return $res;
+
+    if($res >= 43.9 && $res <= 67.45){
+        $status = "Low";
+    }else if($res >= 45.75 && $res <= 79.85){
+        $status = "Medium";
+    }else{
+        $status = "High";
+    }
+
+    return $status;
 }

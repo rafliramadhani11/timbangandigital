@@ -2,12 +2,12 @@
 
 @section('content')
 @include('partials.navbar')
-<div class="flex pt-16 overflow-hidden bg-gray-50 dark:bg-gray-900">
+<div class="flex pt-16 min-h-screen overflow-hidden bg-gray-50 dark:bg-gray-900">
     @include('partials.sidebar')
-    <div id="main-content" class="relative w-full min-h-screen overflow-y-auto bg-gray-50 lg:ml-64 dark:bg-gray-900">
-        <main class="px-4 py-6 ">
-            <a href="{{ route('admin.show', $user->username) }}" class="inline-flex items-center justify-center p-2 text-base font-medium text-gray-500 rounded-lg bg-gray-50  hover:bg-gray-100 shadow-sm dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700 dark:hover:text-white mb-5">
-                <svg class="w-6 h-6 me-3 text-gray-500 hover:text-gray-900 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+    <div id="main-content" class="w-full h-full overflow-hidden bg-gray-50 lg:ml-64 dark:bg-gray-900">
+        <main class="px-4 py-6 dark:bg-gray-900">
+            <a href="{{ route('admin.show', $user->username) }}" class="inline-flex items-center justify-center p-2 mb-5 text-base font-medium text-gray-500 rounded-lg shadow-sm bg-gray-50 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700 dark:hover:text-white">
+                <svg class="w-6 h-6 text-gray-500 me-3 hover:text-gray-900 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5H1m0 0 4 4M1 5l4-4"></path>
                 </svg>
                 <span class="w-full">Kembali</span>
@@ -75,8 +75,8 @@
                                         <div class="mb-3 md:mb-0">
                                             <label for="nohp" class="block dark:text-white">No Handphone</label>
                                             <input type="number" name="nohp" id="nohp" class="mt-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="{{ old('nohp', $user->nohp) }}" required placeholder="cth: 89123452124" />
-                                            <small class="dark:text-gray-400 text-gray-500">
-                                                cth: 85895245344
+                                            <small class="text-gray-500 dark:text-gray-400">
+                                                cth: 085123456789
                                             </small>
                                             @error('nohp')
                                             <small class="text-xs text-red-500 dark:text-red-500">{{$message}}
@@ -131,7 +131,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="md:col-span-3 class=" mb-3"">
+                                    <div class="mb-3 md:col-span-3">
                                         <label for="alamat" class="dark:text-white">Alamat</label>
                                         <input type="text" name="alamat" id="alamat" class="mt-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 " value="{{ old('alamat', $user->alamat) }}" required />
                                         @error('alamat')
@@ -144,6 +144,7 @@
                                             <button type="submit" class="text-white text-center bg-green-500 shadow-md hover:bg-green-600 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-green-600 dark:hover:bg-green-700 focus:outline-none dark:focus:ring-green-800">Simpan</button>
                                         </div>
                                     </div>
+
                                 </div>
                             </form>
                         </div>

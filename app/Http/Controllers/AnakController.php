@@ -2,35 +2,38 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Anak;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\AnakUpdateRequest;
 use DateTime;
+use App\Models\Anak;
+use App\Models\User;
+use App\Models\Region;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\AnakUpdateRequest;
 
 class AnakController extends Controller
 {
-    public function edit($id)
+    public function show($username, $id)
     {
-        $anak = Anak::where('id', $id)->first();
-        return view('user.anak.edit', [
-            'anak' => $anak
+        $username = User::where('username', $username)->first();
+        $anak_id = Anak::where('id', $id)->first();
+        $user = Auth::user();
+        return view('user.anak.show', [
+            'user' => $user,
+            'regions' => Region::all(),
+
+            'username' => $username,
+            'anak' => $anak_id,
         ]);
     }
 
-    public function update(AnakUpdateRequest $request, $user_id)
+    public function update($id, Request $request)
     {
-        $anak = Anak::where('user_id', $user_id)->first();
+        DB::table('anaks')
+            ->where('id', $id)
+            ->update(['name' => $request->input('name')]);
 
-        $validated = $request->validated();
-        $id = Anak::find($anak->id);
-
-        $changes = array_diff_assoc($validated, $id->toArray());
-
-        if (!empty($changes)) {
-            $id->update($validated);
-            return redirect()->route('user.show', $anak->user->username)->with('updatedBaby', 'Berhasil mngubah data anak !');
-        } else {
-            return redirect()->route('user.show', $anak->user->username);
-        }
+        return redirect()->back()->with('updatedName', 'Berhasil memperbarui nama !');
     }
 }

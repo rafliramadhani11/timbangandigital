@@ -57,7 +57,8 @@
                     <input type="text" name="username" class="block w-full px-3 pt-2 mt-1 text-sm bg-white border rounded-md shadow-sm placeholder-slate-400 focus:outline-none focus:border-orange-400 focus:ring-1 focus:ring-orange-400 " placeholder="johndee1234" value="{{ old('username') }}" autofocus required />
                 </div>
                 <div>
-                    <span class="block text-sm font-medium text-slate-700">Password</span>
+                    <span class="block text-sm font-medium text-slate-700 ">Password</span>
+
                     <input type="password" id="password" name="password" class="block w-full p-2 mt-1 text-sm bg-white border rounded-md shadow-sm placeholder-slate-400 focus:outline-none focus:border-orange-400 focus:ring-1 focus:ring-orange-400 " required>
                 </div>
                 <div>

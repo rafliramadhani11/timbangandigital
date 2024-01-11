@@ -11,6 +11,8 @@ class ExampleTest extends TestCase
      */
     public function test_that_true_is_true(): void
     {
+        $status = calculateIMTU(5, 13, true);
+        echo $status;
         $this->assertTrue(true);
     }
 }
