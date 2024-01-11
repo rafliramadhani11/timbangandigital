@@ -33,3 +33,8 @@ Route::middleware('admin')->group(function () {
 
     Route::delete('/dashboard/admin/users/{username}', [AdminController::class, 'delete'])->name('admin.user.delete');
 });
+
+
+Route::get('/grafik', function (){
+    return view('grafik.diagram_gars');
+});

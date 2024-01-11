@@ -29,6 +29,8 @@ class AdminController extends Controller
         ]);
     }
 
+
+
     public function allRegions($slug)
     {
         $user = Auth::user();
