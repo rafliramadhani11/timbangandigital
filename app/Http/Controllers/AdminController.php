@@ -62,16 +62,16 @@ class AdminController extends Controller
         $pb = $request->input('pb');
         $bb = $request->input('bb');
 
-        $imt = $pb > 0 ? $bb / (($pb / 100.0) * ($pb / 100.0)) : null;
-
-        $umur = $request->input('umur');
-        $gender = $request->input('jeniskelamin');
-        $status = calculateIMTU($umur, $imt, $gender);
-
+        $imt = 0;
+        if ($pb > 0) {
+            $imt = $bb / ($pb * $pb);
+        } else {
+            $imt = null;
+        };
         $dataTimbangan = [
             'anak_id' => $anak->id,
-            'status' => $status,
-            'umur' => $umur,
+
+            'umur' => $request->input('umur'),
             'pb' => $pb,
             'bb' => $bb,
             'imt' =>  round($imt, 1)
@@ -86,12 +86,10 @@ class AdminController extends Controller
     {
         return view('admin.users', [
             "user_nav" => Auth::user(),
-            'users' => User::where('id', '!=', Auth::user()->id)->latest()->filter(request(['search']))->paginate(10)->withQueryString(),
+            'users' => User::where('id', '!=', Auth::user()->id)->latest()->paginate(10)->withQueryString(),
             'regions' => Region::all()
         ]);
     }
-
-
 
     public function allRegions($slug)
     {
@@ -129,9 +127,6 @@ class AdminController extends Controller
         $username = User::where('username', $username)->first();
         $anak_id = Anak::where('id', $id)->first();
         $user = Auth::user();
-
-
-        // Pake Timbangan::where('anak_id', $id)->first()->status untuk mengambil status timbangan berdasarkan perhitungan fuzzy dengan variabel IMT dan Umur;
         return view('admin.anak.show', [
             'user' => $user,
             'regions' => Region::all(),
