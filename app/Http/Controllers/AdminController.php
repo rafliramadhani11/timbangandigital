@@ -61,16 +61,17 @@ class AdminController extends Controller
 
         $pb = $request->input('pb');
         $bb = $request->input('bb');
-        $imt = 0;
-        if ($pb > 0) {
-            $imt = $bb / ($pb * $pb);
-        } else {
-            $imt = null;
-        };
+
+        $imt = $pb > 0 ? $bb / (($pb / 100.0) * ($pb / 100.0)) : null;
+
+        $umur = $request->input('umur');
+        $gender = $request->input('jeniskelamin');
+        $status = calculateIMTU($umur, $imt, $gender);
+
         $dataTimbangan = [
             'anak_id' => $anak->id,
-
-            'umur' => $request->input('umur'),
+            'status' => $status,
+            'umur' => $umur,
             'pb' => $pb,
             'bb' => $bb,
             'imt' =>  round($imt, 1)
@@ -89,6 +90,8 @@ class AdminController extends Controller
             'regions' => Region::all()
         ]);
     }
+
+
 
     public function allRegions($slug)
     {
@@ -126,6 +129,9 @@ class AdminController extends Controller
         $username = User::where('username', $username)->first();
         $anak_id = Anak::where('id', $id)->first();
         $user = Auth::user();
+
+
+        // Pake Timbangan::where('anak_id', $id)->first()->status untuk mengambil status timbangan berdasarkan perhitungan fuzzy dengan variabel IMT dan Umur;
         return view('admin.anak.show', [
             'user' => $user,
             'regions' => Region::all(),
