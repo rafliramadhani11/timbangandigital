@@ -50,6 +50,3 @@ Route::middleware('admin')->group(function () {
 });
 
 
-Route::get('/grafik', function (){
-    return view('grafik.diagram_gars');
-});

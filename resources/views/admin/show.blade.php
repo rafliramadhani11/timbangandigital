@@ -256,7 +256,12 @@
                                 {{ $loop->iteration }}
                             </td>
                             <td class="px-4 py-2 text-gray-700 whitespace-nowrap dark:text-gray-200">
-                                {{ $anak->name }}
+                                <span class="block text-sm">
+                                    {{ $anak->name }}
+                                </span>
+                                <span class="text-xs text-slate-500 ">
+                                    {{ $anak->timbangans->status }}
+                                </span>
                             </td>
                             <td class="px-4 py-2 text-gray-700 whitespace-nowrap dark:text-gray-200">
                                 {{ $anak->jeniskelamin }}

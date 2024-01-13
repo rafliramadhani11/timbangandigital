@@ -61,6 +61,7 @@ class AdminController extends Controller
 
         $pb = $request->input('pb');
         $bb = $request->input('bb');
+
         $imt = 0;
         if ($pb > 0) {
             $imt = $bb / ($pb * $pb);
@@ -85,7 +86,7 @@ class AdminController extends Controller
     {
         return view('admin.users', [
             "user_nav" => Auth::user(),
-            'users' => User::where('id', '!=', Auth::user()->id)->latest()->filter(request(['search']))->paginate(10)->withQueryString(),
+            'users' => User::where('id', '!=', Auth::user()->id)->latest()->paginate(10)->withQueryString(),
             'regions' => Region::all()
         ]);
     }

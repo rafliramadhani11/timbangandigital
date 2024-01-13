@@ -19,9 +19,9 @@ return new class extends Migration
             $table->string('status')->nullable();
             $table->integer('umur')->nullable();
 
-            $table->decimal('pb');
-            $table->decimal('bb');
-            $table->decimal('imt')->nullable();
+            $table->decimal('pb')->default(0);
+            $table->decimal('bb')->default(0);
+            $table->decimal('imt')->default(0);
 
             $table->timestamps();
         });
