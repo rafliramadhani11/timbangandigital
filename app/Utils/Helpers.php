@@ -2,7 +2,8 @@
 
 use IFaqih\AIMethods\Fuzzy;
 
-function calculateIMTU($umur, $imt, $isMale){
+function calculateIMTU($umur, $imt, $isMale)
+{
     $res = Fuzzy::method(FUZZY_METHOD_MAMDANI)
         ->attributes(
             [
@@ -71,11 +72,11 @@ function calculateIMTU($umur, $imt, $isMale){
             'imt' =>  $imt
         ])
         ->execute();
-    if($res >= 10.15 && $res <= 13.05){
+    if ($res >= 10.15 && $res <= 13.05) {
         $status = "Wasted";
-    }else if($res >= 11.1 && $res <= 19.7){
+    } else if ($res >= 11.1 && $res <= 19.7) {
         $status = "Normal";
-    }else{
+    } else {
         $status = "Resiko Obesitas";
     }
 
@@ -84,7 +85,8 @@ function calculateIMTU($umur, $imt, $isMale){
 
 
 
-function calculateBBU($umur, $bb, $isMale){
+function calculateBBU($umur, $bb, $isMale)
+{
     $res = Fuzzy::method(FUZZY_METHOD_MAMDANI)
         ->attributes(
             [
@@ -152,18 +154,19 @@ function calculateBBU($umur, $bb, $isMale){
         ])->execute();
 
 
-    if($res >= 2.05 && $res <= 6.6){
+    if ($res >= 2.05 && $res <= 6.6) {
         $status = "Underweight";
-    }else if($res >= 2.45 && $res <= 11.75){
+    } else if ($res >= 2.45 && $res <= 11.75) {
         $status = "Normal";
-    }else{
+    } else {
         $status = "Resiko Obesitas";
     }
 
     return $status;
 }
 
-function calculateTBU($umur, $tb, $isMale){
+function calculateTBU($umur, $tb, $isMale)
+{
     $res = Fuzzy::method(FUZZY_METHOD_MAMDANI)
         ->attributes(
             [
@@ -232,11 +235,11 @@ function calculateTBU($umur, $tb, $isMale){
         ])
         ->execute();
 
-    if($res >= 43.9 && $res <= 67.45){
-        $status = "Low";
-    }else if($res >= 45.75 && $res <= 79.85){
+    if ($res >= 43.9 && $res <= 67.45) {
+        $status = "Stunted";
+    } else if ($res >= 45.75 && $res <= 79.85) {
         $status = "Medium";
-    }else{
+    } else {
         $status = "High";
     }
 
