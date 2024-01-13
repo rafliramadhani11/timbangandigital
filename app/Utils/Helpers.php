@@ -72,6 +72,7 @@ function calculateIMTU($umur, $imt, $isMale)
             'imt' =>  $imt
         ])
         ->execute();
+
     if ($res >= 10.15 && $res <= 13.05) {
         $status = "Wasted";
     } else if ($res >= 11.1 && $res <= 19.7) {
@@ -82,6 +83,7 @@ function calculateIMTU($umur, $imt, $isMale)
 
     return $status;
 }
+
 
 
 
@@ -116,7 +118,9 @@ function calculateBBU($umur, $bb, $isMale)
                         'domain' => $isMale ? [2.5, 12.0] : [2.4, 11.5]
                     ],
                     'high'    =>  [
+
                         'membership' => FUZZY_MEMBERSHIP_LINEAR_UP,
+
                         'domain' => $isMale ? [5.0, 13.3] : [4.8, 13.1]
                     ],
                 ]
@@ -132,13 +136,16 @@ function calculateBBU($umur, $bb, $isMale)
                         'domain' => [2.45, 11.75]
                     ],
                     'obesitas'    =>  [
+
                         'membership' => FUZZY_MEMBERSHIP_LINEAR_UP,
+
                         'domain' => [4.9, 13.2]
                     ],
                 ]
             ]
         )
         ->rules(
+
             ['rules'  =>  ["umur" => "fase1", "bb" => "low"], 'result' => 'underweight'],
             ['rules'  =>  ["umur" => "fase1", "bb" => "medium"], 'result' => 'normal'],
             ['rules'  =>  ["umur" => "fase1", "bb" => "high"], 'result' => 'obesitas'],
@@ -163,6 +170,7 @@ function calculateBBU($umur, $bb, $isMale)
     }
 
     return $status;
+
 }
 
 function calculateTBU($umur, $tb, $isMale)
@@ -196,13 +204,16 @@ function calculateTBU($umur, $tb, $isMale)
                         'domain' => $isMale ? [46.1, 80.5] : [45.4, 79.2]
                     ],
                     'high'    =>  [
+
                         'membership' => FUZZY_MEMBERSHIP_LINEAR_UP,
+
                         'domain' => $isMale ? [55.6, 82.9] : [54.7, 81.7]
                     ],
                 ]
             ],
             [
                 "output" =>  [
+
                     'stunted'    =>  [
                         'membership' => FUZZY_MEMBERSHIP_LINEAR_DOWN,
                         'domain' => [43.9, 67.45]
@@ -214,11 +225,13 @@ function calculateTBU($umur, $tb, $isMale)
                     'tinggi'    =>  [
                         'membership' => FUZZY_MEMBERSHIP_LINEAR_UP,
                         'domain' => [56.15, 82.3]
+
                     ],
                 ]
             ]
         )
         ->rules(
+
             ['rules'  =>  ["umur" => "fase1", "tb" => "low"], 'result' => 'stunted'],
             ['rules'  =>  ["umur" => "fase1", "tb" => "medium"], 'result' => 'normal'],
             ['rules'  =>  ["umur" => "fase1", "tb" => "high"], 'result' => 'tinggi'],
@@ -228,12 +241,14 @@ function calculateTBU($umur, $tb, $isMale)
             ['rules'  =>  ["umur" => "fase3", "tb" => "low"], 'result' => 'stunted'],
             ['rules'  =>  ["umur" => "fase3", "tb" => "medium"], 'result' => 'normal'],
             ['rules'  =>  ["umur" => "fase3", "tb" => "high"], 'result' => 'tinggi']
+
         )
         ->set_values([
             'umur' =>  $umur,
             'tb' =>  $tb
         ])
         ->execute();
+
 
     if ($res >= 43.9 && $res <= 67.45) {
         $status = "Stunted";
@@ -244,4 +259,5 @@ function calculateTBU($umur, $tb, $isMale)
     }
 
     return $status;
+
 }

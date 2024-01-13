@@ -15,25 +15,22 @@
                 <!-- NAMA AYAH / IBU -->
                 <div>
                     <label for="name" class="block text-sm font-medium text-slate-700">Nama Lengkap Orang Tua</label>
-                    <input type="text" id="name" name="name" class="block w-full px-3 pt-2 mt-1 text-sm bg-white border rounded-md shadow-sm placeholder-slate-400 " placeholder="John Dee" value="{{ old('name') }}" autofocus required />
+                    <input type="text" id="name" name="name" class="block w-full px-3 pt-2 mt-1 text-sm bg-white border rounded-md shadow-sm placeholder-slate-400 text-black" placeholder="John Dee" value="{{ old('name') }}" autofocus required />
                     @error('name')
                     <small class="text-red-500 text-start ">{{ $message }}</small>
                     @enderror
                 </div>
                 <!-- ------------------------------------------- -->
                 <!-- TIPE & REGION -->
-                <div class="grid gap-5 md:grid-cols-2">
+                <div class="grid gap-5 md:grid-cols-2 text-black">
                     <!-- Tipe Orang Tua -->
                     <div>
-                        <label for="type" class="block mb-2 text-sm font-medium text-gray-900 ">Tipe Orang Tua</label>
-                        <select id="type" name="type" class="block w-full px-3 pt-2 mt-1 text-sm bg-white border rounded-md shadow-sm placeholder-slate-400" required>
-                            <option selected disabled></option>
-                            @if (old('type'))
-                            <option>{{ old('type') }}</option>
-                            @endif
-                            <option>Ayah</option>
-                            <option>Ibu</option>
-                            <option>Wali</option>
+                        <label for="type" class="block mb-2 text-sm font-medium text-gray-900">Tipe Orang Tua</label>
+                        <select id="type" name="type" class="block w-full px-3 pt-2 mt-1 text-sm bg-white border rounded-md shadow-sm placeholder-slate-400 " required>
+                            <option value="" {{ old('type') == '' ? 'selected' : '' }} disabled></option>
+                            <option value="Ayah" {{ old('type') == 'Ayah' ? 'selected' : '' }}>Ayah</option>
+                            <option value="Ibu" {{ old('type') == 'Ibu' ? 'selected' : '' }}>Ibu</option>
+                            <option value="Wali" {{ old('type') == 'Wali' ? 'selected' : '' }}>Wali</option>
                         </select>
                         @error('type')
                         <small class="text-red-500 text-start ">{{ $message }}</small>
@@ -42,14 +39,14 @@
                     <!-- ------------------------------------------- -->
                     <!-- REGION -->
                     <div>
-                        <label for="region" class="block mb-2 text-sm font-medium text-gray-900 ">Region</label>
+                        <label for="region" class="block mb-2 text-sm font-medium text-gray-900">Region</label>
                         <select id="region" name="region_id" class="block w-full px-3 pt-2 mt-1 text-sm bg-white border rounded-md shadow-sm placeholder-slate-400" required>
-                            <option selected disabled></option>
+                            <option value="" {{ old('region_id') == '' ? 'selected' : '' }} disabled></option>
                             @foreach ($regions as $region)
-                            <option value="{{ $region->id }}">{{ $region->name }}</option>
+                            <option value="{{ $region->id }}" {{ old('region_id') == $region->id ? 'selected' : '' }}>{{ $region->name }}</option>
                             @endforeach
                         </select>
-                        @error('region')
+                        @error('region_id')
                         <small class="text-red-500 text-start ">
                             {{ $message }}
                         </small>
@@ -61,17 +58,22 @@
                 <!-- USERNAME -->
                 <div>
                     <label for="username" class="block mb-2 text-sm font-medium text-gray-900 ">Username</label>
-                    <input type="text" name="username" id="username" class="block w-full px-3 pt-2 mt-1 text-sm bg-white border rounded-md shadow-sm placeholder-slate-400 " placeholder="johndee1234" value="{{ old('username') }}" autofocus required>
+                    <input type="text" name="username" id="username" class="block w-full px-3 pt-2 mt-1 text-sm bg-white border rounded-md shadow-sm placeholder-slate-400 text-black" placeholder="johndee1234" value="{{ old('username') }}" autofocus required>
                     @error('username')
                     <small class="text-red-500 text-start ">{{ $message }}</small>
                     @enderror
                 </div>
                 <!-- ------------------------------------------------ -->
-
                 <!-- PASSWORD -->
-                <div>
-                    <label for="password" class="block mb-2 text-sm font-medium text-gray-900 ">Password</label>
-                    <input type="password" name="password" id="password" class="block w-full px-3 pt-2 mt-1 text-sm bg-white border rounded-md shadow-sm placeholder-slate-400 " required>
+                <div class="relative">
+                    <span class="block text-sm font-medium text-slate-700 ">Password</span>
+                    <input type="password" id="password" name="password" class="block w-full p-2 mt-1 text-sm bg-white border rounded-md shadow-sm placeholder-slate-400 focus:outline-none focus:border-orange-400 focus:ring-1 focus:ring-orange-400 text-black" required>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 absolute right-3 top-[2.1rem] cursor-pointer text-gray-400" id="notShow">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.98 8.223A10.477 10.477 0 0 0 1.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.451 10.451 0 0 1 12 4.5c4.756 0 8.773 3.162 10.065 7.498a10.522 10.522 0 0 1-4.293 5.774M6.228 6.228 3 3m3.228 3.228 3.65 3.65m7.894 7.894L21 21m-3.228-3.228-3.65-3.65m0 0a3 3 0 1 0-4.243-4.243m4.242 4.242L9.88 9.88" />
+                    </svg>
+                    @error('password')
+                    <small class="text-red-500 text-start ">{{ $message }}</small>
+                    @enderror
                 </div>
                 <!-- ------------------------------------------------ -->
                 <div>
@@ -158,4 +160,22 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    $('#notShow').on('click', function() {
+        var inputPassword = document.getElementById('password')
+        var icon = document.getElementById('notShow')
+        if (inputPassword.type === 'password') {
+            inputPassword.type = 'text'
+            $(this).removeClass('text-gray-400')
+            $(this).addClass('text-black')
+            $(this).html('<path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" /> <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />')
+        } else {
+            inputPassword.type = 'password'
+            $(this).removeClass('text-black')
+            $(this).addClass('text-gray-400')
+            $(this).html('<path stroke-linecap="round" stroke-linejoin="round" d="M3.98 8.223A10.477 10.477 0 0 0 1.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.451 10.451 0 0 1 12 4.5c4.756 0 8.773 3.162 10.065 7.498a10.522 10.522 0 0 1-4.293 5.774M6.228 6.228 3 3m3.228 3.228 3.65 3.65m7.894 7.894L21 21m-3.228-3.228-3.65-3.65m0 0a3 3 0 1 0-4.243-4.243m4.242 4.242L9.88 9.88" />')
+        }
+
+    })
+</script>
 @endsection

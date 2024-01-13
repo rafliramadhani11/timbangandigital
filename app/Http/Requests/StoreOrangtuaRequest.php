@@ -24,7 +24,7 @@ class StoreOrangtuaRequest extends FormRequest
         return [
             'region_id' => 'required|string',   //Dropdown
 
-            'username' => 'required|string|max:10|unique:users',
+            'username' => 'required|string|min:3|max:10|unique:users',
             'password' => 'required|string|min:3',
             'name' => 'required|string|max:255',
             'type' => 'required|string|in:Ayah,Ibu,Wali',    //Dropdown
