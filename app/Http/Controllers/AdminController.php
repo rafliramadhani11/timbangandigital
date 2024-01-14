@@ -6,13 +6,17 @@ namespace App\Http\Controllers;
 use App\Models\Anak;
 use App\Models\User;
 use App\Models\Region;
+use App\Charts\IMTChart;
 use App\Models\Timbangan;
 use Illuminate\Http\Request;
+use App\Charts\BeratBadanChart;
+use App\Charts\PanjangBadanChart;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreOrangtuaRequest;
 use App\Http\Requests\UpdateOrangtuaRequest;
+use LaravelDaily\LaravelCharts\Classes\LaravelChart;
 
 
 class AdminController extends Controller
@@ -61,22 +65,18 @@ class AdminController extends Controller
 
         $pb = $request->input('pb');
         $bb = $request->input('bb');
+        // IMT RUMUS
+        $pbMeter = $pb / 100;
+        $imt =  $bb / ($pbMeter * $pbMeter);
+        // ---------------------------------------
 
-        $imt = 0;
-        if ($pb > 0) {
-            $imt = $bb / ($pb * $pb);
-        } else {
-            $imt = null;
-        };
         $dataTimbangan = [
             'anak_id' => $anak->id,
-
             'umur' => $request->input('umur'),
             'pb' => $pb,
             'bb' => $bb,
             'imt' =>  round($imt, 1)
         ];
-
         Timbangan::where('anak_id', null)->update($dataTimbangan);
         return redirect()->back()->with('storedAnak', 'Berhasil menambah data anak !');
     }
@@ -109,6 +109,7 @@ class AdminController extends Controller
 
     public function showUser($username)
     {
+
         $user = User::where('username', $username)->first();
         $anaks = $user->anaks()->with('timbangans')->get();
         $timbangan = Timbangan::where('anak_id', null)->first();
@@ -124,18 +125,30 @@ class AdminController extends Controller
         ]);
     }
 
-    public function showAnak($username, $id)
-    {
+    public function showAnak(
+        $username,
+        $id,
+        PanjangBadanChart $pbchart,
+        BeratBadanChart $bbchart,
+        IMTChart $imtchart,
+    ) {
         $username = User::where('username', $username)->first();
-        $anak_id = Anak::where('id', $id)->first();
+        $anak = Anak::where('id', $id)->first();
         $user = Auth::user();
+        $timbangan = Timbangan::where('anak_id', null)->first();
+
+
         return view('admin.anak.show', [
             'user' => $user,
+            "user_nav" => Auth::user(),
             'regions' => Region::all(),
+            'pbchart' => $pbchart->build($anak->id),
+            'bbchart' => $bbchart->build($anak->id),
+            'imtchart' => $imtchart->build($anak->id),
 
             'username' => $username,
-            'anak' => $anak_id,
-            "user_nav" => Auth::user(),
+            'anak' => $anak,
+            'timbangan' => $timbangan,
         ]);
     }
 
