@@ -26,7 +26,9 @@ class RegionController extends Controller
         $berat_badans = $timbangans->pluck('bb');
         $indeks_massa_tubuhs = $timbangans->pluck('imt');
 
-
+        $jumlaTimbangIMT = count($indeks_massa_tubuhs);
+        $jumlaTimbangPB = count($panjang_badans);
+        $jumlaTimbangBB = count($berat_badans);
 
         return view('admin.region.index', [
             "user_nav" => Auth::user(),
@@ -41,7 +43,10 @@ class RegionController extends Controller
             'pbchart' => $pbchart->build($panjang_badans),
             'bbchart' => $bbchart->build($berat_badans),
 
-            'timbangans' => $timbangans
+            'timbangans' => $timbangans,
+            'jumlaTimbangIMT' => $jumlaTimbangIMT,
+            'jumlaTimbangPB' => $jumlaTimbangPB,
+            'jumlaTimbangBB' => $jumlaTimbangBB
         ]);
     }
 }

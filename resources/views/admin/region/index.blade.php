@@ -18,10 +18,15 @@
                         Grafik perkembangan gizi anak
                     </span>
                     <div class="mt-5">
-                        @if (!$timbangans->count())
-                        <h1>Belum ada data timbangan</h1>
-                        @endif
+                        @if ($jumlaTimbangIMT > 0)
                         {!! $imtchart->container() !!}
+                        @else
+                        <div class="flex items-center justify-center p-4 mb-4 text-sm text-red-800 dark:text-red-400 " role="alert">
+                            <div>
+                                <span class="font-medium text-xl">Belum ada data timbangan
+                            </div>
+                        </div>
+                        @endif
                     </div>
                 </div>
                 <!-- ---------------------------------------------- -->
@@ -34,11 +39,15 @@
                         Grafik perkembangan gizi anak
                     </span>
                     <div class="mt-5">
-                        @if (!$timbangans->count())
-                        <h1>Belum ada data timbangan</h1>
-                        @endif
+                        @if ($jumlaTimbangPB > 0)
                         {!! $pbchart->container() !!}
-
+                        @else
+                        <div class="flex items-center justify-center p-4 mb-4 text-sm text-red-800 dark:text-red-400 " role="alert">
+                            <div>
+                                <span class="font-medium text-xl">Belum ada data timbangan
+                            </div>
+                        </div>
+                        @endif
                     </div>
                 </div>
                 <!-- ---------------------------------------------- -->
@@ -51,28 +60,42 @@
                         Grafik perkembangan gizi anak
                     </span>
                     <div class="mt-5">
-                        @if (!$timbangans->count())
-                        <h1>Belum ada data timbangan</h1>
-                        @endif
+                        @if ($jumlaTimbangBB > 0)
                         {!! $bbchart->container() !!}
+                        @else
+                        <div class="flex items-center justify-center p-4 mb-4 text-sm text-red-800 dark:text-red-400 " role="alert">
+                            <div>
+                                <span class="font-medium text-xl">Belum ada data timbangan
+                            </div>
+                        </div>
+                        @endif
+
                     </div>
                 </div>
                 <!-- ---------------------------------------------- -->
             </div>
-
             <!-- ---------------------------- -->
-
-
-
             <!-- TABLE -->
             <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
                 <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                    <div class="px-6 py-8">
+                    <div class="px-6 py-5">
+                        @if($jumlaTimbangIMT > 0)
                         <h1 class="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white">
                             {{ $anaks->count() }} Anak
                         </h1>
                         <span class="text-xs text-slate-500 ">
-                            Berdasarkan data terakhir yang ada
+                            Di {{ $region->name }} yang sudah di timbang
+                            @else
+                            <div class="flex items-center w-1/2 p-4 mb-4 text-sm text-red-800 border border-red-300 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400 dark:border-red-800" role="alert">
+                                <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                                </svg>
+                                <span class="sr-only">Info</span>
+                                <div>
+                                    <span class="font-medium">Belum ada penimbangan anak di {{ $region->name }}
+                                </div>
+                            </div>
+                            @endif
                         </span>
                     </div>
                     <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -105,7 +128,7 @@
                                     {{ $user->name }}
                                 </span>
                                 <span class="text-xs text-slate-500 ">
-                                    {{ $user->type }} {{ $user->anaks->count() }}
+                                    {{ $user->type }}
                                 </span>
                             </th>
                             <td class="px-6 py-3">

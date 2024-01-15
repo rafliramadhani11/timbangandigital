@@ -162,6 +162,7 @@
             </div>
             <!-- GRAFIK -->
             <div class="lg:grid lg:grid-cols-3 lg:gap-x-5">
+                <!-- PANJANG BADAN -->
                 <div class="p-4 px-4 mb-6 bg-white rounded shadow-md dark:bg-gray-800 md:p-8 ">
                     <div>
                         <span class="block dark:text-white text-black text-2xl font-bold">
@@ -180,10 +181,10 @@
                                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 ">
                                     <tr>
                                         <th scope="col" class="px-6 py-3">
-                                            No
+                                            Tanggal
                                         </th>
                                         <th scope="col" class="px-6 py-3">
-                                            Tanggal
+                                            Umur
                                         </th>
                                         <th scope="col" class="px-6 py-3">
                                             Panjang Badan
@@ -194,10 +195,10 @@
                                     @foreach ($anak->timbangans as $i => $timbangan)
                                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                         <td class="px-6 py-4">
-                                            {{ $i +1 }}
+                                            {{ $timbangan->created_at->format('j M') }}
                                         </td>
                                         <td class="px-6 py-4">
-                                            {{ $timbangan->created_at->format('j M') }}
+                                            {{ $timbangan->umur }} Bulan
                                         </td>
                                         <td class="px-6 py-4">
                                             {{ $timbangan->pb }} cm
@@ -214,6 +215,8 @@
                         </span>
                     </div>
                 </div>
+                <!-- --------------------------------------------------------------------------------------- -->
+                <!-- BERAT BADAN -->
                 <div class="p-4 px-4 mb-6 bg-white rounded shadow-md dark:bg-gray-800 md:p-8 ">
                     <div>
                         <span class="block dark:text-white text-black text-2xl font-bold">
@@ -232,10 +235,10 @@
                                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 ">
                                     <tr>
                                         <th scope="col" class="px-6 py-3">
-                                            No
+                                            Tanggal
                                         </th>
                                         <th scope="col" class="px-6 py-3">
-                                            Tanggal
+                                            Umur
                                         </th>
                                         <th scope="col" class="px-6 py-3">
                                             Berat Badan
@@ -246,10 +249,10 @@
                                     @foreach ($anak->timbangans as $i => $timbangan)
                                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                         <td class="px-6 py-4">
-                                            {{ $i +1 }}
+                                            {{ $timbangan->created_at->format('j M') }}
                                         </td>
                                         <td class="px-6 py-4">
-                                            {{ $timbangan->created_at->format('j M') }}
+                                            {{ $timbangan->umur }} Bulan
                                         </td>
                                         <td class="px-6 py-4">
                                             {{ $timbangan->bb }} Kg
@@ -266,6 +269,8 @@
                         </span>
                     </div>
                 </div>
+                <!-- --------------------------------------------------------------------------------------- -->
+                <!-- INDEKS MASSA TUBUH -->
                 <div class="p-4 px-4 mb-6 bg-white rounded shadow-md dark:bg-gray-800 md:p-8 ">
                     <div>
                         <span class="block dark:text-white text-black text-2xl font-bold">
@@ -283,28 +288,34 @@
                             <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 ">
                                     <tr>
-                                        <th scope="col" class="px-6 py-3">
-                                            No
-                                        </th>
-                                        <th scope="col" class="px-6 py-3">
+                                        <th scope="col" class="px-4 py-3">
                                             Tanggal
                                         </th>
                                         <th scope="col" class="px-6 py-3">
+                                            Umur
+                                        </th>
+                                        <th scope="col" class="px-6 py-3">
                                             Indeks Massa Tubuh
+                                        </th>
+                                        <th scope="col" class="px-6 py-3">
+                                            Status
                                         </th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($anak->timbangans as $i => $timbangan)
                                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                        <td class="px-6 py-4">
-                                            {{ $i +1 }}
-                                        </td>
-                                        <td class="px-6 py-4">
+                                        <td class="px-4 py-4">
                                             {{ $timbangan->created_at->format('j M') }}
                                         </td>
                                         <td class="px-6 py-4">
+                                            {{ $timbangan->umur }} Bulan
+                                        </td>
+                                        <td class="px-6 py-4 text-center">
                                             {{ $timbangan->imt }}
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            Wasted
                                         </td>
                                     </tr>
                                     @endforeach
@@ -318,6 +329,7 @@
                         </span>
                     </div>
                 </div>
+                <!-- --------------------------------------------------------------------------------------- -->
             </div>
             <!-- ------------------------------------------------ -->
         </main>

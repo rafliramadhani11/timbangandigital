@@ -15,28 +15,31 @@ class BeratBadanChart
 
     public function build($berat_badans): \ArielMejiaDev\LarapexCharts\DonutChart
     {
-        $jumlahAnak = count($berat_badans);
+        $jumlahBB = count($berat_badans);
 
-        $persentaseKurus = ($berat_badans->filter(function ($bb) {
-            return $bb < 5.3;
-        })->count() / $jumlahAnak);
+        if ($jumlahBB > 0) {
+            $persentaseKurus = ($berat_badans->filter(function ($bb) {
+                return $bb < 5.3;
+            })->count() / $jumlahBB);
 
-        $persentaseNormal = ($berat_badans->filter(function ($bb) {
-            return $bb >= 5.3 && $bb < 8.2;
-        })->count() / $jumlahAnak);
+            $persentaseNormal = ($berat_badans->filter(function ($bb) {
+                return $bb >= 5.3 && $bb < 8.2;
+            })->count() / $jumlahBB);
 
-        $persentaseObesitas = ($berat_badans->filter(function ($bb) {
-            return $bb >= 8.2;
-        })->count() / $jumlahAnak);
+            $persentaseObesitas = ($berat_badans->filter(function ($bb) {
+                return $bb >= 8.2;
+            })->count() / $jumlahBB);
 
-        $persentaseKurus = round($persentaseKurus * 100, 1);
-        $persentaseNormal = round($persentaseNormal * 100, 1);
-        $persentaseObesitas = round($persentaseObesitas * 100, 1);
+            $persentaseKurus = round($persentaseKurus * 100, 1);
+            $persentaseNormal = round($persentaseNormal * 100, 1);
+            $persentaseObesitas = round($persentaseObesitas * 100, 1);
 
-        $kategoriBB = ['Kurus', 'Normal', 'Obesitas'];
+            $kategoriBB = ['Kurus', 'Normal', 'Obesitas'];
 
-        return $this->chart->donutChart()
-            ->addData([$persentaseKurus, $persentaseNormal, $persentaseObesitas])
-            ->setLabels($kategoriBB);
+            return $this->chart->donutChart()
+                ->addData([$persentaseKurus, $persentaseNormal, $persentaseObesitas])
+                ->setLabels($kategoriBB);
+        }
+        return $this->chart->donutChart();
     }
 }
