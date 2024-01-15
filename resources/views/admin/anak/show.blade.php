@@ -288,7 +288,7 @@
                             <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 ">
                                     <tr>
-                                        <th scope="col" class="px-4 py-3">
+                                        <th scope="col" class="px-6 py-3">
                                             Tanggal
                                         </th>
                                         <th scope="col" class="px-6 py-3">
@@ -297,26 +297,22 @@
                                         <th scope="col" class="px-6 py-3">
                                             Indeks Massa Tubuh
                                         </th>
-                                        <th scope="col" class="px-6 py-3">
-                                            Status
-                                        </th>
+
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($anak->timbangans as $i => $timbangan)
                                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                        <td class="px-4 py-4">
+                                        <td class="px-6 py-4">
                                             {{ $timbangan->created_at->format('j M') }}
                                         </td>
                                         <td class="px-6 py-4">
                                             {{ $timbangan->umur }} Bulan
                                         </td>
-                                        <td class="px-6 py-4 text-center">
+                                        <td class="px-6 py-4 ">
                                             {{ $timbangan->imt }}
                                         </td>
-                                        <td class="px-6 py-4">
-                                            Wasted
-                                        </td>
+
                                     </tr>
                                     @endforeach
                                 </tbody>
