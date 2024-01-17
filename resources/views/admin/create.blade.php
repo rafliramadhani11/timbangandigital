@@ -18,7 +18,7 @@
             <div class="p-5 bg-white rounded-md shadow-md dark:bg-gray-800 lg:w-1/2 md:w-full">
 
                 <div class="p-5 lg:px-10 ">
-                    <h6 class="mb-10 text-3xl font-bold dark:text-white">
+                    <h6 class="mb-10 text-3xl font-bold text-gray-700 dark:text-white">
                         Buat User Baru
                     </h6>
                     <form method="post" action="{{ route('admin.store') }}">

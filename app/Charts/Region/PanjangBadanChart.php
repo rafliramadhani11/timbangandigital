@@ -38,7 +38,8 @@ class PanjangBadanChart
 
             return $this->chart->donutChart()
                 ->addData([$persentasePendek, $persentaseNormal, $persentaseTinggi])
-                ->setLabels($kategoriPB);
+                ->setLabels($kategoriPB)
+                ->setColors(['#FF0000', '#03C988', '#F6C90E',]);
         }
         return $this->chart->donutChart();
     }

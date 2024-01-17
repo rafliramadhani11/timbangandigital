@@ -2,6 +2,7 @@
 
 namespace App\Charts\Region;
 
+use App\Models\Region;
 use ArielMejiaDev\LarapexCharts\LarapexChart;
 
 class IMTChart
@@ -14,6 +15,7 @@ class IMTChart
     }
 
     public function build($indeks_massa_tubuhs): \ArielMejiaDev\LarapexCharts\DonutChart
+
     {
         $jumlahIMT = count($indeks_massa_tubuhs);
 
@@ -37,7 +39,8 @@ class IMTChart
 
             return $this->chart->donutChart()
                 ->addData([$persentaseKurus, $persentaseNormal, $persentaseGemuk])
-                ->setLabels($kategoriIMT);
+                ->setLabels($kategoriIMT)
+                ->setColors(['#FF0000', '#03C988', '#F6C90E',]);
         }
         return $this->chart->donutChart();
     }

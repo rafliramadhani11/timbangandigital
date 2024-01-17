@@ -11,8 +11,8 @@
                     </svg>
                 </button>
                 <a href="#" class="flex ml-2 md:mr-24">
-                    <img src="{{ asset('img/chart.png') }}" class="h-8 mr-3" alt="FlowBite Logo" />
-                    <span class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">Timbangan Digital</span>
+                    <img src="{{ asset('img/chart.png') }}" class="h-8 mr-3" alt="Timbangan Digital" />
+                    <span class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap text-gray-700 dark:text-white">Timbangan Digital</span>
                 </a>
             </div>
             <div class="flex items-center ">

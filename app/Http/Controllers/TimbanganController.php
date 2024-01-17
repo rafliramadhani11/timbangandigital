@@ -35,7 +35,7 @@ class TimbanganController extends Controller
             'bb' => $bb,
             'imt' =>  round($imt, 1),
         ];
-        $timbangan = Timbangan::where('anak_id', null)->update($dataTimbangan);
-        return response()->json($timbangan);
+        Timbangan::where('anak_id', null)->update($dataTimbangan);
+        return redirect()->back()->with('updatedTimbang', 'Berhasil Update Data !');
     }
 }

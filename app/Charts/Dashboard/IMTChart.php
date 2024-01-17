@@ -2,6 +2,8 @@
 
 namespace App\Charts\Dashboard;
 
+use App\Models\Region;
+use App\Models\Timbangan;
 use ArielMejiaDev\LarapexCharts\LarapexChart;
 
 class IMTChart
@@ -15,11 +17,37 @@ class IMTChart
 
     public function build(): \ArielMejiaDev\LarapexCharts\DonutChart
     {
+        $imtNormalByRegion = Region::selectRaw('regions.name as region_name, ROUND(AVG(timbangans.imt) / 5 * 100, 1) as imt_percentage')
+            ->join('users', 'regions.id', '=', 'users.region_id')
+            ->join('anaks', 'users.id', '=', 'anaks.user_id')
+            ->join('timbangans', 'anaks.id', '=', 'timbangans.anak_id')
+            ->whereIn('regions.id', [1, 2, 3, 4, 5, 6]) // Gantilah dengan daftar ID Region yang sesuai
+            ->where('timbangans.imt_status', 'normal')
+            ->groupBy('regions.id', 'regions.name');
+
+        $imtNormalByRegionArray = $imtNormalByRegion->get()->map(function ($item) {
+            return [
+                'region_name' => $item->region_name,
+                'imt_percentage' => $item->imt_percentage,
+            ];
+        })->pluck('imt_percentage', 'region_name')->toArray();
+
+        $totalPercentage = array_sum($imtNormalByRegionArray);
+
+        // Normalisasi nilai persentase agar total tidak melebihi 100
+        if ($totalPercentage > 100) {
+            $imtNormalByRegionArray = array_map(function ($percent) use ($totalPercentage) {
+                return round(($percent / $totalPercentage) * 100, 1);
+            }, $imtNormalByRegionArray);
+        }
+        $regionNames = array_keys($imtNormalByRegionArray);
+        $imtValues = array_values($imtNormalByRegionArray);
+
+
         return $this->chart->donutChart()
-            ->addData([75, 60])
+            ->addData($imtValues)
             ->setHeight(400)
             ->setWidth(400)
-            ->setLabels(['Barcelona city', 'Madrid sports'])
-            ->setColors(['#D32F2F', '#03A9F4']);
+            ->setLabels($regionNames);
     }
 }

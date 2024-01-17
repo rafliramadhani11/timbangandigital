@@ -21,7 +21,7 @@
                         <div class="grid grid-cols-1 gap-4 text-sm gap-y-2 lg:grid-cols-1">
                             <div class="flex items-center justify-between mb-6">
                                 <div class="grid ">
-                                    <p class="text-2xl font-bold dark:text-white text-black">Data Anak</p>
+                                    <p class="text-2xl font-bold text-black dark:text-white">Data Anak</p>
                                 </div>
                                 <!-- TOMBOL EDIT NAMA -->
                                 <div>
@@ -106,14 +106,14 @@
                         <div class="grid text-gray-600 dark:text-white">
                             <p class="text-2xl font-bold text-black dark:text-white">Tambah Data Timbangan</p>
                         </div>
-                        @if (session()->has('storedAnak'))
-                        <div id="alert-3" class="flex items-center w-1/2 p-4 mb-4 text-green-800 bg-green-100 rounded-lg dark:bg-gray-800 dark:text-green-400" role="alert">
+                        @if (session()->has('updatedTimbang'))
+                        <div id="alert-3" class="flex items-center px-4 py-2 mt-4 text-green-800 bg-green-100 rounded-lg dark:bg-gray-800 dark:text-green-400" role="alert">
                             <svg class="flex-shrink-0 w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                                 <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
                             </svg>
                             <span class="sr-only">Info</span>
                             <div class="text-sm font-medium ms-3">
-                                {{ session('storedAnak') }}
+                                {{ session('updatedTimbang') }}
                             </div>
                             <button type="button" class="ms-auto -mx-1.5 -my-1.5 bg-green-100 text-green-500 rounded-lg focus:ring-2 focus:ring-green-400 p-1.5 hover:bg-green-200 inline-flex items-center justify-center h-8 w-8 dark:bg-gray-800 dark:text-green-400 dark:hover:bg-gray-700" data-dismiss-target="#alert-3" aria-label="Close">
                                 <span class="sr-only">Close</span>
@@ -123,6 +123,8 @@
                             </button>
                         </div>
                         @endif
+
+
                         <div class="grid gap-4 mt-6 md:grid-cols-2 lg:grid-cols-2">
                             <!-- UMUR -->
                             <div>
@@ -162,10 +164,71 @@
             </div>
             <!-- GRAFIK -->
             <div class="lg:grid lg:grid-cols-3 lg:gap-x-5">
+                <!-- INDEKS MASSA TUBUH -->
+                <div class="p-4 px-4 mb-6 bg-white rounded shadow-md dark:bg-gray-800 md:p-8 ">
+                    <div>
+                        <span class="block text-2xl font-bold text-black dark:text-white">
+                            Indeks Massa Tubuh
+                        </span>
+                        <span class="text-xs text-slate-500 ">
+                            Grafik perkembangan gizi anak
+                        </span>
+                    </div>
+                    <div class="mt-5 ">
+                        {!! $imtchart->container() !!}
+                    </div>
+                    <div>
+                        <div class="relative overflow-x-auto">
+                            <table class="w-full text-sm text-left text-gray-500 rtl:text-right dark:text-gray-400">
+                                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 ">
+                                    <tr>
+                                        <th scope="col" class="px-4 py-3">
+                                            Tanggal
+                                        </th>
+                                        <th scope="col" class="px-6 py-3">
+                                            Umur
+                                        </th>
+                                        <th scope="col" class="px-6 py-3">
+                                            Indeks Massa Tubuh
+                                        </th>
+                                        <th scope="col" class="px-6 py-3">
+                                            Status
+                                        </th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($anak->timbangans as $i => $timbangan)
+                                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                        <td class="px-4 py-4">
+                                            {{ $timbangan->created_at->format('j M') }}
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            {{ $timbangan->umur }} Bulan
+                                        </td>
+                                        <td class="px-6 py-4 ">
+                                            {{ $timbangan->imt }}
+                                        </td>
+                                        <td class="px-6 py-4 ">
+                                            {{ $timbangan->imt_status }}
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="mt-5">
+                        <span class="text-xs text-slate-500 ">
+                            *Berdasarkan data terakhir yang masuk
+                        </span>
+                    </div>
+                </div>
+                <!-- --------------------------------------------------------------------------------------- -->
                 <!-- PANJANG BADAN -->
                 <div class="p-4 px-4 mb-6 bg-white rounded shadow-md dark:bg-gray-800 md:p-8 ">
                     <div>
-                        <span class="block dark:text-white text-black text-2xl font-bold">
+                        <span class="block text-2xl font-bold text-black dark:text-white">
                             Panjang Badan
                         </span>
                         <span class="text-xs text-slate-500 ">
@@ -177,7 +240,7 @@
                     </div>
                     <div>
                         <div class="relative overflow-x-auto">
-                            <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                            <table class="w-full text-sm text-left text-gray-500 rtl:text-right dark:text-gray-400">
                                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 ">
                                     <tr>
                                         <th scope="col" class="px-6 py-3">
@@ -188,6 +251,9 @@
                                         </th>
                                         <th scope="col" class="px-6 py-3">
                                             Panjang Badan
+                                        </th>
+                                        <th scope="col" class="px-6 py-3">
+                                            Status
                                         </th>
                                     </tr>
                                 </thead>
@@ -202,6 +268,9 @@
                                         </td>
                                         <td class="px-6 py-4">
                                             {{ $timbangan->pb }} cm
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            {{ $timbangan->pb_status }}
                                         </td>
                                     </tr>
                                     @endforeach
@@ -219,7 +288,7 @@
                 <!-- BERAT BADAN -->
                 <div class="p-4 px-4 mb-6 bg-white rounded shadow-md dark:bg-gray-800 md:p-8 ">
                     <div>
-                        <span class="block dark:text-white text-black text-2xl font-bold">
+                        <span class="block text-2xl font-bold text-black dark:text-white">
                             Berat Badan
                         </span>
                         <span class="text-xs text-slate-500 ">
@@ -231,7 +300,7 @@
                     </div>
                     <div>
                         <div class="relative overflow-x-auto">
-                            <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                            <table class="w-full text-sm text-left text-gray-500 rtl:text-right dark:text-gray-400">
                                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 ">
                                     <tr>
                                         <th scope="col" class="px-6 py-3">
@@ -242,6 +311,9 @@
                                         </th>
                                         <th scope="col" class="px-6 py-3">
                                             Berat Badan
+                                        </th>
+                                        <th scope="col" class="px-6 py-3">
+                                            Status
                                         </th>
                                     </tr>
                                 </thead>
@@ -257,6 +329,9 @@
                                         <td class="px-6 py-4">
                                             {{ $timbangan->bb }} Kg
                                         </td>
+                                        <td class="px-6 py-4">
+                                            {{ $timbangan->bb_status }}
+                                        </td>
                                     </tr>
                                     @endforeach
                                 </tbody>
@@ -270,62 +345,7 @@
                     </div>
                 </div>
                 <!-- --------------------------------------------------------------------------------------- -->
-                <!-- INDEKS MASSA TUBUH -->
-                <div class="p-4 px-4 mb-6 bg-white rounded shadow-md dark:bg-gray-800 md:p-8 ">
-                    <div>
-                        <span class="block dark:text-white text-black text-2xl font-bold">
-                            Indeks Massa Tubuh
-                        </span>
-                        <span class="text-xs text-slate-500 ">
-                            Grafik perkembangan gizi anak
-                        </span>
-                    </div>
-                    <div class="mt-5 ">
-                        {!! $imtchart->container() !!}
-                    </div>
-                    <div>
-                        <div class="relative overflow-x-auto">
-                            <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 ">
-                                    <tr>
-                                        <th scope="col" class="px-6 py-3">
-                                            Tanggal
-                                        </th>
-                                        <th scope="col" class="px-6 py-3">
-                                            Umur
-                                        </th>
-                                        <th scope="col" class="px-6 py-3">
-                                            Indeks Massa Tubuh
-                                        </th>
 
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($anak->timbangans as $i => $timbangan)
-                                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                        <td class="px-6 py-4">
-                                            {{ $timbangan->created_at->format('j M') }}
-                                        </td>
-                                        <td class="px-6 py-4">
-                                            {{ $timbangan->umur }} Bulan
-                                        </td>
-                                        <td class="px-6 py-4 ">
-                                            {{ $timbangan->imt }}
-                                        </td>
-
-                                    </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div class="mt-5">
-                        <span class="text-xs text-slate-500 ">
-                            *Berdasarkan data terakhir yang masuk
-                        </span>
-                    </div>
-                </div>
-                <!-- --------------------------------------------------------------------------------------- -->
             </div>
             <!-- ------------------------------------------------ -->
         </main>

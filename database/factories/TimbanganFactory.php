@@ -16,14 +16,23 @@ class TimbanganFactory extends Factory
      */
     public function definition(): array
     {
-        $status = fake()->randomElement(
-            ['Wasted', 'Normal', 'Obesitas']
+        $imt_status = fake()->randomElement(
+            ['Wasted', 'Normal', 'Resiko Obesitas']
+        );
+        $pb_status = fake()->randomElement(
+            ['Pendek', 'Normal', 'Tinggi']
+        );
+        $bb_status = fake()->randomElement(
+            ['Kurus', 'Normal', 'Gemuk']
         );
         return [
-            'anak_id' => rand(1, 30),
-
-            'status' => $status,
+            'anak_id' => rand(1, 20),
             'umur' => rand(1, 12),
+
+            'imt_status' => $imt_status,
+            'pb_status' => $pb_status,
+            'bb_status' => $bb_status,
+
             'pb' => fake()->randomFloat(1, 46, 83),
             'bb' => fake()->randomFloat(1, 2, 11),
             'imt' => fake()->randomFloat(1, 10, 22),

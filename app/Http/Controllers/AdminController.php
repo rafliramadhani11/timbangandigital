@@ -18,60 +18,43 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreOrangtuaRequest;
 use App\Http\Requests\UpdateOrangtuaRequest;
 use App\Charts\Dashboard\IMTChart as IMTChartDashboard;
+use App\Charts\Dashboard\BeratBadanChart as BeratBadanChartDashboard;
+use App\Charts\Dashboard\PanjangBadanChart as PanjangBadanChartDashboard;
 
 
 class AdminController extends Controller
 {
-    public function index(UsersChart $userschart, IMTChartDashboard $imtchart)
+    public function index(UsersChart $userschart, IMTChartDashboard $imtchart, PanjangBadanChartDashboard $pbchart, BeratBadanChartDashboard $bbchart)
     {
-        // USER BY REGION
-        $regions = Region::withCount(['users' => function ($query) {
-            $query->where('admin', '!=', 1);
-        }])->get(['name', 'users_count']);
-        $totalUsersPerRegion = $regions->pluck('users_count')->toArray();
-        // ------------------------------------------------------------------------------
+        $regionsUser = DB::table('regions')
+            ->join('users', function ($join) {
+                $join->on('regions.id', '=', 'users.region_id')
+                    ->where('users.admin', '!=', 1);
+            })
+            ->select('regions.*', 'users.*')
+            ->get();
 
-        // ANAK BY REGION
-        $users = User::with(['region', 'anaks'])->withCount('anaks')->get();
-        $usersWithTotalAnaks = [];
-        foreach ($users as $user) {
-            $regionName = $user->region->name;
-            $totalAnaks = $user->anaks_count;
-            if (!isset($usersWithTotalAnaks[$regionName])) {
-                $usersWithTotalAnaks[$regionName] = [
-                    'total_users' => 0,
-                    'users' => [],
-                ];
-            }
-            $usersWithTotalAnaks[$regionName]['total_users'] += $totalAnaks;
-            $usersWithTotalAnaks[$regionName]['users'][$user->name] = [
-                'total_anaks' => $totalAnaks,
-                'anaks_data' => $user->anaks->count(),
-            ];
-        }
-        $regionsOutput = [];
-        foreach ($usersWithTotalAnaks as $regionName => $userData) {
-            $regionsOutput[] = [
-                'name' => $regionName,
-                'total_anak' => $userData['total_users'],
-            ];
-        }
-        $anakBarat = $regionsOutput[0]['total_anak'];
-        $anakUtara = $regionsOutput[1]['total_anak'];
-        $anakPusat = $regionsOutput[2]['total_anak'];
-        $anakTengah = $regionsOutput[3]['total_anak'];
-        $anakTimur = $regionsOutput[4]['total_anak'];
-        $anakSelatan = $regionsOutput[5]['total_anak'];
-        $anakTotals = [$anakPusat, $anakTengah, $anakTimur, $anakUtara, $anakSelatan, $anakBarat];
-        $regionNames = $regions->pluck('name')->toArray();
-        // ----------------------------------------------------------------------------------------------
+
+        $totalAnak = DB::table('regions')
+            ->leftJoin('users', 'regions.id', '=', 'users.region_id')
+            ->leftJoin('anaks', 'users.id', '=', 'anaks.user_id')
+            ->where('users.admin', '!=', 1)
+            ->sum('anaks.id');
+
+
 
         return view('admin.index', [
             "user_nav" => Auth::user(),
-            'regions' => $regions,
+            'regions' => Region::get(),
 
-            'userschart' => $userschart->build($regionNames, $totalUsersPerRegion, $anakTotals),
+            'regionsUser' => $regionsUser,
+            'totalAnak' => $totalAnak,
+
+            'userschart' => $userschart->build(),
+
             'imtchart' => $imtchart->build(),
+            'pbchart' => $pbchart->build(),
+            'bbchart' => $bbchart->build(),
         ]);
     }
 
@@ -189,6 +172,7 @@ class AdminController extends Controller
             'user' => $user,
             "user_nav" => Auth::user(),
             'regions' => Region::all(),
+
             'pbchart' => $pbchart->build($anak->id),
             'bbchart' => $bbchart->build($anak->id),
             'imtchart' => $imtchart->build($anak->id),

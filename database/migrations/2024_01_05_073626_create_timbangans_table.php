@@ -16,8 +16,11 @@ return new class extends Migration
 
             $table->foreignId('anak_id')->nullable()->references('id')->on('anaks')->onDelete('cascade');
 
-            $table->string('status')->nullable();
             $table->integer('umur')->nullable();
+
+            $table->string('imt_status')->nullable();
+            $table->string('pb_status')->nullable();
+            $table->string('bb_status')->nullable();
 
             $table->float('pb')->default(0);
             $table->float('bb')->default(0);

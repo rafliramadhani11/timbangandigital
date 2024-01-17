@@ -150,8 +150,18 @@
                 <table class="min-w-full text-sm bg-white divide-y-2 divide-gray-200 dark:divide-gray-700 dark:bg-gray-900"> </table>
             </div>
             @else
-            <div class="p-4 text-center text-red-800 bg-red-100 rounded-lg dark:bg-gray-800 dark:text-red-400" role="alert">
-                <span class="text-2xl font-medium">User Tidak Ditemukan !</span>
+            <div class="flex items-center justify-center p-4 px-4 mb-6 md:p-8">
+                <div class="flex items-center p-4 mb-4 text-sm text-red-800  dark:text-red-400" role="alert">
+                    <svg class="flex-shrink-0 inline w-7 h-7 me-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                    </svg>
+                    <span class="sr-only">Info</span>
+                    <div>
+                        <h1 class="font-medium text-3xl text-red-800dark:text-red-400">
+                            Belum ada user yang mendaftar
+                        </h1>
+                    </div>
+                </div>
             </div>
             @endif
             <!-- ------------------------------- -->

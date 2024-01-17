@@ -38,7 +38,8 @@ class BeratBadanChart
 
             return $this->chart->donutChart()
                 ->addData([$persentaseKurus, $persentaseNormal, $persentaseObesitas])
-                ->setLabels($kategoriBB);
+                ->setLabels($kategoriBB)
+                ->setColors(['#FF0000', '#03C988', '#F6C90E',]);
         }
         return $this->chart->donutChart();
     }
