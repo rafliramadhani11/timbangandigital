@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Charts\User\BeratBadanChart;
+use App\Charts\User\IMTChart;
+use App\Charts\User\PanjangBadanChart;
 use Carbon\Carbon;
 use App\Models\Anak;
 use App\Models\User;
@@ -15,14 +18,23 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(IMTChart $imtchart, PanjangBadanChart $pbchart, BeratBadanChart $bbchart)
     {
-        if (Auth::check()) {
-            return view('user.index', [
-                'user' => Auth::user()
-            ]);
+        if (!Auth::check()) {
+            return redirect()->back();
         }
-        return redirect()->back();
+
+        $user = User::where('username', Auth::user()->username)->first();
+        $anaks = Anak::where('user_id', $user->id)->get();
+        // dd(count($anaks));
+        return view('user.index', [
+            'user' => Auth::user(),
+            'anaks' => $anaks,
+
+            'imtchart' => $imtchart->build($user),
+            'pbchart' => $pbchart->build($user),
+            'bbchart' => $bbchart->build($user)
+        ]);
     }
 
     /**

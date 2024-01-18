@@ -29,7 +29,6 @@ class AuthenticationController extends Controller
             if (Auth::user()->admin) {
                 return redirect('/dashboard/admin');
             }
-
             return redirect('/dashboard/user');
         }
         return back()->with('failedLogin', 'Sesuatu ada yang salah saat kamu menginput ');

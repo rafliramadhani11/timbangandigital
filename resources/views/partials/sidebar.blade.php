@@ -31,8 +31,8 @@
                             <span class="ml-3" sidebar-toggle-item>Profile</span>
                         </a>
                     </li>
-                    @endcannot
                 </ul>
+                @endcannot
                 <!-- ------------------------------------------ -->
 
                 <!-- ADMIN -->
@@ -92,8 +92,8 @@
 
                         </div>
                     </li>
-                    @endcan
                 </ul>
+                @endcan
                 <!-- ------------------------------------------- -->
             </div>
         </div>
