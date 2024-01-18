@@ -20,18 +20,13 @@
                         <h3 class="text-lg font-medium">Peringatan</h3>
                     </div>
                     <div class="mt-2 mb-4 text-sm">
-                        Anda Tidak bisa melihat hasil timbangan karena belum mengisi Biodata
+                        Silahkan mengisi biodata lalu timbang anak anda untuk melihat grafik perkembangan gizi anak anda
                     </div>
                     <div class="flex">
-                        <a href="{{ route('user.show', $user->username) }}" class="text-white bg-red-800 hover:bg-red-900 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-xs px-3 py-1.5 me-2 text-center inline-flex items-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
-                            <svg class="me-2 h-3 w-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 14">
-                                <path d="M10 0C4.612 0 0 5.336 0 7c0 1.742 3.546 7 10 7 6.454 0 10-5.258 10-7 0-1.664-4.612-7-10-7Zm0 10a3 3 0 1 1 0-6 3 3 0 0 1 0 6Z" />
-                            </svg>
+                        <a href="{{ route('user.edit', $user->username) }}" class="text-white bg-green-800 hover:bg-green-900 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-xs px-3 py-1.5 me-2 text-center inline-flex items-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
                             Isi Biodata sekarang
                         </a>
-                        <button type="button" class="text-red-800 bg-transparent border border-red-800 hover:bg-red-900 hover:text-white focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-xs px-3 py-1.5 text-center dark:hover:bg-red-600 dark:border-red-600 dark:text-red-500 dark:hover:text-white dark:focus:ring-red-800" data-dismiss-target="#alert-additional-content-2" aria-label="Close">
-                            Dismiss
-                        </button>
+
                     </div>
                 </div>
                 @else

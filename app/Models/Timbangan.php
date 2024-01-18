@@ -11,6 +11,7 @@ class Timbangan extends Model
     use HasFactory;
 
     protected $fillable = ['anak_id', 'umur', 'pb', 'bb'];
+    public $timestamps = true;
 
     public function anak()
     {

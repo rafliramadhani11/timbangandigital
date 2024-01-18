@@ -31,10 +31,11 @@ class UserController extends Controller
     public function show($username)
     {
         $user = User::where('username', $username)->with('region')->first();
+
+
         if ($user->username != auth()->user()->username) {
             return redirect()->back();
         }
-
         return view('user.show', [
             'user' => $user,
             'anaks' => $user->anaks

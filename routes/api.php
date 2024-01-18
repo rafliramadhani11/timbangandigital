@@ -21,6 +21,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/grafik', function (){
+Route::get('/grafik', function () {
     return response()->json("hello");
 });

@@ -3,11 +3,12 @@
 use Illuminate\Support\Facades\Route;
 
 
+use App\Http\Controllers\AnakController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\AnakController;
-use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\RegionController;
+use App\Http\Controllers\TimbanganController;
+use App\Http\Controllers\AuthenticationController;
 
 Route::middleware(['guest'])->group(function () {
     Route::post('/login', [AuthenticationController::class, 'auth'])->name('authlogin');
@@ -29,6 +30,9 @@ Route::middleware('admin')->group(function () {
     // ANAK
     Route::get('/dashboard/admin/users/{username}/anak/{anak:id}', [AdminController::class, 'showAnak'])->name('admin.anak.show')->scopeBindings();
     Route::post('/dashboard/admin/users/{username}/anak/create', [AdminController::class, 'storeAnak'])->name('admin.anak.store');
+    // TIMBANG UPDATE
+    Route::put('/dashboard/admin/users/anak/{id}/timbang', [TimbanganController::class, 'update'])->name('admin.update.timbang');
+    // ----------------------------
     Route::put('/dashboard/admin/users/anak/{id}', [AdminController::class, 'updateAnak'])->name('admin.anak.update');
     Route::delete('/dashboard/admin/users/anak/{id}', [AdminController::class, 'deleteAnak'])->name('admin.anak.delete');
     // ------------------------------
@@ -48,5 +52,3 @@ Route::middleware('admin')->group(function () {
 
     Route::delete('/dashboard/admin/users/{username}', [AdminController::class, 'delete'])->name('admin.user.delete');
 });
-
-
