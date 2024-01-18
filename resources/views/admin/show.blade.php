@@ -259,7 +259,6 @@
                                 <span class="block text-sm">
                                     {{ $anak->name }}
                                 </span>
-
                             </td>
                             <td class="px-4 py-2 text-gray-700 whitespace-nowrap dark:text-gray-200">
                                 {{ $anak->jeniskelamin }}
