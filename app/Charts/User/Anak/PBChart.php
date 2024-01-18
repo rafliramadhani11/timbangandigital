@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Charts;
+namespace App\Charts\User\Anak;
 
 use App\Models\Timbangan;
 use ArielMejiaDev\LarapexCharts\LarapexChart;
 
-class IMTChart
+class PBChart
 {
     protected $chart;
 
@@ -18,7 +18,7 @@ class IMTChart
     {
         $timbanganData = Timbangan::where('anak_id', $id)
             ->orderBy('created_at')
-            ->pluck('imt')
+            ->pluck('pb')
             ->toArray();
         $tanggalData = Timbangan::where('anak_id', $id)
             ->orderBy('created_at')
@@ -26,8 +26,9 @@ class IMTChart
             ->map->format('j M')
             ->toArray();
 
+
         return $this->chart->lineChart()
-            ->addData('Indeks Massa Tubuh', $timbanganData)
+            ->addData('Panjang Badan', $timbanganData)
             ->setXAxis($tanggalData)
             ->setHeight(250)
             ->setColors(['#4fc1c1'])

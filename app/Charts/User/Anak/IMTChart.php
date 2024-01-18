@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Charts;
+namespace App\Charts\User\Anak;
 
 use App\Models\Timbangan;
 use ArielMejiaDev\LarapexCharts\LarapexChart;
@@ -25,6 +25,7 @@ class IMTChart
             ->pluck('created_at')
             ->map->format('j M')
             ->toArray();
+
 
         return $this->chart->lineChart()
             ->addData('Indeks Massa Tubuh', $timbanganData)
