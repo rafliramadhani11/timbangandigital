@@ -52,7 +52,6 @@
             </div>
             @endif
 
-
             <!-- FORM -->
             <form action="{{ route('authlogin') }}" method="post" class="space-y-4">
                 @csrf
@@ -76,6 +75,8 @@
                 <p>Belum punya akun ?<a href="{{ route('register') }}" class="mx-1 text-black hover:underline">Daftar disini</a>
                 </p>
             </div>
+            <!-- -------------------------------------------------- -->
+
         </div>
     </div>
 </div>

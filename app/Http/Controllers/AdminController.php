@@ -100,6 +100,8 @@ class AdminController extends Controller
         $imt =  $bb / ($pbMeter * $pbMeter);
         // ---------------------------------------
 
+        $imt_status = '';
+
         $dataTimbangan = [
             'anak_id' => $anak->id,
             'umur' => $request->input('umur'),

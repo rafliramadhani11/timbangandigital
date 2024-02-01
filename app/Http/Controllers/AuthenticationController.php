@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Region;
 use Illuminate\Http\Request;
+use App\Http\Requests\LoginRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\RegisterRequest;
+use Illuminate\Auth\Events\Registered;
 
 class AuthenticationController extends Controller
 {
@@ -18,6 +20,7 @@ class AuthenticationController extends Controller
 
     public function auth(Request $request)
     {
+
         $rules = $request->validate([
             'username' => 'required',
             'password' => 'required'
@@ -39,13 +42,6 @@ class AuthenticationController extends Controller
         return view('guest.register', [
             'regions' => Region::get()
         ]);
-    }
-
-    public function store(RegisterRequest $request)
-    {
-        $request['password'] = bcrypt($request->password);
-        User::create($request->validated());
-        return redirect('/login')->with('Registered', 'Berhasil Mendaftar Silahkan Melakukan Login');
     }
 
     public function logout(Request $request)

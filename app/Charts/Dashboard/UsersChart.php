@@ -30,14 +30,10 @@ class UsersChart
             ->groupBy('regions.id', 'regions.name')
             ->get();
 
-        // Extracting array_keys
         $regionNames = $regions->pluck('name')->toArray();
-
-        // Extracting array_values
         $totalUsers = $regions->pluck('total_users')->toArray();
         $totalAnak = $regions->pluck('total_anak')->toArray();
 
-        // dd($totalUsers);
         return $this->chart->barChart()
             ->addData('User', $totalUsers)
             ->addData('Anak',  $totalAnak)

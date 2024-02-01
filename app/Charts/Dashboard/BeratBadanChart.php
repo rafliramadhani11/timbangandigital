@@ -23,7 +23,7 @@ class BeratBadanChart
             ->whereIn('regions.id', [1, 2, 3, 4, 5, 6])
             ->where('timbangans.bb_status', 'normal')
             ->groupBy('regions.id', 'regions.name')
-            ->latest('timbangans.created_at') // Menambahkan latest() untuk mendapatkan data yang terakhir
+            ->latest('timbangans.created_at') 
             ->get();
 
         $bbNormalByRegionArray = $bbNormalByRegion->map(function ($item) {
@@ -34,18 +34,13 @@ class BeratBadanChart
         })->pluck('bb_percentage', 'region_name')->toArray();
 
         $totalPercentage = array_sum($bbNormalByRegionArray);
-
-        // Normalisasi nilai persentase agar total tidak melebihi 100
         if ($totalPercentage > 100) {
             $bbNormalByRegionArray = array_map(function ($percent) use ($totalPercentage) {
                 return round(($percent / $totalPercentage) * 100, 1);
             }, $bbNormalByRegionArray);
         }
-
         $regionNames = array_keys($bbNormalByRegionArray);
         $bbValues = array_values($bbNormalByRegionArray);
-
-
 
         return $this->chart->donutChart()
             ->addData($bbValues)

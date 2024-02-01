@@ -11,7 +11,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
-<body class="bg-gray-50 dark:bg-gray-800">
+<body class="antialiased bg-gray-50 dark:bg-gray-800">
     @yield('content')
 </body>
 
