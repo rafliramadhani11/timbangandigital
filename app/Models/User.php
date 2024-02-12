@@ -41,11 +41,6 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function getRouteKeyName()
-    {
-        return $this->username;
-    }
-
     public function scopeFilter($query, array $filters)
     {
         $query->when($filters['search'] ?? false, function ($query, $search) {

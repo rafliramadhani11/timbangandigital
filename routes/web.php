@@ -1,8 +1,9 @@
 <?php
 
+use App\Livewire\Admin\Users;
+
+
 use Illuminate\Support\Facades\Route;
-
-
 use App\Http\Controllers\AnakController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
@@ -39,7 +40,7 @@ Route::middleware('admin')->group(function () {
     Route::post('/dashboard/admin/create/user', [AdminController::class, 'store'])->name('admin.store');
 
     Route::get('/dashboard/admin', [AdminController::class, 'index'])->name('admin.index');
-    Route::get('/dashboard/admin/users', [AdminController::class, 'allUsers'])->name('admin.users');
+    Route::get('/dashboard/admin/users', Users::class)->name('admin.users');
     // LIVE SEARCH
     Route::get('/search', [AdminController::class, 'search'])->name('search');
     // ---------------------

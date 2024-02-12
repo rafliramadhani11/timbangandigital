@@ -10,10 +10,11 @@
                         <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
                     </svg>
                 </button>
-                <a href="#" class="flex ml-2 md:mr-24">
-                    <img src="{{ asset('img/chart.png') }}" class="h-8 mr-3" alt="Timbangan Digital" />
-                    <span class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap text-gray-700 dark:text-white">Timbangan Digital</span>
-                </a>
+
+                <x-chart-logo />
+
+                <span class="self-center text-xl font-semibold text-gray-700 sm:text-2xl whitespace-nowrap dark:text-white">Timbangan Digital</span>
+
             </div>
             <div class="flex items-center ">
                 <button id="theme-toggle" type="button" class="text-gray-500 mx-5 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700  dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 transition duration-200">
