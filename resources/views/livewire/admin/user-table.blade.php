@@ -17,7 +17,7 @@
                         </di>
                         <input type="text" wire:model.live="search" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg ps-10 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" autofocus placeholder="Cari User berdasarkan Nama">
                         @if ($search)
-                        <span wire:click="resetSearch" class="absolute inset-y-0 end-0  inline-flex items-center  -ml-px text-sm font-medium leading-5 text-gray-500 dark:text-gray-300   dark:bg-gray-800 cursor-pointer me-3">
+                        <span wire:click="resetSearch" class="absolute inset-y-0 inline-flex items-center -ml-px overflow-hidden text-sm font-medium leading-5 text-gray-500 cursor-pointer end-0 dark:text-gray-300 dark:bg-none me-3">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
                             </svg>
@@ -62,21 +62,49 @@
     <table class="min-w-full text-sm bg-white divide-y-2 divide-gray-200 rounded-md dark:divide-gray-700 dark:bg-gray-800">
         <thead class="text-left">
             <tr>
-                <th class="px-5 py-5 font-medium text-gray-900 whitespace-nowrap dark:text-white text-center">
+                <th class="px-5 py-5 font-medium text-center text-gray-900 whitespace-nowrap dark:text-white">
                     No
                 </th>
                 <th class="px-10 py-5 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    Nama Lengkap
-                </th>
+                    <div class="flex items-center justify-between ">
+                        <a wire:click="sort('created_at')" class="cursor-pointer">
+                            Nama Lengkap
+                        </a>
+                        <a wire:click="sort('name')" class="cursor-pointer"><svg class="w-3 h-3 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z" />
+                            </svg></a>
 
-                <th class="px-10 py-5 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    Pekerjaan
+                    </div>
                 </th>
                 <th class="px-10 py-5 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    Jenis Kelamin
+                    <div class="flex items-center justify-between ">
+                        Pekerjaan
+                        <a wire:click="sort('pekerjaan')" class="cursor-pointer"><svg class="w-3 h-3 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z" />
+                            </svg>
+                        </a>
+                    </div>
                 </th>
                 <th class="px-10 py-5 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    Region
+                    <div class="flex items-center justify-between ">
+                        Jenis Kelamin
+                        <a <a wire:click="sort('jeniskelamin')" class="cursor-pointer"><svg class="w-3 h-3 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z" />
+                            </svg>
+                        </a>
+                    </div>
+                </th>
+                <th class="px-10 py-5 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    <div class="flex items-center justify-between ">
+                        Region
+                        <a <a wire:click="sort('region_id')" class="cursor-pointer"><svg class="w-3 h-3 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z" />
+                            </svg>
+                        </a>
+                    </div>
+                </th>
+                <th class="px-10 py-5 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    Registrasi
                 </th>
                 <th class="px-10 py-5 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                 </th>
@@ -86,7 +114,7 @@
         <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
             @foreach ($users as $key => $user )
             <tr wire:key="{{ $user->id }}">
-                <td class="px-5 py-2 text-gray-700 whitespace-nowrap dark:text-gray-200 text-center">
+                <td class="px-5 py-2 text-center text-gray-700 whitespace-nowrap dark:text-gray-200">
                     {{ $users->firstItem() + $key  }}
                 </td>
                 <td class="px-10 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
@@ -99,13 +127,16 @@
                 </td>
 
                 <td class="px-10 py-2 text-gray-700 whitespace-nowrap dark:text-gray-200">
-                    {{ $user->pekerjaan }}
+                    {{ $user->pekerjaan?: '-' }}
                 </td>
                 <td class="px-10 py-2 text-gray-700 whitespace-nowrap dark:text-gray-200">
                     {{ $user->jeniskelamin ?: '-' }}
                 </td>
                 <td class="px-10 py-2 text-gray-700 whitespace-nowrap dark:text-gray-200">
                     {{ $user->region->name ?: '-' }}
+                </td>
+                <td class="px-10 py-2 text-gray-700 whitespace-nowrap dark:text-gray-200">
+                    {{ $user->created_at->format('l, j M H:i')  }}
                 </td>
 
                 <td class="px-10 py-2 whitespace-nowrap">

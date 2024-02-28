@@ -2,14 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use App\Models\Region;
 use Illuminate\Http\Request;
 use App\Http\Requests\LoginRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Requests\RegisterRequest;
-use Illuminate\Auth\Events\Registered;
+
 
 class AuthenticationController extends Controller
 {
@@ -18,7 +16,7 @@ class AuthenticationController extends Controller
         return view('guest.login');
     }
 
-    public function auth(Request $request)
+    public function auth(LoginRequest $request)
     {
 
         $rules = $request->validate([

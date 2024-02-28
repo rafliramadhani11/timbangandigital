@@ -31,6 +31,14 @@
                             <span class="ml-3" sidebar-toggle-item>Profile</span>
                         </a>
                     </li>
+                    <li>
+                        <form action="{{ route('logout') }}" method="post">
+                            @csrf
+                            <button class="w-full px-4 py-2 my-1 text-center text-white bg-red-500 rounded-md">
+                                Sign Out
+                            </button>
+                        </form>
+                    </li>
                 </ul>
                 @endcannot
                 <!-- ------------------------------------------ -->
@@ -91,6 +99,14 @@
 
 
                         </div>
+                    </li>
+                    <li>
+                        <form action="{{ route('logout') }}" method="post">
+                            @csrf
+                            <button class="w-full px-4 py-2 my-1 text-center text-white bg-red-500 rounded-md">
+                                Sign Out
+                            </button>
+                        </form>
                     </li>
                 </ul>
                 @endcan

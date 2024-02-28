@@ -39,7 +39,7 @@ class DatabaseSeeder extends Seeder
         //     'slug' => Str::slug('Surabaya Barat')
         // ]);
 
-        \App\Models\User::factory(10)->create();
+        \App\Models\User::factory(5)->create();
         // \App\Models\Anak::factory(20)->create();
         // \App\Models\Timbangan::factory(60)->create();
     }

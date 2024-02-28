@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<!doctype html>
+<html>
 
 <head>
     <meta charset="utf-8">
@@ -11,7 +11,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
-<body>
+<body class="antialiased bg-gray-50 dark:bg-gray-800">
     {{ $slot }}
 </body>
 

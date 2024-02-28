@@ -22,8 +22,15 @@ class LoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'username' => 'required',
+            'username' => 'required|string',
             'password' => 'required'
+        ];
+    }
+    public function messages(): array
+    {
+        return [
+            'username.required' => 'Silahkan isi username dahulu',
+            'password.required' => 'Silahkan isi password dahulu',
         ];
     }
 }

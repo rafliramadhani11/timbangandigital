@@ -20,7 +20,7 @@ class UserRegister extends Component
             $this->form->all()
         );
         $this->reset();
-        return redirect('/login')->with('Registered', 'Berhasil Mendaftar Silahkan Melakukan Login');;
+        return redirect('/login')->with('Registered', 'Berhasil Mendaftar Silahkan Melakukan Login');
     }
 
     public function render()

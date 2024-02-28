@@ -41,13 +41,6 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function scopeFilter($query, array $filters)
-    {
-        $query->when($filters['search'] ?? false, function ($query, $search) {
-            return $query->where('name', 'like', '%' . $search . '%');
-        });
-    }
-
     public function anaks()
     {
         return $this->hasMany(Anak::class);
@@ -57,4 +50,11 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Region::class);
     }
+
+    /**
+     * Scope a query to order users in ascending order.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
 }

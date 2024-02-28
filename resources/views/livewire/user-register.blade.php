@@ -32,7 +32,9 @@
         <div>
             <label for="region" class="block mb-2 text-sm font-medium text-gray-900">Region</label>
             <select id="region" wire:model="form.region_id" class="block w-full px-3 pt-2 mt-1 text-sm bg-white border rounded-md shadow-sm placeholder-slate-400">
-                <option value="" {{ old('region_id') == '' ? 'selected' : '' }} disabled></option>
+                <option value="" {{ old('region_id') == '' ? 'selected' : '' }} disabled>
+
+                </option>
                 @foreach ($regions as $region)
                 <option value="{{ $region->id }}" {{ old('region_id') == $region->id ? 'selected' : '' }}>{{ $region->name }}</option>
                 @endforeach
