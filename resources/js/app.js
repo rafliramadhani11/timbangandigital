@@ -1,8 +1,9 @@
-import "./bootstrap";
 import "flowbite";
 import "./dark-mode.js";
 import "./sidebar.js";
 import Swal from "sweetalert2";
+
+window.swal = Swal;
 
 if (
     localStorage.getItem("color-theme") === "dark" ||

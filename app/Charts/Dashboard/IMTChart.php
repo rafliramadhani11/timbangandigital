@@ -21,7 +21,7 @@ class IMTChart
             ->join('users', 'regions.id', '=', 'users.region_id')
             ->join('anaks', 'users.id', '=', 'anaks.user_id')
             ->join('timbangans', 'anaks.id', '=', 'timbangans.anak_id')
-            ->whereIn('regions.id', [1, 2, 3, 4, 5, 6]) // Gantilah dengan daftar ID Region yang sesuai
+            ->whereIn('regions.id', [1, 2, 3, 4, 5, 6])
             ->where('timbangans.imt_status', 'normal')
             ->groupBy('regions.id', 'regions.name');
 
@@ -33,8 +33,6 @@ class IMTChart
         })->pluck('imt_percentage', 'region_name')->toArray();
 
         $totalPercentage = array_sum($imtNormalByRegionArray);
-
-        // Normalisasi nilai persentase agar total tidak melebihi 100
         if ($totalPercentage > 100) {
             $imtNormalByRegionArray = array_map(function ($percent) use ($totalPercentage) {
                 return round(($percent / $totalPercentage) * 100, 1);
@@ -42,7 +40,6 @@ class IMTChart
         }
         $regionNames = array_keys($imtNormalByRegionArray);
         $imtValues = array_values($imtNormalByRegionArray);
-
 
         return $this->chart->donutChart()
             ->addData($imtValues)

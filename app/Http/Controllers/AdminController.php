@@ -100,6 +100,8 @@ class AdminController extends Controller
         $imt =  $bb / ($pbMeter * $pbMeter);
         // ---------------------------------------
 
+        $imt_status = '';
+
         $dataTimbangan = [
             'anak_id' => $anak->id,
             'umur' => $request->input('umur'),
@@ -121,25 +123,8 @@ class AdminController extends Controller
         ]);
     }
 
-
-
-    public function allRegions($slug)
-    {
-        $user = Auth::user();
-        $region = Region::where('slug', $slug)->first();
-        return view('admin.regions', [
-            "user_nav" => Auth::user(),
-
-            'user' => $user,
-            'regions' => Region::all(),
-            'users' => $region->users->where('admin', '!=', 1),
-            'region' => $region
-        ]);
-    }
-
     public function showUser($username)
     {
-
         $user = User::where('username', $username)->first();
         $anaks = $user->anaks()->with('timbangans')->get();
         $timbangan = Timbangan::where('anak_id', null)->first();
@@ -229,17 +214,5 @@ class AdminController extends Controller
     {
         Anak::where('id', $id)->delete();
         return redirect()->back()->with('deletedAnak', 'Data berhasil di hapus');
-    }
-
-    public function search(Request $request)
-    {
-
-        $users = User::where('name', 'like', '%' . $request->search . '%')
-            ->where('admin', '=', 0)
-            ->latest()
-            ->paginate(10)
-            ->withQueryString();
-
-        return view('partials.table', compact('users'));
     }
 }

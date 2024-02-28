@@ -34,17 +34,13 @@ class PanjangBadanChart
         })->pluck('pb_percentage', 'region_name')->toArray();
 
         $totalPercentage = array_sum($pbNormalByRegionArray);
-
-        // Normalisasi nilai persentase agar total tidak melebihi 100
         if ($totalPercentage > 100) {
             $pbNormalByRegionArray = array_map(function ($percent) use ($totalPercentage) {
                 return round(($percent / $totalPercentage) * 100, 1);
             }, $pbNormalByRegionArray);
         }
-
         $regionNames = array_keys($pbNormalByRegionArray);
         $pbValues = array_values($pbNormalByRegionArray);
-
 
         return $this->chart->donutChart()
             ->addData($pbValues)
