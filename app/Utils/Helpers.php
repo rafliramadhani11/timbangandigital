@@ -12,7 +12,7 @@ function calculateIMTU($umur, $imt, $isMale){
                         'domain' => [0, 4]
                     ],
                     'fase2'   =>  [
-                        'membership' => FUZZY_MEMBERSHIP_TRIANGLE,
+                        'membership' => FUZZY_MEMBERSHIP_TRAPEZOID,
                         'domain' => [3, 8]
                     ],
                     'fase3'   =>  [
@@ -28,7 +28,7 @@ function calculateIMTU($umur, $imt, $isMale){
                         'domain'        =>  $isMale ? [10.2, 13.4] : [10.1, 12.7]
                     ],
                     'medium'    =>  [
-                        'membership'    =>  FUZZY_MEMBERSHIP_TRIANGLE,
+                        'membership'    =>  FUZZY_MEMBERSHIP_TRAPEZOID,
                         'domain'        =>  $isMale ? [11.1, 19.8] : [11.1, 19.6]
                     ],
                     'high'    =>  [
@@ -44,7 +44,7 @@ function calculateIMTU($umur, $imt, $isMale){
                         'domain' => [10.15, 13.05]
                     ],
                     'normal'    =>  [
-                        'membership' => FUZZY_MEMBERSHIP_TRIANGLE,
+                        'membership' => FUZZY_MEMBERSHIP_TRAPEZOID,
                         'domain' => [11.1, 19.7]
                     ],
                     'obesitas'    =>  [
@@ -94,7 +94,7 @@ function calculateBBU($umur, $bb, $isMale){
                         'domain' => [0, 4]
                     ],
                     'fase2'   =>  [
-                        'membership' => FUZZY_MEMBERSHIP_TRIANGLE,
+                        'membership' => FUZZY_MEMBERSHIP_TRAPEZOID,
                         'domain' => [3, 8]
                     ],
                     'fase3'   =>  [
@@ -110,7 +110,7 @@ function calculateBBU($umur, $bb, $isMale){
                         'domain' => $isMale ? [2.1, 6.9] : [2.0, 6.3]
                     ],
                     'medium'    =>  [
-                        'membership' => FUZZY_MEMBERSHIP_TRIANGLE,
+                        'membership' => FUZZY_MEMBERSHIP_TRAPEZOID,
                         'domain' => $isMale ? [2.5, 12.0] : [2.4, 11.5]
                     ],
                     'high'    =>  [
@@ -126,7 +126,7 @@ function calculateBBU($umur, $bb, $isMale){
                         'domain' => [2.05, 6.6]
                     ],
                     'normal'    =>  [
-                        'membership' => FUZZY_MEMBERSHIP_TRIANGLE,
+                        'membership' => FUZZY_MEMBERSHIP_TRAPEZOID,
                         'domain' => [2.45, 11.75]
                     ],
                     'obesitas'    =>  [
@@ -173,7 +173,7 @@ function calculateTBU($umur, $tb, $isMale){
                         'domain' => [0, 4]
                     ],
                     'fase2'   =>  [
-                        'membership' => FUZZY_MEMBERSHIP_TRIANGLE,
+                        'membership' => FUZZY_MEMBERSHIP_TRAPEZOID,
                         'domain' => [3, 8]
                     ],
                     'fase3'   =>  [
@@ -189,7 +189,7 @@ function calculateTBU($umur, $tb, $isMale){
                         'domain' => $isMale ? [44.2, 68.6] : [43.6, 66.3]
                     ],
                     'medium'    =>  [
-                        'membership' => FUZZY_MEMBERSHIP_TRIANGLE,
+                        'membership' => FUZZY_MEMBERSHIP_TRAPEZOID,
                         'domain' => $isMale ? [46.1, 80.5] : [45.4, 79.2]
                     ],
                     'high'    =>  [
@@ -205,7 +205,7 @@ function calculateTBU($umur, $tb, $isMale){
                         'domain' => [43.9, 67.45]
                     ],
                     'normal'    =>  [
-                        'membership' => FUZZY_MEMBERSHIP_TRIANGLE,
+                        'membership' => FUZZY_MEMBERSHIP_TRAPEZOID,
                         'domain' => [45.75, 79.85]
                     ],
                     'tinggi'    =>  [
