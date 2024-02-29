@@ -1,4 +1,4 @@
-@extends('layout.main')
+@extends('layouts.main')
 
 @section('content')
 @include('partials.navbar')
@@ -29,7 +29,6 @@
                                         Ubah Nama
                                     </a>
                                     <!-- -------------------------------- -->
-
                                     <!-- MODAL UBAH -->
                                     <div id="ubah-nama-{{ $anak->id }}" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
                                         <div class="relative w-full max-w-md max-h-full p-2">
@@ -76,26 +75,25 @@
                                 </div>
                                 <div>
                                     <label class="font-bold text-gray-400 dark:text-gray-400">Jenis Kelamin</label>
-                                    <p class="font-semibold text-gray-800 dark:text-white">{{ $anak->gender }}</p>
+                                    <p class="font-semibold text-gray-800 dark:text-white">{{ $anak->jeniskelamin }}</p>
                                 </div>
                                 <div>
                                     <label class="font-bold text-gray-400 dark:text-gray-400">Umur</label>
-                                    <p class="font-semibold text-gray-800 dark:text-white">{{ $anak->umur }} Bulan</p>
+                                    <p class="font-semibold text-gray-800 dark:text-white">{{ optional($anak->timbangans->first())->umur }} Bulan</p>
                                 </div>
-
                             </div>
                             <div class="grid grid-cols-2 my-2 gap-y-8 md:grid-cols-3">
                                 <div>
                                     <label class="font-bold text-gray-400 dark:text-gray-400">Panjang Badan</label>
-                                    <p class="font-semibold text-gray-800 dark:text-white">{{ $anak->tb }} cm</p>
+                                    <p class="font-semibold text-gray-800 dark:text-white">{{ optional($anak->timbangans->first())->pb }} cm</p>
                                 </div>
                                 <div>
                                     <label class="font-bold text-gray-400 dark:text-gray-400">Berat Badan</label>
-                                    <p class="font-semibold text-gray-800 dark:text-white">{{ $anak->bb }} Kg</p>
+                                    <p class="font-semibold text-gray-800 dark:text-white">{{ optional($anak->timbangans->first())->bb }} Kg</p>
                                 </div>
                                 <div>
                                     <label class="font-bold text-gray-400 dark:text-gray-400">Indeks Massa Tubuh (IMT)</label>
-                                    <p class="font-semibold text-gray-800 dark:text-white">{{ $anak->imt }}</p>
+                                    <p class="font-semibold text-gray-800 dark:text-white">{{ optional($anak->timbangans->first())->imt }}</p>
                                 </div>
                             </div>
                         </div>
@@ -103,8 +101,202 @@
                 </div>
                 <!-- ------------------------------------------- -->
             </div>
+            <!-- GRAFIK -->
+            <div class="lg:grid lg:grid-cols-3 lg:gap-x-5">
+                <!-- INDEKS MASSA TUBUH -->
+                <div class="p-4 px-4 mb-6 bg-white rounded shadow-md dark:bg-gray-800 md:p-8 ">
+                    <div>
+                        <span class="block text-2xl font-bold text-black dark:text-white">
+                            Indeks Massa Tubuh
+                        </span>
+                        <span class="text-xs text-slate-500 ">
+                            Grafik perkembangan gizi anak
+                        </span>
+                    </div>
+                    <div class="mt-5 ">
+                        {!! $imtchart->container() !!}
+                    </div>
+                    <div>
+                        <div class="relative overflow-x-auto">
+                            <table class="w-full text-sm text-left text-gray-500 rtl:text-right dark:text-gray-400">
+                                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 ">
+                                    <tr>
+                                        <th scope="col" class="px-4 py-3">
+                                            Tanggal
+                                        </th>
+                                        <th scope="col" class="px-6 py-3">
+                                            Umur
+                                        </th>
+                                        <th scope="col" class="px-6 py-3">
+                                            Indeks Massa Tubuh
+                                        </th>
+                                        <th scope="col" class="px-6 py-3">
+                                            Status
+                                        </th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($anak->timbangans as $i => $timbangan)
+                                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                        <td class="px-4 py-4">
+                                            {{ $timbangan->created_at->format('j M') }}
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            {{ $timbangan->umur }} Bulan
+                                        </td>
+                                        <td class="px-6 py-4 ">
+                                            {{ $timbangan->imt }}
+                                        </td>
+                                        <td class="px-6 py-4 ">
+                                            {{ $timbangan->imt_status }}
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="mt-5">
+                        <span class="text-xs text-slate-500 ">
+                            *Berdasarkan data terakhir yang masuk
+                        </span>
+                    </div>
+                </div>
+                <!-- -------------------------------------------------- -->
+                <!-- PANJANG BADAN -->
+                <div class="p-4 px-4 mb-6 bg-white rounded shadow-md dark:bg-gray-800 md:p-8 ">
+                    <div>
+                        <span class="block text-2xl font-bold text-black dark:text-white">
+                            Panjang Badan
+                        </span>
+                        <span class="text-xs text-slate-500 ">
+                            Grafik perkembangan gizi anak
+                        </span>
+                    </div>
+                    <div class="mt-5 ">
+                        {!! $pbchart->container() !!}
+                    </div>
+                    <div>
+                        <div class="relative overflow-x-auto">
+                            <table class="w-full text-sm text-left text-gray-500 rtl:text-right dark:text-gray-400">
+                                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 ">
+                                    <tr>
+                                        <th scope="col" class="px-6 py-3">
+                                            Tanggal
+                                        </th>
+                                        <th scope="col" class="px-6 py-3">
+                                            Umur
+                                        </th>
+                                        <th scope="col" class="px-6 py-3">
+                                            Panjang Badan
+                                        </th>
+                                        <th scope="col" class="px-6 py-3">
+                                            Status
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($anak->timbangans as $i => $timbangan)
+                                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                        <td class="px-6 py-4">
+                                            {{ $timbangan->created_at->format('j M') }}
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            {{ $timbangan->umur }} Bulan
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            {{ $timbangan->pb }} cm
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            {{ $timbangan->pb_status }}
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="mt-5">
+                        <span class="text-xs text-slate-500 ">
+                            *Berdasarkan data terakhir yang masuk
+                        </span>
+                    </div>
+                </div>
+                <!-- ------------------------------------------------------ -->
+                <!-- BERAT BADAN -->
+                <div class="p-4 px-4 mb-6 bg-white rounded shadow-md dark:bg-gray-800 md:p-8 ">
+                    <div>
+                        <span class="block text-2xl font-bold text-black dark:text-white">
+                            Berat Badan
+                        </span>
+                        <span class="text-xs text-slate-500 ">
+                            Grafik perkembangan gizi anak
+                        </span>
+                    </div>
+                    <div class="mt-5 ">
+                        {!! $bbchart->container() !!}
+                    </div>
+                    <div>
+                        <div class="relative overflow-x-auto">
+                            <table class="w-full text-sm text-left text-gray-500 rtl:text-right dark:text-gray-400">
+                                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 ">
+                                    <tr>
+                                        <th scope="col" class="px-6 py-3">
+                                            Tanggal
+                                        </th>
+                                        <th scope="col" class="px-6 py-3">
+                                            Umur
+                                        </th>
+                                        <th scope="col" class="px-6 py-3">
+                                            Berat Badan
+                                        </th>
+                                        <th scope="col" class="px-6 py-3">
+                                            Status
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($anak->timbangans as $i => $timbangan)
+                                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                        <td class="px-6 py-4">
+                                            {{ $timbangan->created_at->format('j M') }}
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            {{ $timbangan->umur }} Bulan
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            {{ $timbangan->bb }} Kg
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            {{ $timbangan->bb_status }}
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="mt-5">
+                        <span class="text-xs text-slate-500 ">
+                            *Berdasarkan data terakhir yang masuk
+                        </span>
+                    </div>
+                </div>
+                <!-- ---------------------------------------------------------- -->
+            </div>
+            <!-- ------------------------------------------------ -->
+
         </main>
     </div>
 </div>
+
+<script src="{{ $imtchart->cdn() }}"></script>
+<script src="{{ $pbchart->cdn() }}"></script>
+<script src="{{ $bbchart->cdn() }}"></script>
+
+{{ $bbchart->script() }}
+{{ $pbchart->script() }}
+{{ $imtchart->script() }}
 
 @endsection

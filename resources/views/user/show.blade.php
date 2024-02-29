@@ -1,4 +1,4 @@
-@extends('layout.main')
+@extends('layouts.main')
 
 @section('content')
 @include('partials.navbar')
@@ -54,10 +54,7 @@
                                     <label class="font-bold text-gray-400 dark:text-gray-400">Pekerjaan</label>
                                     <p class="font-semibold text-gray-800 dark:text-white">{{ $user->pekerjaan }}</p>
                                 </div>
-
                             </div>
-
-
 
                             <span class="mt-5 text-gray-400">Personal Info</span>
                             <hr class="h-0.5 border-0 dark:bg-gray-500 bg-gray-200" />
@@ -91,14 +88,9 @@
                                 </div>
                             </div>
                         </div>
-
-
                     </div>
                 </div>
                 <!-- ------------------------------------------- -->
-
-
-
             </div>
 
             <!-- DATA ANAK -->
@@ -160,20 +152,22 @@
                                 {{ $anak->name }}
                             </td>
                             <td class="px-4 py-2 text-gray-700 whitespace-nowrap dark:text-gray-200">
-                                {{ $anak->gender }}
+                                {{ $anak->jeniskelamin }}
                             </td>
                             <td class="px-4 py-2 text-gray-700 whitespace-nowrap dark:text-gray-200">
-                                {{ $anak->umur }} Bulan
+                                {{ optional($anak->timbangans->first())->umur }} Bulan
+                            </td>
+
+                            <td class="px-4 py-2 text-gray-700 whitespace-nowrap dark:text-gray-200">
+                                {{ optional($anak->timbangans->first())->pb ?? '-' }} cm
                             </td>
                             <td class="px-4 py-2 text-gray-700 whitespace-nowrap dark:text-gray-200">
-                                {{ $anak->tb }} cm
+                                {{ optional($anak->timbangans->first())->bb ?? '-' }} kg
                             </td>
                             <td class="px-4 py-2 text-gray-700 whitespace-nowrap dark:text-gray-200">
-                                {{ $anak->bb }} kg
+                                {{ optional($anak->timbangans->first())->imt }}
                             </td>
-                            <td class="px-4 py-2 text-gray-700 whitespace-nowrap dark:text-gray-200">
-                                {{ $anak->imt }}
-                            </td>
+
                             <td class="px-4 py-2 text-gray-700 whitespace-nowrap dark:text-gray-200">
                                 <span class="inline-flex -space-x-px overflow-hidden bg-white border rounded-md shadow-sm dark:border-gray-700 dark:bg-gray-800">
                                     <a href="{{ route('anak.show', ['user' => $anak->user->username, 'anak' => $anak->id]) }}" role="button" id="ubahNama" class="inline-block px-4 py-2 text-sm font-medium text-gray-700 hover:bg-green-100 focus:relative dark:text-gray-200 dark:hover:bg-green-800" type="button">

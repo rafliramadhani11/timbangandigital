@@ -16,7 +16,26 @@ class TimbanganController extends Controller
             'bb' => 'required',
         ]);
 
-        Timbangan::create($validated);
-        return 'berhasil';
+        $timbangan = Timbangan::create($validated);
+        return $timbangan;
+    }
+
+    public function update($id, Request $request)
+    {
+        $pb = $request->input('pb');
+        $bb = $request->input('bb');
+        // IMT RUMUS
+        $pbMeter = $pb / 100;
+        $imt =  $bb / ($pbMeter * $pbMeter);
+        // ---------------------------------------
+        $dataTimbangan = [
+            'anak_id' => $id,
+            'umur' => $request->input('umur'),
+            'pb' => $pb,
+            'bb' => $bb,
+            'imt' =>  round($imt, 1),
+        ];
+        Timbangan::where('anak_id', null)->update($dataTimbangan);
+        return redirect()->back()->with('updatedTimbang', 'Berhasil Update Data !');
     }
 }

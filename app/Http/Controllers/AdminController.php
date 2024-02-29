@@ -6,27 +6,61 @@ namespace App\Http\Controllers;
 use App\Models\Anak;
 use App\Models\User;
 use App\Models\Region;
+use App\Charts\IMTChart;
 use App\Models\Timbangan;
 use Illuminate\Http\Request;
+use App\Charts\BeratBadanChart;
+use App\Charts\PanjangBadanChart;
 use Illuminate\Support\Facades\DB;
+use App\Charts\Dashboard\UsersChart;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreOrangtuaRequest;
 use App\Http\Requests\UpdateOrangtuaRequest;
+use App\Charts\Dashboard\IMTChart as IMTChartDashboard;
+use App\Charts\Dashboard\BeratBadanChart as BeratBadanChartDashboard;
+use App\Charts\Dashboard\PanjangBadanChart as PanjangBadanChartDashboard;
 
 
 class AdminController extends Controller
 {
-    public function index()
+    public function index(UsersChart $userschart, IMTChartDashboard $imtchart, PanjangBadanChartDashboard $pbchart, BeratBadanChartDashboard $bbchart)
     {
+        $regionsUser = DB::table('regions')
+            ->join('users', function ($join) {
+                $join->on('regions.id', '=', 'users.region_id')
+                    ->where('users.admin', '!=', 1);
+            })
+            ->select('regions.*', 'users.*')
+            ->get();
+
+
+        $totalAnak = DB::table('regions')
+            ->leftJoin('users', 'regions.id', '=', 'users.region_id')
+            ->leftJoin('anaks', 'users.id', '=', 'anaks.user_id')
+            ->where('users.admin', '!=', 1)
+            ->sum('anaks.id');
+
+
+
         return view('admin.index', [
             "user_nav" => Auth::user(),
-            'regions' => Region::all()
+            'regions' => Region::get(),
+
+            'regionsUser' => $regionsUser,
+            'totalAnak' => $totalAnak,
+
+            'userschart' => $userschart->build(),
+
+            'imtchart' => $imtchart->build(),
+            'pbchart' => $pbchart->build(),
+            'bbchart' => $bbchart->build(),
         ]);
     }
 
     public function create()
     {
+
         return view('admin.create', [
             "user_nav" => Auth::user(),
             'regions' => Region::all()
@@ -61,22 +95,20 @@ class AdminController extends Controller
 
         $pb = $request->input('pb');
         $bb = $request->input('bb');
+        // IMT RUMUS
+        $pbMeter = $pb / 100;
+        $imt =  $bb / ($pbMeter * $pbMeter);
+        // ---------------------------------------
 
-        $imt = $pb > 0 ? $bb / (($pb / 100.0) * ($pb / 100.0)) : null;
-
-        $umur = $request->input('umur');
-        $gender = $request->input('jeniskelamin');
-        $status = calculateIMTU($umur, $imt, $gender);
+        $imt_status = '';
 
         $dataTimbangan = [
             'anak_id' => $anak->id,
-            'status' => $status,
-            'umur' => $umur,
+            'umur' => $request->input('umur'),
             'pb' => $pb,
             'bb' => $bb,
             'imt' =>  round($imt, 1)
         ];
-
         Timbangan::where('anak_id', null)->update($dataTimbangan);
         return redirect()->back()->with('storedAnak', 'Berhasil menambah data anak !');
     }
@@ -86,24 +118,8 @@ class AdminController extends Controller
     {
         return view('admin.users', [
             "user_nav" => Auth::user(),
-            'users' => User::where('id', '!=', Auth::user()->id)->latest()->filter(request(['search']))->paginate(10)->withQueryString(),
+            'users' => User::where('id', '!=', Auth::user()->id)->latest()->paginate(10)->withQueryString(),
             'regions' => Region::all()
-        ]);
-    }
-
-
-
-    public function allRegions($slug)
-    {
-        $user = Auth::user();
-        $region = Region::where('slug', $slug)->first();
-        return view('admin.regions', [
-            "user_nav" => Auth::user(),
-
-            'user' => $user,
-            'regions' => Region::all(),
-            'users' => $region->users->where('admin', '!=', 1),
-            'region' => $region
         ]);
     }
 
@@ -124,21 +140,31 @@ class AdminController extends Controller
         ]);
     }
 
-    public function showAnak($username, $id)
-    {
+    public function showAnak(
+        $username,
+        $id,
+        PanjangBadanChart $pbchart,
+        BeratBadanChart $bbchart,
+        IMTChart $imtchart,
+    ) {
         $username = User::where('username', $username)->first();
-        $anak_id = Anak::where('id', $id)->first();
+        $anak = Anak::where('id', $id)->first();
         $user = Auth::user();
+        $timbangan = Timbangan::where('anak_id', null)->first();
 
 
-        // Pake Timbangan::where('anak_id', $id)->first()->status untuk mengambil status timbangan berdasarkan perhitungan fuzzy dengan variabel IMT dan Umur;
         return view('admin.anak.show', [
             'user' => $user,
+            "user_nav" => Auth::user(),
             'regions' => Region::all(),
 
+            'pbchart' => $pbchart->build($anak->id),
+            'bbchart' => $bbchart->build($anak->id),
+            'imtchart' => $imtchart->build($anak->id),
+
             'username' => $username,
-            'anak' => $anak_id,
-            "user_nav" => Auth::user(),
+            'anak' => $anak,
+            'timbangan' => $timbangan,
         ]);
     }
 
@@ -188,17 +214,5 @@ class AdminController extends Controller
     {
         Anak::where('id', $id)->delete();
         return redirect()->back()->with('deletedAnak', 'Data berhasil di hapus');
-    }
-
-    public function search(Request $request)
-    {
-
-        $users = User::where('name', 'like', '%' . $request->search . '%')
-            ->where('admin', '=', 0)
-            ->latest()
-            ->paginate(10)
-            ->withQueryString();
-
-        return view('partials.table', compact('users'));
     }
 }

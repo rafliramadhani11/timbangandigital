@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use App\Models\Region;
 use Illuminate\Http\Request;
+use App\Http\Requests\LoginRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Requests\RegisterRequest;
+
 
 class AuthenticationController extends Controller
 {
@@ -16,8 +16,9 @@ class AuthenticationController extends Controller
         return view('guest.login');
     }
 
-    public function auth(Request $request)
+    public function auth(LoginRequest $request)
     {
+
         $rules = $request->validate([
             'username' => 'required',
             'password' => 'required'
@@ -29,7 +30,6 @@ class AuthenticationController extends Controller
             if (Auth::user()->admin) {
                 return redirect('/dashboard/admin');
             }
-
             return redirect('/dashboard/user');
         }
         return back()->with('failedLogin', 'Sesuatu ada yang salah saat kamu menginput ');
@@ -40,13 +40,6 @@ class AuthenticationController extends Controller
         return view('guest.register', [
             'regions' => Region::get()
         ]);
-    }
-
-    public function store(RegisterRequest $request)
-    {
-        $request['password'] = bcrypt($request->password);
-        User::create($request->validated());
-        return redirect('/login')->with('Registered', 'Berhasil Mendaftar Silahkan Melakukan Login');
     }
 
     public function logout(Request $request)

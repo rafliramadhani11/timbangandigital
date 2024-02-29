@@ -1,4 +1,4 @@
-@extends('layout.main')
+@extends('layouts.main')
 
 @section('content')
 @include('partials.navbar')
@@ -104,6 +104,7 @@
                 <!-- CREATE ANAK -->
                 <div>
                     <div class="p-4 px-4 mb-6 bg-white rounded shadow-md dark:bg-gray-800 md:p-8 lg:h-[25.5rem]">
+
                         <form method="post" action="{{ route('admin.anak.store', $user->username) }}">
                             @csrf
                             <div class="grid text-gray-600 dark:text-white">
@@ -157,14 +158,14 @@
                                 </div>
                                 <div>
                                     <label for="pb" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Panjang Badan (cm)</label>
-                                    <input type="number" id="pb" name="pb" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="{{ $timbangan->pb ?? '00.0' }}" min="1" max="1000" step="0.001" />
+                                    <input type="number" id="pb" name="pb" class="bg-gray-100 border border-gray-200 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-800 dark:border-gray-700 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="{{ $timbangan->pb ?? '0' }}" min="1" max="10000" step="0.001" />
                                     @error('pb')
                                     <small class="text-xs text-red-500 dark:text-red-500">{{$message}}</small>
                                     @enderror
                                 </div>
                                 <div>
                                     <label for="bb" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Berat Badan (Kg)</label>
-                                    <input type="number" id="bb" name="bb" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="{{  $timbangan->bb ?? '00.0'  }}" min="0" max="100" step="0.01" />
+                                    <input type="number" id="bb" name="bb" class="bg-gray-100 border border-gray-200 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-800 dark:border-gray-700 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="{{  $timbangan->bb ?? '0'  }}" />
                                     @error('bb')
                                     <small class="text-xs text-red-500 dark:text-red-500">{{$message}}</small>
                                     @enderror
@@ -232,8 +233,6 @@
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
-                        @if ($anaks->count())
-                        @foreach ($anaks as $anak)
                         @if (session()->has('deletedAnak'))
                         <div id="alert-3" class="flex items-center w-1/2 p-4 mb-4 text-green-800 bg-green-100 rounded-lg dark:bg-gray-700 dark:text-green-400" role="alert">
                             <svg class="flex-shrink-0 w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
@@ -251,12 +250,16 @@
                             </button>
                         </div>
                         @endif
+                        @if ($anaks->count())
+                        @foreach ($anaks as $anak)
                         <tr>
                             <td class="px-4 py-2 text-gray-700 whitespace-nowrap dark:text-gray-200">
                                 {{ $loop->iteration }}
                             </td>
                             <td class="px-4 py-2 text-gray-700 whitespace-nowrap dark:text-gray-200">
-                                {{ $anak->name }}
+                                <span class="block text-sm">
+                                    {{ $anak->name }}
+                                </span>
                             </td>
                             <td class="px-4 py-2 text-gray-700 whitespace-nowrap dark:text-gray-200">
                                 {{ $anak->jeniskelamin }}
