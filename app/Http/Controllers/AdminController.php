@@ -93,18 +93,24 @@ class AdminController extends Controller
         ]);
         $anak->save();
 
+        // IMT RUMUS
         $pb = $request->input('pb');
         $bb = $request->input('bb');
-        // IMT RUMUS
         $pbMeter = $pb / 100;
         $imt =  $bb / ($pbMeter * $pbMeter);
         // ---------------------------------------
 
-        $imt_status = '';
-
+        // FUZZY
+        $imt_status = fuzzy_imt_usia($request->input('umur'), round($imt, 1));
+        $pb_status = fuzzy_tb_usia($request->input('umur'), $pb);
+        $bb_status = fuzzy_bb_usia($request->input('umur'), $bb);
+        // -----------------------------------
         $dataTimbangan = [
             'anak_id' => $anak->id,
             'umur' => $request->input('umur'),
+            'imt_status' => strtoupper($imt_status),
+            'pb_status' => strtoupper($pb_status),
+            'bb_status' => strtoupper($bb_status),
             'pb' => $pb,
             'bb' => $bb,
             'imt' =>  round($imt, 1)

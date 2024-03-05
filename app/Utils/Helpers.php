@@ -84,9 +84,6 @@ function calculateIMTU($umur, $imt, $isMale)
     return $status;
 }
 
-
-
-
 function calculateBBU($umur, $bb, $isMale)
 {
     $res = Fuzzy::method(FUZZY_METHOD_MAMDANI)
@@ -170,7 +167,6 @@ function calculateBBU($umur, $bb, $isMale)
     }
 
     return $status;
-
 }
 
 function calculateTBU($umur, $tb, $isMale)
@@ -259,5 +255,4 @@ function calculateTBU($umur, $tb, $isMale)
     }
 
     return $status;
-
 }
