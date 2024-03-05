@@ -3,11 +3,13 @@ class FuzzySet {
   public $name;
   public $universe;
   public $membershipFunction;
+  public $firingStrength;
 
   public function __construct($name, $universe, $membershipFunction) {
     $this->name = $name;
     $this->universe = $universe;
     $this->membershipFunction = $membershipFunction;
+    $this->firingStrength = 0;
   }
 
   public function getMembership($value) {
@@ -75,16 +77,16 @@ parameter :
 */
 
 
-function fuzzy_imt_usia($usia, $imt){
+function fuzzy_imt_usia($usia, $imt, $isMale){
     // Fuzzy sets for usia
     $fase1 = new FuzzySet("fase1", [0, 4], "low_membership_function");
     $fase2 = new FuzzySet("fase2", [3, 8], "medium_membership_function");
     $fase3 = new FuzzySet("fase3", [7, 12], "high_membership_function");
 
     // Fuzzy sets for imt
-    $low = new FuzzySet("low", [10.2, 13.4], "low_membership_function");
-    $medium = new FuzzySet("medium", [11.1, 19.8], "medium_membership_function");
-    $high = new FuzzySet("high", [18.1, 21.6, 40], "high_membership_function");
+    $low = new FuzzySet("low", $isMale ? [10.2, 13.4] : [10.1, 12.7], "low_membership_function");
+    $medium = new FuzzySet("medium", $isMale ? [11.1, 19.8] : [11.1, 19.6], "medium_membership_function");
+    $high = new FuzzySet("high", $isMale ? [18.1, 21.6] : [17.7, 21.6], "high_membership_function");
 
     // Fuzzy sets for output
     $underweight = new FuzzySet("underweight", [10.15, 13.05], "low_membership_function");
@@ -157,16 +159,16 @@ parameter :
     - bb
 */
 
-function fuzzy_bb_usia($usia, $bb){
+function fuzzy_bb_usia($usia, $bb, $isMale){
     // Fuzzy sets for usia
     $fase1 = new FuzzySet("fase1", [0, 4], "low_membership_function");
     $fase2 = new FuzzySet("fase2", [3, 8], "medium_membership_function");
     $fase3 = new FuzzySet("fase3", [7, 12], "high_membership_function");
 
     // Fuzzy sets for bb
-    $low = new FuzzySet("low", [2.1, 6.9], "low_membership_function");
-    $medium = new FuzzySet("medium", [2.5, 12.0], "medium_membership_function");
-    $high = new FuzzySet("high", [5.0, 13.3], "high_membership_function");
+    $low = new FuzzySet("low", $isMale ? [2.1, 6.9] : [2.0, 6.3], "low_membership_function");
+    $medium = new FuzzySet("medium", $isMale ? [2.5, 12.0] : [2.4, 11.5], "medium_membership_function");
+    $high = new FuzzySet("high", $isMale ? [5.0, 13.3] : [4.8, 13.1], "high_membership_function");
 
     // Fuzzy sets for output
     $underweight = new FuzzySet("underweight", [2.05, 6.6], "low_membership_function");
@@ -235,20 +237,19 @@ function fuzzy_bb_usia($usia, $bb){
 /*
 Panggil fungsi ini untuk prediksi nilai gizi berdasarkan tinggi badan (tb) dan usia
 parameter : 
-    - usia
     - tb
 */
 
-function fuzzy_tb_usia($usia, $tb){
+function fuzzy_tb_usia($usia, $tb, $isMale){
     // Fuzzy sets for usia
     $fase1 = new FuzzySet("fase1", [0, 4], "low_membership_function");
     $fase2 = new FuzzySet("fase2", [3, 8], "medium_membership_function");
     $fase3 = new FuzzySet("fase3", [7, 12], "high_membership_function");
 
     // Fuzzy sets for tb
-    $low = new FuzzySet("low", [44.2, 68.6], "low_membership_function");
-    $medium = new FuzzySet("medium", [46.1, 80.5], "medium_membership_function");
-    $high = new FuzzySet("high", [55.6, 82.9], "high_membership_function");
+    $low = new FuzzySet("low", $isMale ? [44.2, 68.6] : [43.6, 66.3], "low_membership_function");
+    $medium = new FuzzySet("medium", $isMale ? [46.1, 80.5] : [45.4, 79.2], "medium_membership_function");
+    $high = new FuzzySet("high", $isMale ? [55.6, 82.9] : [54.7, 81.7], "high_membership_function");
 
     // Fuzzy sets for output
     $stunted = new FuzzySet("stunted", [43.9, 67.45], "low_membership_function");
@@ -314,6 +315,7 @@ function fuzzy_tb_usia($usia, $tb){
     return $outputFuzzySet->name;
 }
 
-echo "tb dan usia : " . fuzzy_tb_usia(5, 50) . "\n";
-echo "bb dan usia : " . fuzzy_bb_usia(5, 18) . "\n";
-echo "imt dan usia : " . fuzzy_tb_usia(5, 13) . "\n";
+// Contoh penggunaan fungsi
+echo "tb dan usia : " . fuzzy_tb_usia(5, 50, true) . "\n";
+echo "bb dan usia : " . fuzzy_bb_usia(5, 18, true) . "\n";
+echo "imt dan usia : " . fuzzy_tb_usia(5, 13, true) . "\n";
