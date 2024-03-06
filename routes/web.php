@@ -2,10 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AnakController;
-use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\RegionController;
 use App\Http\Controllers\TimbanganController;
+use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\AuthenticationController;
 
 Route::middleware('guest')->controller(AuthenticationController::class)
@@ -46,16 +46,31 @@ Route::middleware('admin')->controller(AdminController::class)
         });
     });
 
+Route::middleware(['auth'])->controller(UserController::class)
+    ->group(function () {
+        Route::group(['get'], function () {
+            Route::get('dashboard/user', 'index')->name('user.index');
+            Route::get('dashboard/user/{user}', 'show')->name('user.show');
+        });
+
+        Route::group(['post'], function () {
+            Route::post('user/logout', 'logout')
+                ->name('user.logout');
+        });
+    });
+
+
+
+
+
+
+
 Route::middleware('auth')->group(function () {
-    Route::post('/logout', [AuthenticationController::class, 'logout'])
-        ->name('logout');
+
     Route::get('/dashboard/user/{user}/anak/{anak:id}', [AnakController::class, 'show'])
         ->name('anak.show');
     Route::put('/dashboard/user/anak/{id}', [AnakController::class, 'update'])->name('anak.update');
-    Route::resource('/dashboard/user', UserController::class)
-        ->except(['store', 'destroy', 'create']);
 });
-
 
 
 

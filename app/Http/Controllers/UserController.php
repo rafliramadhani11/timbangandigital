@@ -13,6 +13,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\UpdateOrangtuaRequest;
 
+
 class UserController extends Controller
 {
     /**
@@ -26,7 +27,7 @@ class UserController extends Controller
 
         $user = User::where('username', Auth::user()->username)->first();
         $anaks = Anak::where('user_id', $user->id)->get();
-        // dd(count($anaks));
+
         return view('user.index', [
             'user' => Auth::user(),
             'anaks' => $anaks,

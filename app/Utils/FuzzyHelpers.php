@@ -1,4 +1,5 @@
 <?php
+
 class FuzzySet
 {
     public $name;
@@ -85,6 +86,7 @@ parameter :
 */
 
 
+
 function fuzzy_imt_usia($usia, $imt, $isMale)
 {
     // Fuzzy sets for usia
@@ -167,6 +169,7 @@ parameter :
     - usia
     - bb
 */
+
 
 function fuzzy_bb_usia($usia, $bb, $isMale)
 {
@@ -325,6 +328,7 @@ function fuzzy_tb_usia($usia, $tb, $isMale)
 
     return $outputFuzzySet->name;
 }
+
 
 // Contoh penggunaan fungsi
 // echo "tb dan usia : " . fuzzy_tb_usia(5, 50, true) . "\n";
