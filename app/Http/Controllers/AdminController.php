@@ -93,18 +93,37 @@ class AdminController extends Controller
         ]);
         $anak->save();
 
+        // IMT RUMUS
+        $umur = $request->input('umur');
+
         $pb = $request->input('pb');
         $bb = $request->input('bb');
-        // IMT RUMUS
         $pbMeter = $pb / 100;
+
         $imt =  $bb / ($pbMeter * $pbMeter);
         // ---------------------------------------
 
-        $imt_status = '';
+
+        // FUZZY
+        $imt_status = ($anak->jeniskelamin == 'Laki Laki')
+            ? fuzzy_imt_usia($umur, round($imt, 1), true)
+            : fuzzy_imt_usia($umur, round($imt, 1), false);
+
+        $pb_status = ($anak->jeniskelamin == 'Laki Laki')
+            ? fuzzy_tb_usia($umur, $pb, true)
+            : fuzzy_tb_usia($umur, $pb, false);
+
+        $bb_status = ($anak->jeniskelamin == 'Laki Laki')
+            ? fuzzy_bb_usia($umur, $bb, true)
+            : fuzzy_bb_usia($umur, $bb, false);
+        // -----------------------------------
 
         $dataTimbangan = [
             'anak_id' => $anak->id,
             'umur' => $request->input('umur'),
+            'imt_status' => strtoupper($imt_status),
+            'pb_status' => strtoupper($pb_status),
+            'bb_status' => strtoupper($bb_status),
             'pb' => $pb,
             'bb' => $bb,
             'imt' =>  round($imt, 1)
@@ -129,6 +148,19 @@ class AdminController extends Controller
         $anaks = $user->anaks()->with('timbangans')->get();
         $timbangan = Timbangan::where('anak_id', null)->first();
 
+
+        // $bb_status = fuzzy_bb_usia(3, 2.5, true); // UNDERWEIGHT
+        // $bb_status = fuzzy_bb_usia(3, 2.5, false); // NORMAL
+
+
+        // $pb_status = fuzzy_tb_usia(3, 45.6, true); // STUNTED
+        // $pb_status = fuzzy_tb_usia(3, 45.6, false); // NORMAL
+
+        // $pb_status = fuzzy_tb_usia(7, 82.5, false); // TINGGI
+        // $pb_status = fuzzy_tb_usia(7, 82.5, true); // NORMAL
+
+        // dd($pb_status);
+
         return view('admin.show', [
             "user_nav" => Auth::user(),
 
@@ -151,7 +183,6 @@ class AdminController extends Controller
         $anak = Anak::where('id', $id)->first();
         $user = Auth::user();
         $timbangan = Timbangan::where('anak_id', null)->first();
-
 
         return view('admin.anak.show', [
             'user' => $user,
@@ -214,5 +245,14 @@ class AdminController extends Controller
     {
         Anak::where('id', $id)->delete();
         return redirect()->back()->with('deletedAnak', 'Data berhasil di hapus');
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect('/login');
     }
 }

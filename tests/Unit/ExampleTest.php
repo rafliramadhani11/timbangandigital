@@ -14,8 +14,8 @@ class ExampleTest extends TestCase
     public function test_imt_u(): void
     {
         $res = [];
-        for($bulan = 0; $bulan <= 12; $bulan++){
-            for($imt = 10; $imt <= 13; $imt++){
+        for ($bulan = 0; $bulan <= 12; $bulan++) {
+            for ($imt = 10; $imt <= 13; $imt++) {
                 $tempRes = calculateIMTU($bulan, $imt, true);
                 $res[] = $tempRes;
             }
@@ -38,8 +38,8 @@ class ExampleTest extends TestCase
     public function test_bb_u(): void
     {
         $res = [];
-        for($bulan = 0; $bulan <= 12; $bulan++){
-            for($bb = 2; $bb <= 13; $bb++){
+        for ($bulan = 0; $bulan <= 12; $bulan++) {
+            for ($bb = 2; $bb <= 13; $bb++) {
                 $tempRes = calculateBBU($bulan, $bb, true);
                 $res[] = $tempRes;
             }
@@ -61,8 +61,8 @@ class ExampleTest extends TestCase
     public function test_pb_u(): void
     {
         $res = [];
-        for($bulan = 0; $bulan <= 12; $bulan++){
-            for($pb = 44; $pb <= 81; $pb++){
+        for ($bulan = 0; $bulan <= 12; $bulan++) {
+            for ($pb = 44; $pb <= 81; $pb++) {
                 $tempRes = calculateTBU($bulan, $pb, true);
                 $res[] = $tempRes;
             }
@@ -75,9 +75,8 @@ class ExampleTest extends TestCase
         }
         echo "\n\n";
 
-        fuzzy_imt_usia()
+
 
         $this->assertTrue(true);
     }
-
 }

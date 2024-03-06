@@ -14,16 +14,17 @@ class BeratBadanChart
         $this->chart = $chart;
     }
 
-    public function build(): \ArielMejiaDev\LarapexCharts\DonutChart
+    public function build(): \ArielMejiaDev\LarapexCharts\PieChart
     {
         $bbNormalByRegion = Region::selectRaw('regions.name as region_name, ROUND(AVG(timbangans.bb) / 5 * 100, 1) as bb_percentage')
             ->join('users', 'regions.id', '=', 'users.region_id')
             ->join('anaks', 'users.id', '=', 'anaks.user_id')
             ->join('timbangans', 'anaks.id', '=', 'timbangans.anak_id')
             ->whereIn('regions.id', [1, 2, 3, 4, 5, 6])
-            ->where('timbangans.bb_status', 'normal')
+            ->where('timbangans.bb_status', 'NORMAL')
+            ->where('users.admin', '!=', 1)
             ->groupBy('regions.id', 'regions.name')
-            ->latest('timbangans.created_at') 
+            ->latest('timbangans.created_at')
             ->get();
 
         $bbNormalByRegionArray = $bbNormalByRegion->map(function ($item) {
@@ -42,7 +43,7 @@ class BeratBadanChart
         $regionNames = array_keys($bbNormalByRegionArray);
         $bbValues = array_values($bbNormalByRegionArray);
 
-        return $this->chart->donutChart()
+        return $this->chart->pieChart()
             ->addData($bbValues)
             ->setHeight(400)
             ->setWidth(400)

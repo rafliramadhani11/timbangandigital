@@ -15,7 +15,6 @@ class TimbanganController extends Controller
             'pb' => 'required',
             'bb' => 'required',
         ]);
-
         $timbangan = Timbangan::create($validated);
         return $timbangan;
     }

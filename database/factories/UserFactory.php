@@ -33,7 +33,7 @@ class UserFactory extends Factory
 
 
         return [
-            'region_id' => rand(1, 6),
+            'region_id' => rand(1, 5),
 
             'name' => fake()->name(),
             'username' => fake()->bothify('user###'),

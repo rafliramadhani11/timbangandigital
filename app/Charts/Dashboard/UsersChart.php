@@ -38,7 +38,6 @@ class UsersChart
             ->addData('User', $totalUsers)
             ->addData('Anak',  $totalAnak)
             ->setColors(['#FFC107', '#D32F2F'])
-            ->setXAxis($regionNames)
-            ->setGrid();
+            ->setXAxis($regionNames);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Charts\User;
 
+use App\Models\Timbangan;
 use Illuminate\Support\Facades\DB;
 use ArielMejiaDev\LarapexCharts\LarapexChart;
 
@@ -16,30 +17,41 @@ class PanjangBadanChart
 
     public function build($user): \ArielMejiaDev\LarapexCharts\PieChart
     {
-        $pbCategories = DB::table('anaks')
-            ->join('timbangans', 'anaks.id', '=', 'timbangans.anak_id')
+        $totalPbStatus = Timbangan::join('anaks', 'timbangans.anak_id', '=', 'anaks.id')
             ->where('anaks.user_id', $user->id)
-            ->selectRaw('
-            COUNT(*) as total_pb,
-            SUM(CASE WHEN timbangans.pb < 44.2 THEN 1 ELSE 0 END) as pendek,
-            SUM(CASE WHEN timbangans.pb >= 44.2 AND timbangans.pb < 70.5 THEN 1 ELSE 0 END) as normal,
-            SUM(CASE WHEN timbangans.pb >= 70.5 THEN 1 ELSE 0 END) as tinggi
-            ')->first();
+            ->count();
 
-        $jumlahpb = $pbCategories->total_pb;
+        $counts = Timbangan::join('anaks', 'timbangans.anak_id', '=', 'anaks.id')
+            ->join('users', 'anaks.user_id', '=', 'users.id')
+            ->where('users.id', $user->id)
+            ->selectRaw('pb_status, COUNT(*) as count')
+            ->groupBy('pb_status')
+            ->pluck('count', 'pb_status');
 
-        $persentasePendek = ($jumlahpb > 0) ? round(($pbCategories->pendek / $jumlahpb) * 100, 1) : 0;
-        $persentaseNormal = ($jumlahpb > 0) ? round(($pbCategories->normal / $jumlahpb) * 100, 1) : 0;
-        $persentaseTinggi = ($jumlahpb > 0) ? round(($pbCategories->tinggi / $jumlahpb) * 100, 1) : 0;
+        $stuntedCount = $counts->get('STUNTED');
+        $normalCount = $counts->get('NORMAL');
+        $tinggiCount = $counts->get('TINGGI');
+
+        $stuntedPercentage = $totalPbStatus != 0
+            ? ($stuntedCount / $totalPbStatus) * 100
+            : null;
+        $normalPercentage = $totalPbStatus != 0
+            ? ($normalCount / $totalPbStatus) * 100
+            : null;
+        $tinggiPercentage = $totalPbStatus != 0
+            ? ($tinggiCount / $totalPbStatus) * 100
+            : null;
+
 
         $kategoriPB = [
-            'Pendek' => $persentasePendek,
-            'Normal' => $persentaseNormal,
-            'Tinggi' => $persentaseTinggi,
+            'STUNTED' => $stuntedPercentage,
+            'NORMAL' => $normalPercentage,
+            'TINGGI' => $tinggiPercentage,
         ];
 
         return $this->chart->pieChart()
             ->addData(array_values($kategoriPB))
-            ->setLabels(array_keys($kategoriPB));
+            ->setLabels(array_keys($kategoriPB))
+            ->setColors(['#ff829d', '#6fcdcd', '#ffd778']);
     }
 }

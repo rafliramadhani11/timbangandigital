@@ -37,7 +37,7 @@
                 Berdasarkan dari {{ $anaks->count() }} anak yang ada
             </span>
             <div class="gap-10 mb-6 bg-white rounded shadow-md lg:grid lg:grid-cols-3 dark:bg-gray-800 md:p-8">
-                <!-- PB -->
+                <!-- IMT -->
                 <div class="p-4 px-4 mb-6 ">
                     <h1 class="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white">
                         Indeks Massa Tubuh

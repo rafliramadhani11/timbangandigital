@@ -121,35 +121,40 @@
                             <table class="w-full text-sm text-left text-gray-500 rtl:text-right dark:text-gray-400">
                                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 ">
                                     <tr>
-                                        <th scope="col" class="px-4 py-3">
+                                        <th scope="col" class="px-2 py-4">
                                             Tanggal
                                         </th>
-                                        <th scope="col" class="px-6 py-3">
+                                        <th scope="col" class="px-1 py-4">
                                             Umur
                                         </th>
-                                        <th scope="col" class="px-6 py-3">
+                                        <th scope="col" class="px-3 py-4">
                                             Indeks Massa Tubuh
                                         </th>
-                                        <th scope="col" class="px-6 py-3">
+                                        <th scope="col" class="px-6 py-4">
                                             Status
                                         </th>
-
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($anak->timbangans as $i => $timbangan)
                                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                        <td class="px-4 py-4">
+                                        <td class="px-2 py-4">
                                             {{ $timbangan->created_at->format('j M') }}
                                         </td>
-                                        <td class="px-6 py-4">
+                                        <td class="px-1  py-4">
                                             {{ $timbangan->umur }} Bulan
                                         </td>
-                                        <td class="px-6 py-4 ">
+                                        <td class="px-3 py-4 text-center">
                                             {{ $timbangan->imt }}
                                         </td>
                                         <td class="px-6 py-4 ">
-                                            {{ $timbangan->imt_status }}
+                                            @if ($timbangan->imt_status == 'WASTED')
+                                            <span class="bg-red-100 text-red-800  px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">{{ $timbangan->imt_status }}</span>
+                                            @elseif($timbangan->imt_status == 'NORMAL')
+                                            <span class="bg-green-100 text-green-800  px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">{{ $timbangan->imt_status }}</span>
+                                            @else
+                                            <span class="bg-yellow-100 text-yellow-800  px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300">{{ $timbangan->imt_status }}</span>
+                                            @endif
                                         </td>
                                     </tr>
                                     @endforeach
@@ -157,11 +162,7 @@
                             </table>
                         </div>
                     </div>
-                    <div class="mt-5">
-                        <span class="text-xs text-slate-500 ">
-                            *Berdasarkan data terakhir yang masuk
-                        </span>
-                    </div>
+
                 </div>
                 <!-- -------------------------------------------------- -->
                 <!-- PANJANG BADAN -->
@@ -182,16 +183,16 @@
                             <table class="w-full text-sm text-left text-gray-500 rtl:text-right dark:text-gray-400">
                                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 ">
                                     <tr>
-                                        <th scope="col" class="px-6 py-3">
+                                        <th scope="col" class="px-2 py-4">
                                             Tanggal
                                         </th>
-                                        <th scope="col" class="px-6 py-3">
+                                        <th scope="col" class="px-1 py-4">
                                             Umur
                                         </th>
-                                        <th scope="col" class="px-6 py-3">
+                                        <th scope="col" class="px-3 py-4">
                                             Panjang Badan
                                         </th>
-                                        <th scope="col" class="px-6 py-3">
+                                        <th scope="col" class="px-6 py-4">
                                             Status
                                         </th>
                                     </tr>
@@ -199,17 +200,23 @@
                                 <tbody>
                                     @foreach ($anak->timbangans as $i => $timbangan)
                                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                        <td class="px-6 py-4">
+                                        <td class="px-2 py-4">
                                             {{ $timbangan->created_at->format('j M') }}
                                         </td>
-                                        <td class="px-6 py-4">
+                                        <td class="px-1  py-4">
                                             {{ $timbangan->umur }} Bulan
                                         </td>
-                                        <td class="px-6 py-4">
+                                        <td class="px-3 py-4 text-center">
                                             {{ $timbangan->pb }} cm
                                         </td>
                                         <td class="px-6 py-4">
-                                            {{ $timbangan->pb_status }}
+                                            @if ($timbangan->pb_status == 'STUNTED')
+                                            <span class="bg-red-100 text-red-800  px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">{{ $timbangan->pb_status }}</span>
+                                            @elseif($timbangan->pb_status == 'NORMAL')
+                                            <span class="bg-green-100 text-green-800  px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">{{ $timbangan->pb_status }}</span>
+                                            @else
+                                            <span class="bg-yellow-100 text-yellow-800  px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300">{{ $timbangan->pb_status }}</span>
+                                            @endif
                                         </td>
                                     </tr>
                                     @endforeach
@@ -217,11 +224,7 @@
                             </table>
                         </div>
                     </div>
-                    <div class="mt-5">
-                        <span class="text-xs text-slate-500 ">
-                            *Berdasarkan data terakhir yang masuk
-                        </span>
-                    </div>
+
                 </div>
                 <!-- ------------------------------------------------------ -->
                 <!-- BERAT BADAN -->
@@ -242,16 +245,16 @@
                             <table class="w-full text-sm text-left text-gray-500 rtl:text-right dark:text-gray-400">
                                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 ">
                                     <tr>
-                                        <th scope="col" class="px-6 py-3">
+                                        <th scope="col" class="px-2 py-4">
                                             Tanggal
                                         </th>
-                                        <th scope="col" class="px-6 py-3">
+                                        <th scope="col" class="px-1 py-4">
                                             Umur
                                         </th>
-                                        <th scope="col" class="px-6 py-3">
+                                        <th scope="col" class="px-3 py-4">
                                             Berat Badan
                                         </th>
-                                        <th scope="col" class="px-6 py-3">
+                                        <th scope="col" class="px-6 py-4">
                                             Status
                                         </th>
                                     </tr>
@@ -259,17 +262,23 @@
                                 <tbody>
                                     @foreach ($anak->timbangans as $i => $timbangan)
                                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                        <td class="px-6 py-4">
+                                        <td class="px-2 py-4">
                                             {{ $timbangan->created_at->format('j M') }}
                                         </td>
-                                        <td class="px-6 py-4">
+                                        <td class="px-1 py-4">
                                             {{ $timbangan->umur }} Bulan
                                         </td>
-                                        <td class="px-6 py-4">
+                                        <td class="px-3 py-4 text-center">
                                             {{ $timbangan->bb }} Kg
                                         </td>
                                         <td class="px-6 py-4">
-                                            {{ $timbangan->bb_status }}
+                                            @if ($timbangan->bb_status == 'UNDERWEIGHT')
+                                            <span class="bg-red-100 text-red-800  px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">{{ $timbangan->bb_status }}</span>
+                                            @elseif($timbangan->bb_status == 'NORMAL')
+                                            <span class="bg-green-100 text-green-800  px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">{{ $timbangan->bb_status }}</span>
+                                            @else
+                                            <span class="bg-yellow-100 text-yellow-800  px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-100">{{ $timbangan->bb_status }}</span>
+                                            @endif
                                         </td>
                                     </tr>
                                     @endforeach
@@ -277,11 +286,7 @@
                             </table>
                         </div>
                     </div>
-                    <div class="mt-5">
-                        <span class="text-xs text-slate-500 ">
-                            *Berdasarkan data terakhir yang masuk
-                        </span>
-                    </div>
+
                 </div>
                 <!-- ---------------------------------------------------------- -->
             </div>

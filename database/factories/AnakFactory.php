@@ -21,7 +21,7 @@ class AnakFactory extends Factory
             ['Laki Laki', 'Perempuan']
         );
         return [
-            'user_id' => rand(1, 30),
+            'user_id' => rand(1, 6),
 
             'name' => fake()->name(),
             'jeniskelamin' => $jeniskelamin,

@@ -14,17 +14,18 @@ return new class extends Migration
         Schema::create('timbangans', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignId('anak_id')->nullable()->references('id')->on('anaks')->onDelete('cascade');
+            $table->foreignId('anak_id')->nullable()
+                ->references('id')->on('anaks')->onDelete('cascade');
 
             $table->integer('umur')->nullable();
 
-            $table->string('imt_status')->nullable();
-            $table->string('pb_status')->nullable();
-            $table->string('bb_status')->nullable();
+            $table->string('imt_status')->default('-');
+            $table->string('pb_status')->default('-');
+            $table->string('bb_status')->default('-');
 
-            $table->float('pb')->default(0);
-            $table->float('bb')->default(0);
-            $table->float('imt')->default(0);
+            $table->float('pb');
+            $table->float('bb');
+            $table->float('imt');
 
             $table->timestamps();
         });

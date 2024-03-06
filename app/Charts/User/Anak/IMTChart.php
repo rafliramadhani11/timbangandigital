@@ -20,8 +20,9 @@ class IMTChart
             ->orderBy('created_at')
             ->pluck('imt')
             ->toArray();
+
         $tanggalData = Timbangan::where('anak_id', $id)
-            ->orderBy('created_at')
+            ->orderByDesc('created_at')
             ->pluck('created_at')
             ->map->format('j M')
             ->toArray();

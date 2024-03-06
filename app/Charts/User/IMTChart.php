@@ -3,6 +3,7 @@
 namespace App\Charts\User;
 
 use App\Models\Anak;
+use App\Models\Timbangan;
 use Illuminate\Support\Facades\DB;
 use ArielMejiaDev\LarapexCharts\LarapexChart;
 
@@ -17,30 +18,45 @@ class IMTChart
 
     public function build($user): \ArielMejiaDev\LarapexCharts\PieChart
     {
-        $imtCategories = DB::table('anaks')
-            ->join('timbangans', 'anaks.id', '=', 'timbangans.anak_id')
+        // Menghitung jumlah total imt_status yang dimiliki oleh user tertentu
+        $totalImtStatus = Timbangan::join('anaks', 'timbangans.anak_id', '=', 'anaks.id')
             ->where('anaks.user_id', $user->id)
-            ->selectRaw('
-        COUNT(*) as total_imt,
-        SUM(CASE WHEN timbangans.imt < 18.5 THEN 1 ELSE 0 END) as kurus,
-        SUM(CASE WHEN timbangans.imt >= 18.5 AND timbangans.imt < 24.9 THEN 1 ELSE 0 END) as normal,
-        SUM(CASE WHEN timbangans.imt >= 25 THEN 1 ELSE 0 END) as gemuk
-    ')->first();
+            ->count();
 
-        $jumlahIMT = $imtCategories->total_imt;
+        $counts = Timbangan::join('anaks', 'timbangans.anak_id', '=', 'anaks.id')
+            ->join('users', 'anaks.user_id', '=', 'users.id')
+            ->where('users.id', $user->id)
+            ->selectRaw('imt_status, COUNT(*) as count')
+            ->groupBy('imt_status')
+            ->pluck('count', 'imt_status');
 
-        $persentaseKurus = ($jumlahIMT > 0) ? round(($imtCategories->kurus / $jumlahIMT) * 100, 1) : 0;
-        $persentaseNormal = ($jumlahIMT > 0) ? round(($imtCategories->normal / $jumlahIMT) * 100, 1) : 0;
-        $persentaseGemuk = ($jumlahIMT > 0) ? round(($imtCategories->gemuk / $jumlahIMT) * 100, 1) : 0;
+        $wastedCount = $counts->get('WASTED');
+        $normalCount = $counts->get('NORMAL');
+        $obesitasCount = $counts->get('RESIKO OBESITAS');
+
+
+        // Menghitung persentase untuk setiap kategori
+        $wastedPercentage = $totalImtStatus != 0
+            ? ($wastedCount / $totalImtStatus) * 100
+            : null;
+        $normalPercentage = $totalImtStatus != 0
+            ? ($normalCount / $totalImtStatus) * 100
+            : null;
+        $obesitasPercentage = $totalImtStatus != 0
+            ? ($obesitasCount / $totalImtStatus) * 100
+            : null;
+
+
 
         $kategoriIMT = [
-            'Kurus' => $persentaseKurus,
-            'Normal' => $persentaseNormal,
-            'Gemuk' => $persentaseGemuk,
+            'WASTED' => $wastedPercentage,
+            'NORMAL' => $normalPercentage,
+            'RESIKO OBESITAS' => $obesitasPercentage,
         ];
 
         return $this->chart->pieChart()
             ->addData(array_values($kategoriIMT))
-            ->setLabels(array_keys($kategoriIMT));
+            ->setLabels(array_keys($kategoriIMT))
+            ->setColors(['#ff829d', '#6fcdcd', '#ffd778']);
     }
 }

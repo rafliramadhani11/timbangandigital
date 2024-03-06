@@ -205,16 +205,16 @@
                                         <td class="px-2 py-4">
                                             {{ $timbangan->umur }} Bulan
                                         </td>
-                                        <td class="px-3 py-4 ">
+                                        <td class="px-3 py-4 text-center">
                                             {{ $timbangan->imt }}
                                         </td>
                                         <td class="px-6 py-4 ">
-                                            @if ($timbangan->imt_status == 'Resiko Obesitas')
-                                            <span class="bg-yellow-100 text-yellow-800  px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300">{{ $timbangan->imt_status }}</span>
-                                            @elseif($timbangan->imt_status == 'Normal')
+                                            @if ($timbangan->imt_status == 'WASTED')
+                                            <span class="bg-red-100 text-red-800  px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">{{ $timbangan->imt_status }}</span>
+                                            @elseif($timbangan->imt_status == 'NORMAL')
                                             <span class="bg-green-100 text-green-800  px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">{{ $timbangan->imt_status }}</span>
                                             @else
-                                            <span class="bg-red-100 text-red-800  px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">{{ $timbangan->imt_status }}</span>
+                                            <span class="bg-yellow-100 text-yellow-800  px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300">{{ $timbangan->imt_status }}</span>
                                             @endif
                                         </td>
                                     </tr>
@@ -223,11 +223,7 @@
                             </table>
                         </div>
                     </div>
-                    <div class="mt-5">
-                        <span class="text-xs text-slate-500 ">
-                            *Berdasarkan data terakhir yang masuk
-                        </span>
-                    </div>
+
                 </div>
                 <!-- --------------------------------------------------------------------------------------- -->
                 <!-- PANJANG BADAN -->
@@ -271,16 +267,16 @@
                                         <td class="px-6 py-4">
                                             {{ $timbangan->umur }} Bulan
                                         </td>
-                                        <td class="px-6 py-4">
+                                        <td class="px-6 py-4 text-center">
                                             {{ $timbangan->pb }} cm
                                         </td>
                                         <td class="px-6 py-4">
-                                            @if ($timbangan->pb_status == 'Tinggi')
-                                            <span class="bg-yellow-100 text-yellow-800  px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300">{{ $timbangan->pb_status }}</span>
-                                            @elseif($timbangan->pb_status == 'Normal')
+                                            @if ($timbangan->pb_status == 'STUNTED')
+                                            <span class="bg-red-100 text-red-800  px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">{{ $timbangan->pb_status }}</span>
+                                            @elseif($timbangan->pb_status == 'NORMAL')
                                             <span class="bg-green-100 text-green-800  px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">{{ $timbangan->pb_status }}</span>
                                             @else
-                                            <span class="bg-red-100 text-red-800  px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">{{ $timbangan->pb_status }}</span>
+                                            <span class="bg-yellow-100 text-yellow-800  px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300">{{ $timbangan->pb_status }}</span>
                                             @endif
                                         </td>
                                     </tr>
@@ -337,16 +333,16 @@
                                         <td class="px-6 py-4">
                                             {{ $timbangan->umur }} Bulan
                                         </td>
-                                        <td class="px-6 py-4">
+                                        <td class="px-6 py-4 text-center">
                                             {{ $timbangan->bb }} Kg
                                         </td>
                                         <td class="px-6 py-4">
-                                            @if ($timbangan->bb_status == 'Gemuk')
-                                            <span class="bg-yellow-100 text-yellow-800  px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300">{{ $timbangan->bb_status }}</span>
-                                            @elseif($timbangan->bb_status == 'Normal')
+                                            @if ($timbangan->bb_status == 'UNDERWEIGHT')
+                                            <span class="bg-red-100 text-red-800  px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">{{ $timbangan->bb_status }}</span>
+                                            @elseif($timbangan->bb_status == 'NORMAL')
                                             <span class="bg-green-100 text-green-800  px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">{{ $timbangan->bb_status }}</span>
                                             @else
-                                            <span class="bg-red-100 text-red-800  px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">{{ $timbangan->bb_status }}</span>
+                                            <span class="bg-yellow-100 text-yellow-800  px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-100">{{ $timbangan->bb_status }}</span>
                                             @endif
                                         </td>
                                     </tr>

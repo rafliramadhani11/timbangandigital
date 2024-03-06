@@ -20,6 +20,7 @@ class PBChart
             ->orderBy('created_at')
             ->pluck('pb')
             ->toArray();
+
         $tanggalData = Timbangan::where('anak_id', $id)
             ->orderBy('created_at')
             ->pluck('created_at')
