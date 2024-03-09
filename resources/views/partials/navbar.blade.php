@@ -56,7 +56,7 @@
                         </li>
 
                         <li>
-                            <form action="{{ route('logout') }}" method="post">
+                            <form action="{{ route('user.logout') }}" method="post">
                                 @csrf
                                 <button class="px-4 text-start w-[9.5rem] py-2 mx-3 my-1 rounded-md hover:bg-red-500 hover:text-white dark:hover:bg-red-500 dark:hover:text-white dark:text-white">
                                     Sign Out
@@ -76,7 +76,7 @@
                             <a href="{{ route('admin.users') }}" class="block px-4 py-2 mx-3 my-1 rounded-md hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">All Users</a>
                         </li>
                         <li>
-                            <form action="{{ route('logout') }}" method="post">
+                            <form action="{{ route('admin.logout') }}" method="post">
                                 @csrf
                                 <button class="px-4 text-start w-[9.5rem] py-2 mx-3 my-1 rounded-md hover:bg-red-500 hover:text-white dark:hover:bg-red-500 dark:hover:text-white dark:text-white">
                                     Sign Out

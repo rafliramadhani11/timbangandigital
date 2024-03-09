@@ -33,7 +33,6 @@ class IMTChart
             ->setXAxis($tanggalData)
             ->setHeight(250)
             ->setColors(['#4fc1c1'])
-            ->setMarkers(['#4fc1c1'], 5, 10)
             ->setGrid();
     }
 }

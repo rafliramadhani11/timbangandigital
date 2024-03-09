@@ -34,14 +34,11 @@ class AdminController extends Controller
             ->select('regions.*', 'users.*')
             ->get();
 
-
         $totalAnak = DB::table('regions')
             ->leftJoin('users', 'regions.id', '=', 'users.region_id')
             ->leftJoin('anaks', 'users.id', '=', 'anaks.user_id')
             ->where('users.admin', '!=', 1)
             ->sum('anaks.id');
-
-
 
         return view('admin.index', [
             "user_nav" => Auth::user(),

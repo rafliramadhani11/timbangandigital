@@ -2,6 +2,7 @@
 
 namespace App\Charts\Region;
 
+use App\Models\Timbangan;
 use ArielMejiaDev\LarapexCharts\LarapexChart;
 
 class BeratBadanChart
@@ -13,34 +14,80 @@ class BeratBadanChart
         $this->chart = $chart;
     }
 
-    public function build($berat_badans): \ArielMejiaDev\LarapexCharts\DonutChart
+    public function build($region): \ArielMejiaDev\LarapexCharts\PieChart
     {
-        $jumlahBB = count($berat_badans);
+        $totalBB = Timbangan::whereIn('anak_id', function ($query) use ($region) {
+            $query->select('id')
+                ->from('anaks')
+                ->whereIn('user_id', function ($query) use ($region) {
+                    $query->select('id')
+                        ->from('users')
+                        ->where('admin', '!=', 1)
+                        ->where('region_id', $region->id);
+                });
+        })
+            ->whereHas('anak.user', function ($query) use ($region) {
+                $query->where('admin', '!=', 1)
+                    ->where('region_id', $region->id);
+            })
+            ->whereHas('anak.timbangans')
+            ->count();
 
-        if ($jumlahBB > 0) {
-            $persentaseKurus = ($berat_badans->filter(function ($bb) {
-                return $bb < 5.3;
-            })->count() / $jumlahBB);
+        $bbUnderweight = Timbangan::whereHas('anak.user', function ($query) use ($region) {
+            $query->where('admin', '!=', 1)
+                ->where('region_id', $region->id);
+        })
+            ->whereHas('anak', function ($query) {
+                $query->whereHas('timbangans', function ($query) {
+                    $query->where('bb_status', 'UNDERWEIGHT');
+                });
+            })
+            ->count();
 
-            $persentaseNormal = ($berat_badans->filter(function ($bb) {
-                return $bb >= 5.3 && $bb < 8.2;
-            })->count() / $jumlahBB);
+        $bbNormal = Timbangan::whereHas('anak.user', function ($query) use ($region) {
+            $query->where('admin', '!=', 1)
+                ->where('region_id', $region->id);
+        })
+            ->whereHas('anak', function ($query) {
+                $query->whereHas('timbangans', function ($query) {
+                    $query->where('bb_status', 'NORMAL');
+                });
+            })
+            ->count();
 
-            $persentaseObesitas = ($berat_badans->filter(function ($bb) {
-                return $bb >= 8.2;
-            })->count() / $jumlahBB);
+        $bbObesitas = Timbangan::whereHas('anak.user', function ($query) use ($region) {
+            $query->where('admin', '!=', 1)
+                ->where('region_id', $region->id);
+        })
+            ->whereHas('anak', function ($query) {
+                $query->whereHas('timbangans', function ($query) {
+                    $query->where('bb_status', 'RESIKO OBESITAS');
+                });
+            })
+            ->count();
 
-            $persentaseKurus = round($persentaseKurus * 100, 1);
-            $persentaseNormal = round($persentaseNormal * 100, 1);
-            $persentaseObesitas = round($persentaseObesitas * 100, 1);
+        $underweightPercentage = $totalBB != 0
+            ? ($bbUnderweight / $totalBB) * 100
+            : null;
+        $normalPercentage = $totalBB != 0
+            ? ($bbNormal / $totalBB) * 100
+            : null;
+        $obesitasPercentage = $totalBB != 0
+            ? ($bbObesitas / $totalBB) * 100
+            : null;
 
-            $kategoriBB = ['Kurus', 'Normal', 'Obesitas'];
+        $kategoriIMT = [
+            'UNDERWEIGHT' => round($underweightPercentage, 1),
+            'NORMAL' => round($normalPercentage, 1),
+            'RESIKO OBESITAS' => round($obesitasPercentage, 1),
+        ];
 
-            return $this->chart->donutChart()
-                ->addData([$persentaseKurus, $persentaseNormal, $persentaseObesitas])
-                ->setLabels($kategoriBB)
-                ->setColors(['#FF0000', '#03C988', '#F6C90E',]);
-        }
-        return $this->chart->donutChart();
+        return $this->chart->pieChart()
+            ->addData(array_values($kategoriIMT))
+            ->setLabels(array_keys($kategoriIMT))
+            ->setColors(['#ff829d', '#6fcdcd', '#ffd778'])
+            ->setHeight(300)
+            ->setWidth(500)
+            ->setStroke(5, ['white']);
     }
 }

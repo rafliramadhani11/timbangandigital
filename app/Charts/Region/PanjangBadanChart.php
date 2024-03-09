@@ -2,6 +2,7 @@
 
 namespace App\Charts\Region;
 
+use App\Models\Timbangan;
 use ArielMejiaDev\LarapexCharts\LarapexChart;
 
 class PanjangBadanChart
@@ -13,34 +14,80 @@ class PanjangBadanChart
         $this->chart = $chart;
     }
 
-    public function build($panjang_badans): \ArielMejiaDev\LarapexCharts\DonutChart
+    public function build($region): \ArielMejiaDev\LarapexCharts\PieChart
     {
-        $jumlahPB = count($panjang_badans);
+        $totalPB = Timbangan::whereIn('anak_id', function ($query) use ($region) {
+            $query->select('id')
+                ->from('anaks')
+                ->whereIn('user_id', function ($query) use ($region) {
+                    $query->select('id')
+                        ->from('users')
+                        ->where('admin', '!=', 1)
+                        ->where('region_id', $region->id);
+                });
+        })
+            ->whereHas('anak.user', function ($query) use ($region) {
+                $query->where('admin', '!=', 1)
+                    ->where('region_id', $region->id);
+            })
+            ->whereHas('anak.timbangans')
+            ->count();
 
-        if ($jumlahPB > 0) {
-            $persentasePendek = ($panjang_badans->filter(function ($pb) {
-                return $pb < 44.2;
-            })->count() / $jumlahPB);
+        $pbStunted = Timbangan::whereHas('anak.user', function ($query) use ($region) {
+            $query->where('admin', '!=', 1)
+                ->where('region_id', $region->id);
+        })
+            ->whereHas('anak', function ($query) {
+                $query->whereHas('timbangans', function ($query) {
+                    $query->where('pb_status', 'STUNTED');
+                });
+            })
+            ->count();
 
-            $persentaseNormal = ($panjang_badans->filter(function ($pb) {
-                return $pb >= 44.2 && $pb < 70.5;
-            })->count() / $jumlahPB);
+        $pbNormal = Timbangan::whereHas('anak.user', function ($query) use ($region) {
+            $query->where('admin', '!=', 1)
+                ->where('region_id', $region->id);
+        })
+            ->whereHas('anak', function ($query) {
+                $query->whereHas('timbangans', function ($query) {
+                    $query->where('pb_status', 'NORMAL');
+                });
+            })
+            ->count();
 
-            $persentaseTinggi = ($panjang_badans->filter(function ($pb) {
-                return $pb >= 70.5;
-            })->count() / $jumlahPB);
+        $pbTinggi = Timbangan::whereHas('anak.user', function ($query) use ($region) {
+            $query->where('admin', '!=', 1)
+                ->where('region_id', $region->id);
+        })
+            ->whereHas('anak', function ($query) {
+                $query->whereHas('timbangans', function ($query) {
+                    $query->where('pb_status', 'TINGGI');
+                });
+            })
+            ->count();
 
-            $persentasePendek = round($persentasePendek * 100, 1);
-            $persentaseNormal = round($persentaseNormal * 100, 1);
-            $persentaseTinggi = round($persentaseTinggi * 100, 1);
+        $stuntedPercentage = $totalPB != 0
+            ? ($pbStunted / $totalPB) * 100
+            : null;
+        $normalPercentage = $totalPB != 0
+            ? ($pbNormal / $totalPB) * 100
+            : null;
+        $tinggiPercentage = $totalPB != 0
+            ? ($pbTinggi / $totalPB) * 100
+            : null;
 
-            $kategoriPB = ['Pendek', 'Normal', 'Tinggi'];
+        $kategoriPB = [
+            'STUNTED' => round($stuntedPercentage, 1),
+            'NORMAL' => round($normalPercentage, 1),
+            'TINGGI' => round($tinggiPercentage, 1),
+        ];
 
-            return $this->chart->donutChart()
-                ->addData([$persentasePendek, $persentaseNormal, $persentaseTinggi])
-                ->setLabels($kategoriPB)
-                ->setColors(['#FF0000', '#03C988', '#F6C90E',]);
-        }
-        return $this->chart->donutChart();
+        return $this->chart->pieChart()
+            ->addData(array_values($kategoriPB))
+            ->setLabels(array_keys($kategoriPB))
+            ->setColors(['#ff829d', '#6fcdcd', '#ffd778'])
+            ->setHeight(300)
+            ->setWidth(500)
+            ->setStroke(5, ['white']);
     }
 }

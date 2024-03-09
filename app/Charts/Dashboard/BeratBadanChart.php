@@ -16,37 +16,28 @@ class BeratBadanChart
 
     public function build(): \ArielMejiaDev\LarapexCharts\PieChart
     {
-        $bbNormalByRegion = Region::selectRaw('regions.name as region_name, ROUND(AVG(timbangans.bb) / 5 * 100, 1) as bb_percentage')
+        $totalNormalBbByRegion = Region::select('regions.name as region_name')
+            ->selectRaw(
+                '
+        SUM(CASE WHEN timbangans.bb_status = "NORMAL" THEN 1 ELSE 0 END) / COUNT(timbangans.id) * 100 as percent_normal'
+            )
             ->join('users', 'regions.id', '=', 'users.region_id')
             ->join('anaks', 'users.id', '=', 'anaks.user_id')
             ->join('timbangans', 'anaks.id', '=', 'timbangans.anak_id')
-            ->whereIn('regions.id', [1, 2, 3, 4, 5, 6])
-            ->where('timbangans.bb_status', 'NORMAL')
             ->where('users.admin', '!=', 1)
             ->groupBy('regions.id', 'regions.name')
-            ->latest('timbangans.created_at')
-            ->get();
-
-        $bbNormalByRegionArray = $bbNormalByRegion->map(function ($item) {
-            return [
-                'region_name' => $item->region_name,
-                'bb_percentage' => $item->bb_percentage,
-            ];
-        })->pluck('bb_percentage', 'region_name')->toArray();
-
-        $totalPercentage = array_sum($bbNormalByRegionArray);
-        if ($totalPercentage > 100) {
-            $bbNormalByRegionArray = array_map(function ($percent) use ($totalPercentage) {
-                return round(($percent / $totalPercentage) * 100, 1);
-            }, $bbNormalByRegionArray);
-        }
-        $regionNames = array_keys($bbNormalByRegionArray);
-        $bbValues = array_values($bbNormalByRegionArray);
+            ->get()
+            ->mapWithKeys(function ($item) {
+                return [$item->region_name => round($item->percent_normal, 1)];
+            });
+        $regionKeys = $totalNormalBbByRegion->keys()->all();
+        $regionValues = $totalNormalBbByRegion->values()->all();
 
         return $this->chart->pieChart()
-            ->addData($bbValues)
+            ->addData($regionValues)
             ->setHeight(400)
             ->setWidth(400)
-            ->setLabels($regionNames);
+            ->setStroke(5, ['white'])
+            ->setLabels($regionKeys);
     }
 }

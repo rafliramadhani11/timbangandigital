@@ -49,14 +49,16 @@ class IMTChart
 
 
         $kategoriIMT = [
-            'WASTED' => $wastedPercentage,
-            'NORMAL' => $normalPercentage,
-            'RESIKO OBESITAS' => $obesitasPercentage,
+            'WASTED' => round($wastedPercentage, 1),
+            'NORMAL' => round($normalPercentage, 1),
+            'RESIKO OBESITAS' => round($obesitasPercentage, 1),
         ];
 
         return $this->chart->pieChart()
             ->addData(array_values($kategoriIMT))
             ->setLabels(array_keys($kategoriIMT))
-            ->setColors(['#ff829d', '#6fcdcd', '#ffd778']);
+            ->setColors(['#ff829d', '#6fcdcd', '#ffd778'])
+            ->setHeight(300)
+            ->setStroke(5, ['white']);
     }
 }

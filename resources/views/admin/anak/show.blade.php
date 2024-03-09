@@ -285,11 +285,7 @@
                             </table>
                         </div>
                     </div>
-                    <div class="mt-5">
-                        <span class="text-xs text-slate-500 ">
-                            *Berdasarkan data terakhir yang masuk
-                        </span>
-                    </div>
+
                 </div>
                 <!-- --------------------------------------------------------------------------------------- -->
                 <!-- BERAT BADAN -->
@@ -310,13 +306,13 @@
                             <table class="w-full text-sm text-left text-gray-500 rtl:text-right dark:text-gray-400">
                                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 ">
                                     <tr>
-                                        <th scope="col" class="px-6 py-3">
+                                        <th scope="col" class="px-2 py-3">
                                             Tanggal
                                         </th>
-                                        <th scope="col" class="px-6 py-3">
+                                        <th scope="col" class="px-2 py-3">
                                             Umur
                                         </th>
-                                        <th scope="col" class="px-6 py-3">
+                                        <th scope="col" class="px-3 py-3">
                                             Berat Badan
                                         </th>
                                         <th scope="col" class="px-6 py-3">
@@ -327,16 +323,16 @@
                                 <tbody>
                                     @foreach ($anak->timbangans as $i => $timbangan)
                                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                        <td class="px-6 py-4">
+                                        <td class="px-2 py-4">
                                             {{ $timbangan->created_at->format('j M') }}
                                         </td>
-                                        <td class="px-6 py-4">
+                                        <td class="px-2 py-4">
                                             {{ $timbangan->umur }} Bulan
                                         </td>
-                                        <td class="px-6 py-4 text-center">
+                                        <td class="px-3 py-4 text-center">
                                             {{ $timbangan->bb }} Kg
                                         </td>
-                                        <td class="px-6 py-4">
+                                        <td class="px-6 py-4 ">
                                             @if ($timbangan->bb_status == 'UNDERWEIGHT')
                                             <span class="bg-red-100 text-red-800  px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">{{ $timbangan->bb_status }}</span>
                                             @elseif($timbangan->bb_status == 'NORMAL')
@@ -351,11 +347,7 @@
                             </table>
                         </div>
                     </div>
-                    <div class="mt-5">
-                        <span class="text-xs text-slate-500 ">
-                            *Berdasarkan data terakhir yang masuk
-                        </span>
-                    </div>
+
                 </div>
                 <!-- --------------------------------------------------------------------------------------- -->
             </div>

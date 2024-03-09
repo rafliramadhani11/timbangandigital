@@ -37,6 +37,8 @@ Route::middleware('admin')->controller(AdminController::class)
         });
 
         Route::group(['post', 'put', 'delete'], function () {
+            Route::post('/dashboard/admin', 'logout')
+                ->name('admin.logout');
             Route::post('/dashboard/admin/create/user', 'store')
                 ->name('admin.store');
             Route::put('/dashboard/admin/{username}', 'updateUser')
@@ -51,11 +53,14 @@ Route::middleware(['auth'])->controller(UserController::class)
         Route::group(['get'], function () {
             Route::get('dashboard/user', 'index')->name('user.index');
             Route::get('dashboard/user/{user}', 'show')->name('user.show');
+            Route::get('dashboard/user/{user}/edit', 'edit')->name('user.edit');
         });
 
-        Route::group(['post'], function () {
+        Route::group(['post', 'patch'], function () {
             Route::post('user/logout', 'logout')
                 ->name('user.logout');
+            Route::patch('dashboard/user/{user}/update', 'update')
+                ->name('user.update');
         });
     });
 

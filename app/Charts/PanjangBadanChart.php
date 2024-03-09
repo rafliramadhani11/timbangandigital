@@ -21,7 +21,7 @@ class PanjangBadanChart
             ->pluck('pb')
             ->toArray();
         $tanggalData = Timbangan::where('anak_id', $id)
-            ->orderBy('created_at') 
+            ->orderBy('created_at')
             ->pluck('created_at')
             ->map->format('j M')
             ->toArray();

@@ -39,9 +39,9 @@ class RegionController extends Controller
             'region' => $region,
 
             'anaks' => $anaks,
-            'imtchart' => $imtchart->build($indeks_massa_tubuhs),
-            'pbchart' => $pbchart->build($panjang_badans),
-            'bbchart' => $bbchart->build($berat_badans),
+            'imtchart' => $imtchart->build($region),
+            'pbchart' => $pbchart->build($region),
+            'bbchart' => $bbchart->build($region),
 
             'timbangans' => $timbangans,
             'jumlaTimbangIMT' => $jumlaTimbangIMT,

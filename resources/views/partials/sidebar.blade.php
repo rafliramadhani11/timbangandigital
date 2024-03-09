@@ -32,7 +32,7 @@
                         </a>
                     </li>
                     <li>
-                        <form action="{{ route('logout') }}" method="post">
+                        <form action="{{ route('user.logout') }}" method="post">
                             @csrf
                             <button class="w-full px-4 py-2 my-1 text-center text-white bg-red-500 rounded-md">
                                 Sign Out
@@ -101,7 +101,7 @@
                         </div>
                     </li>
                     <li>
-                        <form action="{{ route('logout') }}" method="post">
+                        <form action="{{ route('admin.logout') }}" method="post">
                             @csrf
                             <button class="w-full px-4 py-2 my-1 text-center text-white bg-red-500 rounded-md">
                                 Sign Out

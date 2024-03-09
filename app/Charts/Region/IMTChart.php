@@ -2,7 +2,9 @@
 
 namespace App\Charts\Region;
 
+use App\Models\Anak;
 use App\Models\Region;
+use App\Models\Timbangan;
 use ArielMejiaDev\LarapexCharts\LarapexChart;
 
 class IMTChart
@@ -14,34 +16,81 @@ class IMTChart
         $this->chart = $chart;
     }
 
-    public function build($indeks_massa_tubuhs): \ArielMejiaDev\LarapexCharts\DonutChart
+    public function build($region): \ArielMejiaDev\LarapexCharts\PieChart
 
     {
-        $jumlahIMT = count($indeks_massa_tubuhs);
+        $totalIMT = Timbangan::whereIn('anak_id', function ($query) use ($region) {
+            $query->select('id')
+                ->from('anaks')
+                ->whereIn('user_id', function ($query) use ($region) {
+                    $query->select('id')
+                        ->from('users')
+                        ->where('admin', '!=', 1)
+                        ->where('region_id', $region->id);
+                });
+        })
+            ->whereHas('anak.user', function ($query) use ($region) {
+                $query->where('admin', '!=', 1)
+                    ->where('region_id', $region->id);
+            })
+            ->whereHas('anak.timbangans')
+            ->count();
 
-        if ($jumlahIMT > 0) {
-            $persentaseKurus = ($indeks_massa_tubuhs->filter(function ($imt) {
-                return $imt < 18.5;
-            })->count() / $jumlahIMT);
-            $persentaseKurus = round($persentaseKurus * 100, 1);
+        $imtWasted = Timbangan::whereHas('anak.user', function ($query) use ($region) {
+            $query->where('admin', '!=', 1)
+                ->where('region_id', $region->id);
+        })
+            ->whereHas('anak', function ($query) {
+                $query->whereHas('timbangans', function ($query) {
+                    $query->where('imt_status', 'WASTED');
+                });
+            })
+            ->count();
 
-            $persentaseNormal = ($indeks_massa_tubuhs->filter(function ($imt) {
-                return $imt >= 18.5 && $imt < 24.9;
-            })->count() / $jumlahIMT);
-            $persentaseNormal = round($persentaseNormal * 100, 1);
+        $imtNormal = Timbangan::whereHas('anak.user', function ($query) use ($region) {
+            $query->where('admin', '!=', 1)
+                ->where('region_id', $region->id);
+        })
+            ->whereHas('anak', function ($query) {
+                $query->whereHas('timbangans', function ($query) {
+                    $query->where('imt_status', 'NORMAL');
+                });
+            })
+            ->count();
 
-            $persentaseGemuk = ($indeks_massa_tubuhs->filter(function ($imt) {
-                return $imt >= 25;
-            })->count() / $jumlahIMT);
-            $persentaseGemuk = round($persentaseGemuk * 100, 1);
+        $imtObesitas = Timbangan::whereHas('anak.user', function ($query) use ($region) {
+            $query->where('admin', '!=', 1)
+                ->where('region_id', $region->id);
+        })
+            ->whereHas('anak', function ($query) {
+                $query->whereHas('timbangans', function ($query) {
+                    $query->where('imt_status', 'RESIKO OBESITAS');
+                });
+            })
+            ->count();
 
-            $kategoriIMT = ['Wasted', 'Normal', 'Obesitas'];
+        $wastedPercentage = $totalIMT != 0
+            ? ($imtWasted / $totalIMT) * 100
+            : null;
+        $normalPercentage = $totalIMT != 0
+            ? ($imtNormal / $totalIMT) * 100
+            : null;
+        $obesitasPercentage = $totalIMT != 0
+            ? ($imtObesitas / $totalIMT) * 100
+            : null;
 
-            return $this->chart->donutChart()
-                ->addData([$persentaseKurus, $persentaseNormal, $persentaseGemuk])
-                ->setLabels($kategoriIMT)
-                ->setColors(['#FF0000', '#03C988', '#F6C90E',]);
-        }
-        return $this->chart->donutChart();
+        $kategoriIMT = [
+            'WASTED' => round($wastedPercentage, 1),
+            'NORMAL' => round($normalPercentage, 1),
+            'RESIKO OBESITAS' => round($obesitasPercentage, 1),
+        ];
+
+        return $this->chart->pieChart()
+            ->addData(array_values($kategoriIMT))
+            ->setLabels(array_keys($kategoriIMT))
+            ->setColors(['#ff829d', '#6fcdcd', '#ffd778'])
+            ->setHeight(300)
+            ->setWidth(500)
+            ->setStroke(5, ['white']);
     }
 }

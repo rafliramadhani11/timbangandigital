@@ -44,14 +44,16 @@ class PanjangBadanChart
 
 
         $kategoriPB = [
-            'STUNTED' => $stuntedPercentage,
-            'NORMAL' => $normalPercentage,
-            'TINGGI' => $tinggiPercentage,
+            'STUNTED' => round($stuntedPercentage, 1),
+            'NORMAL' => round($normalPercentage, 1),
+            'TINGGI' => round($tinggiPercentage, 1),
         ];
 
         return $this->chart->pieChart()
             ->addData(array_values($kategoriPB))
             ->setLabels(array_keys($kategoriPB))
-            ->setColors(['#ff829d', '#6fcdcd', '#ffd778']);
+            ->setColors(['#ff829d', '#6fcdcd', '#ffd778'])
+            ->setHeight(300)
+            ->setStroke(5, ['white']);
     }
 }

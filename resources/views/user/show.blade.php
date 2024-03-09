@@ -61,7 +61,7 @@
                             <div class="grid grid-cols-2 my-2 gap-y-8 md:grid-cols-4">
                                 <div>
                                     <label class="font-bold text-gray-400 dark:text-gray-400">No Handphone</label>
-                                    <p class="font-semibold text-gray-800 dark:text-white">+62 {{ $user->nohp }}</p>
+                                    <p class="font-semibold text-gray-800 dark:text-white">{{ $user->nohp }}</p>
                                 </div>
                                 <div>
                                     <label class="font-bold text-gray-400 dark:text-gray-400">Tanggal Lahir</label>

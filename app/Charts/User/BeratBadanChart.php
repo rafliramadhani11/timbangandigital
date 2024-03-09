@@ -43,14 +43,17 @@ class BeratBadanChart
             : null;
 
         $kategoriBB = [
-            'UNDERWEIGHT' => $underweightPercentage,
-            'NORMAL' => $normalPercentage,
-            'RESIKO OBESITAS' => $obesitasPercentage,
+            'UNDERWEIGHT' => round($underweightPercentage, 1),
+            'NORMAL' => round($normalPercentage, 1),
+            'RESIKO OBESITAS' => round($obesitasPercentage, 1),
+
         ];
 
         return $this->chart->pieChart()
             ->addData(array_values($kategoriBB))
             ->setLabels(array_keys($kategoriBB))
-            ->setColors(['#ff829d', '#6fcdcd', '#ffd778']);
+            ->setColors(['#ff829d', '#6fcdcd', '#ffd778'])
+            ->setHeight(300)
+            ->setStroke(5, ['white']);
     }
 }
