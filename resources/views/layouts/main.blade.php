@@ -13,7 +13,7 @@
 
 </head>
 
-<body class="antialiased bg-gray-50 dark:bg-gray-800">
+<body class="antialiased bg-white dark:bg-gray-800">
     @yield('content')
 </body>
 
