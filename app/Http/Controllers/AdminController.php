@@ -17,14 +17,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreOrangtuaRequest;
 use App\Http\Requests\UpdateOrangtuaRequest;
-use App\Charts\Dashboard\IMTChart as IMTChartDashboard;
-use App\Charts\Dashboard\BeratBadanChart as BeratBadanChartDashboard;
-use App\Charts\Dashboard\PanjangBadanChart as PanjangBadanChartDashboard;
-
 
 class AdminController extends Controller
 {
-    public function index(BeratBadanChartDashboard $bbchart)
+    public function index()
     {
         $regionsUser = DB::table('regions')
             ->join('users', function ($join) {
@@ -174,32 +170,6 @@ class AdminController extends Controller
         ]);
     }
 
-    public function showAnak(
-        $username,
-        $id,
-        PanjangBadanChart $pbchart,
-        BeratBadanChart $bbchart,
-        IMTChart $imtchart,
-    ) {
-        $username = User::where('username', $username)->first();
-        $anak = Anak::where('id', $id)->first();
-        $user = Auth::user();
-        $timbangan = Timbangan::where('anak_id', null)->first();
-
-        return view('admin.anak.show', [
-            'user' => $user,
-            "user_nav" => Auth::user(),
-            'regions' => Region::all(),
-
-            'pbchart' => $pbchart->build($anak->id),
-            'bbchart' => $bbchart->build($anak->id),
-            'imtchart' => $imtchart->build($anak->id),
-
-            'username' => $username,
-            'anak' => $anak,
-            'timbangan' => $timbangan,
-        ]);
-    }
 
     public function editUser($username)
     {

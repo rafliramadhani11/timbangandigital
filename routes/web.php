@@ -1,7 +1,7 @@
 <?php
 
+use App\Http\Controllers\Admin\AnakController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AnakController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\RegionController;
 use App\Http\Controllers\TimbanganController;
@@ -21,6 +21,24 @@ Route::middleware('guest')->controller(AuthenticationController::class)
         });
     });
 
+// USER
+Route::middleware(['auth'])->controller(UserController::class)
+    ->group(function () {
+        Route::group(['get'], function () {
+            Route::get('dashboard/user', 'index')->name('user.index');
+            Route::get('dashboard/user/{user}', 'show')->name('user.show');
+            Route::get('dashboard/user/{user}/edit', 'edit')->name('user.edit');
+        });
+
+        Route::group(['post', 'patch'], function () {
+            Route::post('user/logout', 'logout')
+                ->name('user.logout');
+            Route::patch('dashboard/user/{user}/update', 'update')
+                ->name('user.update');
+        });
+    });
+
+// ADMIN
 Route::middleware('admin')->controller(AdminController::class)
     ->group(function () {
         Route::group(['get'], function () {
@@ -48,30 +66,19 @@ Route::middleware('admin')->controller(AdminController::class)
         });
     });
 
-Route::middleware(['auth'])->controller(UserController::class)
+Route::middleware('admin')->controller(AnakController::class)
     ->group(function () {
-        Route::group(['get'], function () {
-            Route::get('dashboard/user', 'index')->name('user.index');
-            Route::get('dashboard/user/{user}', 'show')->name('user.show');
-            Route::get('dashboard/user/{user}/edit', 'edit')->name('user.edit');
-        });
-
-        Route::group(['post', 'patch'], function () {
-            Route::post('user/logout', 'logout')
-                ->name('user.logout');
-            Route::patch('dashboard/user/{user}/update', 'update')
-                ->name('user.update');
-        });
+        Route::get('/dashboard/admin/users/{username}/anak/{anak:id}', 'show')->name('admin.anak.show')->scopeBindings();
+        Route::post('/dashboard/admin/users/{username}/anak/create', 'store')->name('admin.anak.store');
+        Route::put('/dashboard/admin/users/anak/{id}',  'update')
+            ->name('admin.anak.update');
+        Route::delete('/dashboard/admin/users/anak/{id}', 'delete')
+            ->name('admin.anak.delete');
     });
 
 
 
-
-
-
-
 Route::middleware('auth')->group(function () {
-
     Route::get('/dashboard/user/{user}/anak/{anak:id}', [AnakController::class, 'show'])
         ->name('anak.show');
     Route::put('/dashboard/user/anak/{id}', [AnakController::class, 'update'])->name('anak.update');
@@ -80,15 +87,8 @@ Route::middleware('auth')->group(function () {
 
 
 Route::middleware('admin')->group(function () {
-    // ANAK
-    Route::get('/dashboard/admin/users/{username}/anak/{anak:id}', [AdminController::class, 'showAnak'])->name('admin.anak.show')->scopeBindings();
-    Route::post('/dashboard/admin/users/{username}/anak/create', [AdminController::class, 'storeAnak'])->name('admin.anak.store');
-    // -------------------------------------------------------------------------
     // TIMBANG UPDATE
     Route::put('/dashboard/admin/users/anak/{id}/timbang', [TimbanganController::class, 'update'])->name('admin.update.timbang');
-    // -------------------------------------------------------------------------
-    Route::put('/dashboard/admin/users/anak/{id}', [AdminController::class, 'updateAnak'])->name('admin.anak.update');
-    Route::delete('/dashboard/admin/users/anak/{id}', [AdminController::class, 'deleteAnak'])->name('admin.anak.delete');
     // ------------------------------
     Route::get('/dashboard/admin/regions/{city:slug}', [RegionController::class, 'index'])->name('admin.region');
 });
