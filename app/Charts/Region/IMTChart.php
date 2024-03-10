@@ -89,8 +89,8 @@ class IMTChart
             ->addData(array_values($kategoriIMT))
             ->setLabels(array_keys($kategoriIMT))
             ->setColors(['#ff829d', '#6fcdcd', '#ffd778'])
-            ->setHeight(300)
-            ->setWidth(500)
+            ->setHeight(200)
+            ->setWidth(400)
             ->setStroke(5, ['white']);
     }
 }

@@ -2,175 +2,216 @@
 
 @section('content')
 @include('partials.navbar')
-<div class="flex min-h-screen pt-16 overflow-hidden bg-gray-50 dark:bg-gray-900">
-    @include('partials.sidebar')
-    <div id="main-content" class="relative w-full h-full overflow-y-auto bg-gray-50 lg:ml-64 dark:bg-gray-900">
-        <main class="px-4 py-6">
-            <!-- GRAFIK -->
-            @if ($jumlaTimbangIMT > 0)
-            <div class="px-6 py-5 ">
-                <h1 class="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white">
-                    {{ $anaks->count() }} Anak
-                </h1>
-                <span class="text-xs text-slate-500 ">
-                    Di {{ $region->name }} yang sudah di timbang
-                </span>
-            </div>
-            <div class="gap-10 mb-6 bg-white rounded shadow-md lg:grid lg:grid-cols-3 dark:bg-gray-800 md:p-8">
-                <!-- IMT -->
-                <div class="p-4 px-4 mb-6 ">
+<div class="p-4 sm:ml-64 bg-gray-100 min-h-screen ">
+
+    <div class="p-4 border-gray-200 rounded-lg dark:border-gray-700 mt-14">
+
+        <div class="gap-10 lg:grid lg:grid-cols-3">
+
+            <!-- INDEKSS MASSA TUBUH -->
+            <div class="p-4 px-4 mb-6 bg-white rounded shadow-md dark:bg-gray-800 md:p-8">
+                <div>
                     <h1 class="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white">
-                        Indeks Massa Tubuh Anak
+                        Indeks massa tubuh Anak
                     </h1>
                     <span class="text-xs text-slate-500 ">
-                        Grafik perkembangan gizi anak
+                        Komposisi Persentase Menurut Kategori
                     </span>
-                    <div class="mt-5">
-                        {!! $imtchart->container() !!}
+                </div>
+                @if ($jumlaTimbangIMT > 0)
+                <div id="imtchart" class="mt-5"></div>
+                @else
+                <div class="flex items-center justify-center p-4 mb-4 text-sm text-red-800 dark:text-red-400 " role="alert">
+                    <div>
+                        <span class="text-xl font-medium">Belum ada data timbangan
                     </div>
                 </div>
-                <!-- ---------------------------------------------- -->
-                <!-- PANJANG BADAN -->
-                <div class="p-4 px-4 mb-6 ">
+                @endif
+            </div>
+            <!-- ---------------------------------------------- -->
+
+            <!-- PANJANG BADAN -->
+            <div class="p-4 px-4 mb-6 bg-white rounded shadow-md dark:bg-gray-800 md:p-8">
+                <div>
                     <h1 class="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white">
                         Panjang Badan Anak
                     </h1>
                     <span class="text-xs text-slate-500 ">
-                        Grafik perkembangan gizi anak
+                        Komposisi Persentase Menurut Kategori
                     </span>
-                    <div class="mt-5">
-                        @if ($jumlaTimbangPB > 0)
-                        {!! $pbchart->container() !!}
-                        @else
-                        <div class="flex items-center justify-center p-4 mb-4 text-sm text-red-800 dark:text-red-400 " role="alert">
-                            <div>
-                                <span class="text-xl font-medium">Belum ada data timbangan
-                            </div>
-                        </div>
-                        @endif
+                </div>
+                @if ($jumlaTimbangPB > 0)
+                <div id="pbchart" class="mt-5"></div>
+                @else
+                <div class="flex items-center justify-center p-4 mb-4 text-sm text-red-800 dark:text-red-400 " role="alert">
+                    <div>
+                        <span class="text-xl font-medium">Belum ada data timbangan
                     </div>
                 </div>
-                <!-- ---------------------------------------------- -->
-                <!-- BERAT BADAN -->
-                <div class="p-4 px-4 mb-6 ">
+                @endif
+            </div>
+            <!-- ---------------------------------------------- -->
+
+            <!-- BERAT BADAN -->
+            <div class="p-4 px-4 mb-6 bg-white rounded shadow-md dark:bg-gray-800 md:p-8">
+                <div>
                     <h1 class="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white">
                         Berat Badan Anak
                     </h1>
                     <span class="text-xs text-slate-500 ">
-                        Grafik perkembangan gizi anak
+                        Komposisi Persentase Menurut Kategori
                     </span>
-                    <div class="mt-5">
-                        @if ($jumlaTimbangBB > 0)
-                        {!! $bbchart->container() !!}
-                        @else
-                        <div class="flex items-center justify-center p-4 mb-4 text-sm text-red-800 dark:text-red-400 " role="alert">
-                            <div>
-                                <span class="text-xl font-medium">Belum ada data timbangan
-                            </div>
-                        </div>
-                        @endif
-
-                    </div>
                 </div>
-                <!-- ---------------------------------------------- -->
-            </div>
-            @else
-            <div class="flex items-center justify-center p-4 px-4 mb-6 bg-white rounded shadow-md dark:bg-gray-800 md:p-8">
-                <div class="flex items-center p-4 mb-4 text-sm text-red-800 dark:text-red-400" role="alert">
-                    <svg class="flex-shrink-0 inline w-7 h-7 me-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                        <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
-                    </svg>
-                    <span class="sr-only">Info</span>
+                @if ($jumlaTimbangBB > 0)
+                <div id="bbchart" class="mt-5"></div>
+                @else
+                <div class="flex items-center justify-center p-4 mb-4 text-sm text-red-800 dark:text-red-400 " role="alert">
                     <div>
-                        <h1 class="text-3xl font-medium text-red-800dark:text-red-400">
-                            Belum ada anak yang di timbang
-                        </h1>
-                        <span class="text-xs text-slate-500 ">
-                            Grafik tidak dapat di tampilkan
-                        </span>
+                        <span class="text-xl font-medium">
+                            Belum ada data timbangan
                     </div>
                 </div>
+                @endif
             </div>
-            @endif
-            <!-- ---------------------------- -->
-            <!-- TABLE -->
-            <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-                <table class="w-full text-sm text-left text-gray-500 rtl:text-right dark:text-gray-400">
-                    @if ($users->count() > 0 )
-                    <div class="px-6 py-5 ">
-                        <h1 class="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white">
-                            {{ $users->count() }} User
-                        </h1>
-                        <span class="text-xs text-slate-500 ">
-                            Yang ada di {{ $region->name }}
-                        </span>
-                    </div>
-                    @else
-                    <div class="px-6 py-5 ">
-                        <h1 class="text-base font-medium text-red-800 dark:text-red-400">
-                            Belum ada user yang mendaftar
-                        </h1>
-                    </div>
-                    @endif
+            <!-- ---------------------------------------------- -->
+        </div>
 
-                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                        <tr>
-                            <th scope="col" class="px-6 py-3">
-                                No
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                Nama Orang Tua
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                Kecamatan
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                Kelurahan
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                Alamat
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($users as $i => $user)
-                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                            <td class="px-6 py-3">
-                                {{ $i + 1 }}
-                            </td>
-                            <th scope="row" class="px-6 py-3 whitespace-nowrap ">
-                                <span class="block text-sm font-medium text-gray-900 dark:text-white">
-                                    {{ $user->name }}
-                                </span>
-                                <span class="text-xs text-slate-500 ">
-                                    {{ $user->type }}
-                                </span>
-                            </th>
-                            <td class="px-6 py-3">
-                                {{ $user->kecamatan }}
-                            </td>
-                            <td class="px-6 py-3">
-                                {{ $user->kelurahan }}
-                            </td>
-                            <td class="px-6 py-3">
-                                {{ $user->alamat }}
-                            </td>
-                        </tr>
-                        @endforeach
+        <!-- TABLE -->
+        @if ($users->count() > 0 )
+        <div class="px-6 py-5 bg-white w-full rounded-lg shadow-md">
+            <h1 class="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white">
+                {{ $users->count() }} User
+            </h1>
+            <span class="text-xs text-slate-500 ">
+                Yang ada di {{ $region->name }}
+            </span>
+        </div>
+        @else
+        <div class="px-6 py-5 ">
+            <h1 class="text-base font-medium text-red-800 dark:text-red-400">
+                Belum ada user yang mendaftar
+            </h1>
+        </div>
+        @endif
+        <div class="relative bg-white mt-5 py-5 overflow-x-auto shadow-md sm:rounded-lg w-full">
+            <table class="w-full text-sm text-left text-gray-500 rtl:text-right dark:text-gray-400">
 
-                    </tbody>
-                </table>
-            </div>
-            <!-- ------------------------------------------------------------ -->
-        </main>
+
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                    <tr>
+                        <th scope="col" class="px-6 py-3">
+                            No
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Nama Orang Tua
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Kecamatan
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Kelurahan
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Alamat
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($users as $i => $user)
+                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                        <td class="px-6 py-3">
+                            {{ $i + 1 }}
+                        </td>
+                        <th scope="row" class="px-6 py-3 whitespace-nowrap ">
+                            <span class="block text-sm font-medium text-gray-900 dark:text-white">
+                                {{ $user->name }}
+                            </span>
+                            <span class="text-xs text-slate-500 ">
+                                {{ $user->type }}
+                            </span>
+                        </th>
+                        <td class="px-6 py-3">
+                            {{ $user->kecamatan }}
+                        </td>
+                        <td class="px-6 py-3">
+                            {{ $user->kelurahan }}
+                        </td>
+                        <td class="px-6 py-3">
+                            {{ $user->alamat }}
+                        </td>
+                    </tr>
+                    @endforeach
+
+                </tbody>
+            </table>
+        </div>
+        <!-- ------------------------------------------------------- -->
+
     </div>
+
 </div>
 
-<script src="{{ $imtchart->cdn() }}"></script>
-<script src="{{ $pbchart->cdn() }}"></script>
-<script src="{{ $bbchart->cdn() }}"></script>
+<script>
+    // IMT
+    var kategoriIMT = <?php echo json_encode($kategoriIMT); ?>;
+    var options = {
+        chart: {
+            type: 'pie',
+            height: 300
+        },
+        legend: {
+            show: true,
+            position: 'top'
+        },
+        dataLabels: {
+            enabled: false,
+        },
+        series: Object.values(kategoriIMT),
+        labels: Object.keys(kategoriIMT),
+    }
+    var chart = new ApexCharts(document.querySelector("#imtchart"), options);
+    chart.render();
 
-{{ $imtchart->script() }}
-{{ $pbchart->script() }}
-{{ $bbchart->script() }}
+    // PB
+    var kategoriPB = <?php echo json_encode($kategoriPB); ?>;
+    var options = {
+        chart: {
+            type: 'pie',
+            height: 300
+        },
+        legend: {
+            show: true,
+            position: 'top'
+        },
+        dataLabels: {
+            enabled: false,
+        },
+        series: Object.values(kategoriPB),
+        labels: Object.keys(kategoriPB),
+    }
+    var chart = new ApexCharts(document.querySelector("#pbchart"), options);
+    chart.render();
+
+    // BB
+    var kategoriBB = <?php echo json_encode($kategoriBB); ?>;
+    var options = {
+        chart: {
+            type: 'pie',
+            height: 300,
+
+        },
+        legend: {
+            show: true,
+            position: 'top'
+        },
+        dataLabels: {
+            enabled: false,
+        },
+        series: Object.values(kategoriBB),
+        labels: Object.keys(kategoriBB),
+    }
+    var chart = new ApexCharts(document.querySelector("#bbchart"), options);
+    chart.render();
+</script>
+
 @endsection

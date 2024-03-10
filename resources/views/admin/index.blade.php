@@ -2,7 +2,7 @@
 
 @section('content')
 @include('partials.navbar')
-<div class="p-4 sm:ml-64 min-h-screen">
+<div class="p-4 sm:ml-64 bg-gray-100 min-h-screen">
     <!-- USERS CHART -->
     <div class="p-4 border-gray-200 rounded-lg dark:border-gray-700 mt-14">
         <!-- BAR CHART -->
