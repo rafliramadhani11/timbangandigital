@@ -1,6 +1,6 @@
    <div>
 
-       <h6 class="p-5 text-3xl font-bold text-gray-700 bg-white rounded-md shadow-md dark:text-white dark:bg-gray-800">
+       <h6 class="p-5 text-3xl font-semibold text-gray-700 bg-white rounded-lg shadow-md dark:text-white dark:bg-gray-800">
            Buat User Baru
        </h6>
 
@@ -178,7 +178,7 @@
            </div>
 
            <div>
-               <button type="submit" class="w-full py-3 mt-3 mb-2 text-lg font-medium text-white bg-blue-700 rounded-lg lg:text-sm lg:w-40 px-7 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 me-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Daftar Sekarang</button>
+               <button type="submit" class="w-full shadow-md py-3 mt-3 mb-2 text-lg font-medium text-white bg-blue-700 rounded-lg lg:text-sm lg:w-40 px-7 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 me-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 transition duration-200">Daftar Sekarang</button>
            </div>
 
        </form>

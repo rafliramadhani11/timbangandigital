@@ -9,7 +9,7 @@
         <div class="gap-10 lg:grid lg:grid-cols-3">
 
             <!-- INDEKSS MASSA TUBUH -->
-            <div class="p-4 px-4 mb-6 bg-white rounded shadow-md dark:bg-gray-800 md:p-8">
+            <div class="p-4 px-4 mb-6 bg-white rounded-lg shadow-md dark:bg-gray-800 md:p-8">
                 <div>
                     <h1 class="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white">
                         Indeks massa tubuh Anak
@@ -31,7 +31,7 @@
             <!-- ---------------------------------------------- -->
 
             <!-- PANJANG BADAN -->
-            <div class="p-4 px-4 mb-6 bg-white rounded shadow-md dark:bg-gray-800 md:p-8">
+            <div class="p-4 px-4 mb-6 bg-white rounded-lg shadow-md dark:bg-gray-800 md:p-8">
                 <div>
                     <h1 class="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white">
                         Panjang Badan Anak
@@ -53,7 +53,7 @@
             <!-- ---------------------------------------------- -->
 
             <!-- BERAT BADAN -->
-            <div class="p-4 px-4 mb-6 bg-white rounded shadow-md dark:bg-gray-800 md:p-8">
+            <div class="p-4 px-4 mb-6 bg-white rounded-lg shadow-md dark:bg-gray-800 md:p-8">
                 <div>
                     <h1 class="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white">
                         Berat Badan Anak
@@ -154,12 +154,12 @@
 <script>
     // IMT
     var kategoriIMT = <?php echo json_encode($kategoriIMT); ?>;
-    console.log(kategoriIMT);
     var options = {
         chart: {
             type: 'pie',
             height: 300
         },
+        colors: ['#DA0037', '#03C988', '#FFD523'],
         legend: {
             show: true,
             position: 'top'
@@ -180,6 +180,7 @@
             type: 'pie',
             height: 300
         },
+        colors: ['#DA0037', '#03C988', '#FFD523'],
         legend: {
             show: true,
             position: 'top'
@@ -201,6 +202,7 @@
             height: 300,
 
         },
+        colors: ['#DA0037', '#03C988', '#FFD523'],
         legend: {
             show: true,
             position: 'top'
