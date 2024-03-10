@@ -24,7 +24,7 @@ use App\Charts\Dashboard\PanjangBadanChart as PanjangBadanChartDashboard;
 
 class AdminController extends Controller
 {
-    public function index(UsersChart $userschart, IMTChartDashboard $imtchart, PanjangBadanChartDashboard $pbchart, BeratBadanChartDashboard $bbchart)
+    public function index(BeratBadanChartDashboard $bbchart)
     {
         $regionsUser = DB::table('regions')
             ->join('users', function ($join) {
@@ -40,6 +40,11 @@ class AdminController extends Controller
             ->where('users.admin', '!=', 1)
             ->sum('anaks.id');
 
+        $usersKategori = $this->usersKategori();
+        $imtNormal = $this->imtNormal();
+        $pbNormal = $this->pbNormal();
+        $bbNormal = $this->bbNormal();
+
         return view('admin.index', [
             "user_nav" => Auth::user(),
             'regions' => Region::get(),
@@ -47,11 +52,11 @@ class AdminController extends Controller
             'regionsUser' => $regionsUser,
             'totalAnak' => $totalAnak,
 
-            'userschart' => $userschart->build(),
+            'usersKategori' => $usersKategori,
 
-            'imtchart' => $imtchart->build(),
-            'pbchart' => $pbchart->build(),
-            'bbchart' => $bbchart->build(),
+            'imtchart' => $imtNormal,
+            'pbchart' => $pbNormal,
+            'bbchart' => $bbNormal,
         ]);
     }
 
@@ -251,5 +256,104 @@ class AdminController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
         return redirect('/login');
+    }
+
+    private function usersKategori()
+    {
+        $totalUsersByRegion = Region::leftJoin('users', 'regions.id', '=', 'users.region_id')
+            ->selectRaw('regions.name as region_name, COUNT(users.id) as total_users')
+            ->where('users.admin', '!=', 1)
+            ->groupBy('regions.id', 'regions.name')
+            ->pluck('total_users', 'region_name')
+            ->toArray();
+
+        $totalAnak = Region::leftJoin('users', 'regions.id', '=', 'users.region_id')
+            ->leftJoin('anaks', 'users.id', '=', 'anaks.user_id')
+            ->selectRaw('COUNT(anaks.id) as total_children')
+            ->groupBy('regions.id')
+            ->pluck('total_children')
+            ->toArray();
+
+        $regionNames = collect($totalUsersByRegion)->keys()->all();
+        $usersByRegion = collect($totalUsersByRegion)->values()->all();
+
+        $data = [
+            'totalAnak' => $totalAnak,
+            'regionNames' => $regionNames,
+            'usersByRegion' => $usersByRegion,
+        ];
+
+        return $data;
+    }
+
+    private function imtNormal()
+    {
+        $totalNormalImtByRegion = Region::select('regions.name as region_name')
+            ->selectRaw(
+                '
+        SUM(CASE WHEN timbangans.imt_status = "NORMAL" THEN 1 ELSE 0 END) / COUNT(timbangans.id) * 100 as percent_normal'
+            )
+            ->join('users', 'regions.id', '=', 'users.region_id')
+            ->join('anaks', 'users.id', '=', 'anaks.user_id')
+            ->join('timbangans', 'anaks.id', '=', 'timbangans.anak_id')
+            ->where('users.admin', '!=', 1)
+            ->groupBy('regions.id', 'regions.name')
+            ->get()
+            ->mapWithKeys(function ($item) {
+                return [$item->region_name => round($item->percent_normal, 1)];
+            });
+        $regionKeys = $totalNormalImtByRegion->keys()->all();
+        $regionValues = $totalNormalImtByRegion->values()->all();
+
+        $data = array_combine($regionKeys, $regionValues);
+
+        return $data;
+    }
+
+    private function pbNormal()
+    {
+        $totalNormalPbByRegion = Region::select('regions.name as region_name')
+            ->selectRaw(
+                '
+        SUM(CASE WHEN timbangans.pb_status = "NORMAL" THEN 1 ELSE 0 END) / COUNT(timbangans.id) * 100 as percent_normal'
+            )
+            ->join('users', 'regions.id', '=', 'users.region_id')
+            ->join('anaks', 'users.id', '=', 'anaks.user_id')
+            ->join('timbangans', 'anaks.id', '=', 'timbangans.anak_id')
+            ->where('users.admin', '!=', 1)
+            ->groupBy('regions.id', 'regions.name')
+            ->get()
+            ->mapWithKeys(function ($item) {
+                return [$item->region_name => round($item->percent_normal, 1)];
+            });
+        $regionKeys = $totalNormalPbByRegion->keys()->all();
+        $regionValues = $totalNormalPbByRegion->values()->all();
+
+        $data = array_combine($regionKeys, $regionValues);
+
+        return $data;
+    }
+
+    private function bbNormal()
+    {
+        $totalNormalBbByRegion = Region::select('regions.name as region_name')
+            ->selectRaw(
+                '
+        SUM(CASE WHEN timbangans.bb_status = "NORMAL" THEN 1 ELSE 0 END) / COUNT(timbangans.id) * 100 as percent_normal'
+            )
+            ->join('users', 'regions.id', '=', 'users.region_id')
+            ->join('anaks', 'users.id', '=', 'anaks.user_id')
+            ->join('timbangans', 'anaks.id', '=', 'timbangans.anak_id')
+            ->where('users.admin', '!=', 1)
+            ->groupBy('regions.id', 'regions.name')
+            ->get()
+            ->mapWithKeys(function ($item) {
+                return [$item->region_name => round($item->percent_normal, 1)];
+            });
+        $regionKeys = $totalNormalBbByRegion->keys()->all();
+        $regionValues = $totalNormalBbByRegion->values()->all();
+
+        $data = array_combine($regionKeys, $regionValues);
+        return $data;
     }
 }

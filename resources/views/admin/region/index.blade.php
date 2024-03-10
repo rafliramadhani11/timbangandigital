@@ -154,6 +154,7 @@
 <script>
     // IMT
     var kategoriIMT = <?php echo json_encode($kategoriIMT); ?>;
+    console.log(kategoriIMT);
     var options = {
         chart: {
             type: 'pie',
