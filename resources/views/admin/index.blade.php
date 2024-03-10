@@ -3,9 +3,9 @@
 @section('content')
 @include('partials.navbar')
 <div class="p-4 sm:ml-64 bg-gray-100 min-h-screen">
-    <!-- USERS CHART -->
+
     <div class="p-4 border-gray-200 rounded-lg dark:border-gray-700 mt-14">
-        <!-- BAR CHART -->
+        <!-- USERS CHART -->
         @if (count($regionsUser) > 0)
         <div class="p-4 px-4 mb-6 bg-white rounded shadow-md dark:bg-gray-800 md:p-8">
             {!! $userschart->container() !!}

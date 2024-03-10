@@ -1,35 +1,32 @@
 <div>
+    <div class="px-4 md:pt-1 pt-1 pb-4 mb-5 bg-white  dark:bg-gray-800 shadow-md rounded-lg dark:border-gray-700">
+        <h1 class="text-xl pt-1 font-semibold text-gray-900 sm:text-2xl dark:text-white">
+            Semua User
+        </h1>
+        <div class="lg:flex md:items-center md:justify-between">
+            <div class="mt-5 md:w-96 w-full sm:w-full">
+                <form wire:model="search" class="md:flex items-center relative">
+                    <input type="text" wire:model.live="search" class="block  text-sm text-gray-900 border border-gray-300 rounded-lg ps-10 bg-gray-50 focus:ring-blue-500 w-full focus:border-blue-500 dark:bg-gray-700  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" autofocus placeholder="Cari User berdasarkan Nama">
+                    @if ($search)
+                    <svg wire:click="resetSearch" xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 cursor-pointer absolute md:right-3 top-2.5 right-3" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                    </svg>
+                    @endif
+                    <svg class="w-4 h-4 absolute md:left-3 top-2.5 left-3 text-black" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                    </svg>
+                </form>
+            </div>
 
-    <h1 class="text-xl p-4 font-semibold text-gray-900 sm:text-2xl dark:text-white">
-        Semua User
+            <div class="mt-5">
+                <a href="{{ route('admin.create') }}" class="text-white bg-blue-700 hover:bg-blue-800  focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"">
+                                        <svg class=" w-3.5 h-3.5 me-3 text-white dark:text-white " aria-hidden=" true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16" />
+                    </svg>
+                    Buat User Baru
+                </a>
 
-    </h1>
-
-
-    <div class="px-4 md:pt-1 pt-1 pb-4 mb-5 bg-white lg:flex md:items-center md:justify-between lg:mt-1.5 dark:bg-gray-800 shadow-md rounded-lg dark:border-gray-700">
-
-        <div class="mt-5 md:w-96 w-full sm:w-full">
-            <form wire:model="search" class="md:flex items-center relative">
-                <input type="text" wire:model.live="search" class="block  text-sm text-gray-900 border border-gray-300 rounded-lg ps-10 bg-gray-50 focus:ring-blue-500 w-full focus:border-blue-500 dark:bg-gray-700  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" autofocus placeholder="Cari User berdasarkan Nama">
-                @if ($search)
-                <svg wire:click="resetSearch" xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 cursor-pointer absolute md:right-3 top-2.5 right-3" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
-                </svg>
-                @endif
-                <svg class="w-4 h-4 absolute md:left-3 top-2.5 left-3 text-black" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
-                </svg>
-            </form>
-        </div>
-
-        <div class="mt-5">
-            <a href="{{ route('admin.create') }}" class="text-white bg-blue-700 hover:bg-blue-800  focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"">
-                                    <svg class=" w-3.5 h-3.5 me-3 text-white dark:text-white " aria-hidden=" true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16" />
-                </svg>
-                Buat User Baru
-            </a>
-
+            </div>
         </div>
 
     </div>
@@ -148,7 +145,7 @@
     </div>
     @endif
     <!-- ---------------------- -->
-    <div class="p-5 text-white ">
+    <div class="px-5 pb-3 mt-5 bg-white w-full rounded-lg shadow-md">
         {{ $users->links('vendor.pagination.custom') }}
     </div>
 

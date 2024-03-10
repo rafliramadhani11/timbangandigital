@@ -1,8 +1,8 @@
 @if ($paginator->hasPages())
-<nav class="flex items-center justify-between">
+<nav class="md:flex md:items-center md:justify-between">
 
     <div>
-        <p class="text-sm leading-5 text-gray-400 dark:text-gray-500">
+        <p class="text-sm leading-5 mt-3 md:mt-0 pt-3 text-black dark:text-gray-500">
             Menampilkan
             @if ($paginator->firstItem())
             <span class="font-medium">{{ $paginator->lastItem() }}</span>
@@ -15,7 +15,7 @@
         </p>
     </div>
 
-    <div>
+    <div class="mt-3  ">
         {{-- Pagination Element Here --}}
         @foreach ($elements as $element)
         {{-- Make dots here --}}
@@ -42,8 +42,6 @@
         @endif
         @endforeach
     </div>
-
-
 
 </nav>
 @endif
