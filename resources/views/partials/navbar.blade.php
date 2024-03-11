@@ -45,16 +45,16 @@
                         @cannot('admin')
                         <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="avatarButton">
                             <li>
-                                <a href="{{ route('user.index') }}" class="block px-4 py-2 mx-3 my-1 rounded-md hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Dashboard</a>
+                                <a href="{{ route('user.index') }}" class="block px-4 py-2 mx-3 my-1 rounded-md hover:bg-gray-100 font-semibold dark:hover:bg-gray-600 dark:hover:text-white">Dashboard</a>
                             </li>
                             <li>
-                                <a href="{{ route('user.show', $user->username) }}" class="block px-4 py-2 mx-3 my-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Profile</a>
+                                <a href="{{ route('user.show', $user->username) }}" class="block px-4 py-2 mx-3 my-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-600 font-semibold dark:hover:text-white">Profile</a>
                             </li>
 
                             <li>
                                 <form action="{{ route('user.logout') }}" method="post">
                                     @csrf
-                                    <button class="px-4 text-start w-[9.5rem] py-2 mx-3 my-1 rounded-md hover:bg-red-500 hover:text-white dark:hover:bg-red-500 dark:hover:text-white dark:text-white">
+                                    <button class="px-4 text-center text-white font-semibold w-[9.5rem] py-2 mx-3  rounded-lg shadow-md bg-red-500 ">
                                         Sign Out
                                     </button>
                                 </form>

@@ -91,17 +91,17 @@
             <!-- ------------------- -->
         </div>
         @else
-        <div class="flex items-center justify-center p-4 px-4 mb-6 md:p-8">
-            <div class="flex items-center p-4 mb-4 text-sm text-red-800 dark:text-red-400" role="alert">
+        <div class="flex bg-white rounded-lg shadow-md items-center justify-center px-4 mb-6 md:p-4 ">
+            <div class="flex items-center p-4 text-sm text-red-800 dark:text-red-400" role="alert">
                 <svg class="flex-shrink-0 inline w-7 h-7 me-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
                 </svg>
                 <span class="sr-only">Info</span>
                 <div>
-                    <h1 class="text-3xl font-medium text-red-800dark:text-red-400">
+                    <h1 class="text-sm md:text-lg lg:text-2xl font-medium text-red-800">
                         Belum ada anak yang di timbang
                     </h1>
-                    <span class="text-xs text-slate-500 ">
+                    <span class="text-xs md:text-md lg:text-lg font-semibold text-gray-500 ">
                         Grafik tidak dapat di tampilkan
                     </span>
                 </div>
@@ -169,7 +169,7 @@
             </table>
         </div>
         @else
-        <div class="flex items-center w-1/2 p-4 mb-4 text-sm text-red-800 border border-red-300 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400 dark:border-red-800" role="alert">
+        <div class="flex items-center w-full p-4 mb-4 text-sm text-red-800 border border-red-300 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400 dark:border-red-800" role="alert">
             <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                 <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
             </svg>
