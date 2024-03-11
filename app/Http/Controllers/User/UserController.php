@@ -7,16 +7,13 @@ use App\Models\User;
 use App\Models\Region;
 use App\Models\Timbangan;
 use Illuminate\Http\Request;
-use App\Charts\User\IMTChart;
-use App\Charts\User\BeratBadanChart;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use App\Charts\User\PanjangBadanChart;
 use App\Http\Requests\UpdateOrangtuaRequest;
 
 class UserController extends Controller
 {
-    public function index(BeratBadanChart $bbchart)
+    public function index()
     {
         if (!Auth::check()) {
             return redirect()->back();
