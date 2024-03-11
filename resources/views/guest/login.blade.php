@@ -1,14 +1,12 @@
 <x-guest-layout>
-
-    <div class="flex h-screen ">
-
+    <div class="flex h-screen lg:grid lg:grid-cols-2">
         <!-- Left Pane -->
         <div class="items-center justify-center flex-1 hidden text-black bg-white lg:flex">
             <x-left-content />
         </div>
 
         <!-- Right Pane -->
-        <div class="flex items-center justify-center w-full bg-gray-100 lg:w-1/2">
+        <div class="flex items-center justify-center w-full bg-gray-100 ">
             <div class="w-full max-w-md p-6">
                 <h1 class="mb-6 text-3xl font-semibold text-center text-black">Masukan Akun</h1>
                 <h1 class="mb-6 text-sm font-semibold text-center text-gray-500">Timbang Tuntas, Kontrol Penuh: Selamat Datang di Dashboard Timbangan Digital Kami!
@@ -68,6 +66,7 @@
             </div>
         </div>
     </div>
+
     <script type="text/javascript">
         $('#notShow').on('click', function() {
             var inputPassword = document.getElementById('password')
