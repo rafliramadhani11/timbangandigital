@@ -2,7 +2,7 @@
 <nav class="md:flex md:items-center md:justify-between">
 
     <div>
-        <p class="text-sm leading-5 mt-3 md:mt-0 pt-3 text-black dark:text-gray-500">
+        <p class="text-sm leading-5 mt-3 md:mt-0 pt-3 text-black ">
             Menampilkan
             @if ($paginator->firstItem())
             <span class="font-medium">{{ $paginator->lastItem() }}</span>
@@ -30,10 +30,10 @@
 
             @if ($page == $paginator->currentPage())
             <span aria-current="page">
-                <span class="relative inline-flex items-center px-4 py-2 -ml-px text-sm font-medium leading-5 text-gray-300 bg-white border border-gray-300 rounded-md cursor-default dark:text-gray-500 dark:border-gray-700 dark:bg-gray-800">{{ $page }}</span>
+                <span class="relative inline-flex items-center px-4 py-2 -ml-px text-sm font-medium leading-5 text-gray-300 bg-white border border-gray-300 rounded-md cursor-default ">{{ $page }}</span>
             </span>
             @else
-            <span class="page-item"><button wire:click="gotoPage({{$page}})" class="relative inline-flex items-center px-4 py-2 -ml-px text-sm font-medium leading-5 text-gray-500 bg-white border border-gray-300 rounded-md dark:text-gray-300 focus:z-10 focus:outline-none dark:border-gray-700 dark:bg-gray-800">{{$page}}</button></span>
+            <span class="page-item"><button wire:click="gotoPage({{$page}})" class="relative inline-flex items-center px-4 py-2 -ml-px text-sm font-medium leading-5 text-gray-500 bg-white border border-gray-300 rounded-md  focus:z-10 focus:outline-none ">{{$page}}</button></span>
             @endif
 
             @endforeach

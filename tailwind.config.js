@@ -21,9 +21,9 @@ module.exports = {
         "leading-9",
         "shadow-lg",
         "bg-opacity-50",
-        "dark:bg-opacity-80",
+        ,
     ],
-    darkMode: "class",
+    darkMode: "false",
     theme: {
         extend: {
             colors: {

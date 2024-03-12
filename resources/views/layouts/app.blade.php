@@ -10,7 +10,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 
-<body class="antialiased bg-gray-50 dark:bg-gray-800">
+<body class="antialiased bg-gray-50">
 
     {{ $slot }}
 

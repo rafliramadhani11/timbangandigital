@@ -3,16 +3,11 @@
 namespace App\Http\Controllers;
 
 
-use App\Models\Anak;
 use App\Models\User;
 use App\Models\Region;
-use App\Charts\IMTChart;
 use App\Models\Timbangan;
 use Illuminate\Http\Request;
-use App\Charts\BeratBadanChart;
-use App\Charts\PanjangBadanChart;
 use Illuminate\Support\Facades\DB;
-use App\Charts\Dashboard\UsersChart;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreOrangtuaRequest;
@@ -72,9 +67,6 @@ class AdminController extends Controller
         User::create($request->validated());
         return redirect()->route('admin.users')->with('stored', 'Data baru telah di buat !');
     }
-
-
-
 
     public function allUsers()
     {
@@ -142,16 +134,12 @@ class AdminController extends Controller
         }
     }
 
-
-
     public function delete($username)
     {
         $user = User::where('username', $username)->first();
         $user->delete();
         return redirect()->route('admin.users')->with('deleted', 'Data berhasil di hapus !');
     }
-
-
 
     public function logout(Request $request)
     {

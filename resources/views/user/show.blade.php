@@ -198,7 +198,7 @@
 
                         <td class="px-4 py-2 text-gray-700 whitespace-nowrap ">
                             <span class="inline-flex -space-x-px overflow-hidden bg-white border rounded-md shadow-sm  ">
-                                <a href="{{ route('anak.show', ['user' => $anak->user->username, 'anak' => $anak->id]) }}" role="button" id="ubahNama" class="inline-block px-4 py-2 text-sm font-medium text-gray-700 hover:bg-green-100 focus:relative  " type="button">
+                                <a href="{{ route('anak.show', ['user' => $anak->user->username, 'anak' => $anak->id]) }}" role="button" class="inline-block px-4 py-2 text-sm font-medium text-gray-700 hover:bg-green-100 focus:relative  " type="button">
                                     Lihat
                                 </a>
                             </span>

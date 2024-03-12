@@ -1,14 +1,15 @@
 <?php
 
-use App\Http\Controllers\Admin\AnakController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\RegionController;
 use App\Http\Controllers\TimbanganController;
 use App\Http\Controllers\User\UserController;
+use App\Http\Controllers\Admin\AnakController;
 use App\Http\Controllers\AuthenticationController;
+use App\Http\Controllers\User\AnakController as UserAnakController;
 
-Route::middleware('guest')->controller(AuthenticationController::class)
+Route::middleware(['guest'])->controller(AuthenticationController::class)
     ->group(function () {
         Route::group(['get'], function () {
             Route::get('/login', 'login')->name('login');
@@ -38,8 +39,17 @@ Route::middleware(['auth'])->controller(UserController::class)
         });
     });
 
+Route::middleware(['auth'])->group(function () {
+    Route::get('/dashboard/user/{user}/anak/{anak:id}', [UserAnakController::class, 'show'])->name('anak.show');
+    Route::put(
+        '/dashboard/user/anak/{id}',
+        [UserAnakController::class, 'update']
+    )
+        ->name('anak.update');
+});
+
 // ADMIN
-Route::middleware('admin')->controller(AdminController::class)
+Route::middleware(['admin'])->controller(AdminController::class)
     ->group(function () {
         Route::group(['get'], function () {
             Route::get('/dashboard/admin', 'index')
@@ -66,7 +76,7 @@ Route::middleware('admin')->controller(AdminController::class)
         });
     });
 
-Route::middleware('admin')->controller(AnakController::class)
+Route::middleware(['admin'])->controller(AnakController::class)
     ->group(function () {
         Route::get('/dashboard/admin/users/{username}/anak/{anak:id}', 'show')->name('admin.anak.show')->scopeBindings();
         Route::post('/dashboard/admin/users/{username}/anak/create', 'store')->name('admin.anak.store');
@@ -78,15 +88,12 @@ Route::middleware('admin')->controller(AnakController::class)
 
 
 
-Route::middleware('auth')->group(function () {
-    Route::get('/dashboard/user/{user}/anak/{anak:id}', [AnakController::class, 'show'])
-        ->name('anak.show');
-    Route::put('/dashboard/user/anak/{id}', [AnakController::class, 'update'])->name('anak.update');
-});
 
 
 
-Route::middleware('admin')->group(function () {
+
+
+Route::middleware(['admin'])->group(function () {
     // TIMBANG UPDATE
     Route::put('/dashboard/admin/users/anak/{id}/timbang', [TimbanganController::class, 'update'])->name('admin.update.timbang');
     // ------------------------------

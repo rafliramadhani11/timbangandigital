@@ -7,7 +7,6 @@
         </x-user-sidebar>
         @endcannot
 
-        <!-- ADMIN -->
         @can('admin')
         <x-admin-sidebar :$regions>
         </x-admin-sidebar>

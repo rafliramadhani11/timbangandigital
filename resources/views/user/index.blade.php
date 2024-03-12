@@ -136,29 +136,29 @@
                         </th>
                     </tr>
                 </thead>
-                <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+                <tbody class="divide-y divide-gray-200 ">
                     @if ($anaks->count())
                     @foreach ($anaks as $anak)
                     <tr>
-                        <td class="px-4 py-2 text-gray-700 whitespace-nowrap dark:text-gray-200">
+                        <td class="px-4 py-2 text-gray-700 whitespace-nowrap ">
                             {{ $loop->iteration }}
                         </td>
-                        <td class="px-4 py-2 text-gray-700 whitespace-nowrap dark:text-gray-200">
+                        <td class="px-4 py-2 text-gray-700 whitespace-nowrap ">
                             {{ $anak->name }}
                         </td>
-                        <td class="px-4 py-2 text-gray-700 whitespace-nowrap dark:text-gray-200">
+                        <td class="px-4 py-2 text-gray-700 whitespace-nowrap ">
                             {{ $anak->jeniskelamin }}
                         </td>
-                        <td class="px-4 py-2 text-gray-700 whitespace-nowrap dark:text-gray-200">
+                        <td class="px-4 py-2 text-gray-700 whitespace-nowrap ">
                             {{ optional($anak->timbangans->first())->umur }} Bulan
                         </td>
-                        <td class="px-4 py-2 text-gray-700 whitespace-nowrap dark:text-gray-200">
+                        <td class="px-4 py-2 text-gray-700 whitespace-nowrap ">
                             {{ optional($anak->timbangans->first())->pb ?? '-' }} cm
                         </td>
-                        <td class="px-4 py-2 text-gray-700 whitespace-nowrap dark:text-gray-200">
+                        <td class="px-4 py-2 text-gray-700 whitespace-nowrap ">
                             {{ optional($anak->timbangans->first())->bb ?? '-' }} kg
                         </td>
-                        <td class="px-4 py-2 text-gray-700 whitespace-nowrap dark:text-gray-200">
+                        <td class="px-4 py-2 text-gray-700 whitespace-nowrap ">
                             {{ optional($anak->timbangans->first())->imt }}
                         </td>
 
@@ -169,7 +169,7 @@
             </table>
         </div>
         @else
-        <div class="flex items-center w-full p-4 mb-4 text-sm text-red-800 border border-red-300 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400 dark:border-red-800" role="alert">
+        <div class="flex items-center w-full p-4 mb-4 text-sm text-red-800 border border-red-300 rounded-lg bg-red-50" role="alert">
             <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                 <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
             </svg>

@@ -2,17 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Anak;
 use App\Models\Region;
 use App\Models\Timbangan;
-use App\Charts\Region\IMTChart;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use App\Charts\Region\BeratBadanChart;
-use App\Charts\Region\PanjangBadanChart;
 
 class RegionController extends Controller
 {
-    public function index($slug, BeratBadanChart $bbchart)
+    public function index($slug)
     {
         $region = Region::where('slug', $slug)->first();
         $user = Auth::user();
@@ -58,64 +56,35 @@ class RegionController extends Controller
     private function PersentasePB($slug)
     {
         $region = Region::where('slug', $slug)->first();
-        $totalPB = Timbangan::whereIn('anak_id', function ($query) use ($region) {
-            $query->select('id')
-                ->from('anaks')
-                ->whereIn('user_id', function ($query) use ($region) {
-                    $query->select('id')
-                        ->from('users')
-                        ->where('admin', '!=', 1)
-                        ->where('region_id', $region->id);
-                });
-        })
-            ->whereHas('anak.user', function ($query) use ($region) {
-                $query->where('admin', '!=', 1)
-                    ->where('region_id', $region->id);
-            })
-            ->whereHas('anak.timbangans')
-            ->count();
+
+        $totalTimbanganRegion = Timbangan::whereHas('anak.user', function ($query) use ($region) {
+            $query->where('admin', '!=', 1)
+                ->where('region_id', $region->id);
+        })->count();
 
         $pbStunted = Timbangan::whereHas('anak.user', function ($query) use ($region) {
             $query->where('admin', '!=', 1)
                 ->where('region_id', $region->id);
-        })
-            ->whereHas('anak', function ($query) {
-                $query->whereHas('timbangans', function ($query) {
-                    $query->where('pb_status', 'STUNTED');
-                });
-            })
-            ->count();
+        })->where('pb_status', 'STUNTED')->count();
 
         $pbNormal = Timbangan::whereHas('anak.user', function ($query) use ($region) {
             $query->where('admin', '!=', 1)
                 ->where('region_id', $region->id);
-        })
-            ->whereHas('anak', function ($query) {
-                $query->whereHas('timbangans', function ($query) {
-                    $query->where('pb_status', 'NORMAL');
-                });
-            })
-            ->count();
+        })->where('pb_status', 'NORMAL')->count();
 
         $pbTinggi = Timbangan::whereHas('anak.user', function ($query) use ($region) {
             $query->where('admin', '!=', 1)
                 ->where('region_id', $region->id);
-        })
-            ->whereHas('anak', function ($query) {
-                $query->whereHas('timbangans', function ($query) {
-                    $query->where('pb_status', 'TINGGI');
-                });
-            })
-            ->count();
+        })->where('pb_status', 'TINGGI')->count();
 
-        $stuntedPercentage = $totalPB != 0
-            ? ($pbStunted / $totalPB) * 100
+        $stuntedPercentage = $totalTimbanganRegion != 0
+            ? ($pbStunted / $totalTimbanganRegion) * 100
             : null;
-        $normalPercentage = $totalPB != 0
-            ? ($pbNormal / $totalPB) * 100
+        $normalPercentage = $totalTimbanganRegion != 0
+            ? ($pbNormal / $totalTimbanganRegion) * 100
             : null;
-        $tinggiPercentage = $totalPB != 0
-            ? ($pbTinggi / $totalPB) * 100
+        $tinggiPercentage = $totalTimbanganRegion != 0
+            ? ($pbTinggi / $totalTimbanganRegion) * 100
             : null;
 
         $kategoriPB = [
@@ -123,71 +92,41 @@ class RegionController extends Controller
             'NORMAL' => round($normalPercentage, 1),
             'TINGGI' => round($tinggiPercentage, 1),
         ];
-
         return $kategoriPB;
     }
 
     private function PersentaseIMT($slug)
     {
         $region = Region::where('slug', $slug)->first();
-        $totalIMT = Timbangan::whereIn('anak_id', function ($query) use ($region) {
-            $query->select('id')
-                ->from('anaks')
-                ->whereIn('user_id', function ($query) use ($region) {
-                    $query->select('id')
-                        ->from('users')
-                        ->where('admin', '!=', 1)
-                        ->where('region_id', $region->id);
-                });
-        })
-            ->whereHas('anak.user', function ($query) use ($region) {
-                $query->where('admin', '!=', 1)
-                    ->where('region_id', $region->id);
-            })
-            ->whereHas('anak.timbangans')
-            ->count();
+
+        $totalTimbanganRegion = Timbangan::whereHas('anak.user', function ($query) use ($region) {
+            $query->where('admin', '!=', 1)
+                ->where('region_id', $region->id);
+        })->count();
 
         $imtWasted = Timbangan::whereHas('anak.user', function ($query) use ($region) {
             $query->where('admin', '!=', 1)
                 ->where('region_id', $region->id);
-        })
-            ->whereHas('anak', function ($query) {
-                $query->whereHas('timbangans', function ($query) {
-                    $query->where('imt_status', 'WASTED');
-                });
-            })
-            ->count();
+        })->where('imt_status', 'WASTED')->count();
 
         $imtNormal = Timbangan::whereHas('anak.user', function ($query) use ($region) {
             $query->where('admin', '!=', 1)
                 ->where('region_id', $region->id);
-        })
-            ->whereHas('anak', function ($query) {
-                $query->whereHas('timbangans', function ($query) {
-                    $query->where('imt_status', 'NORMAL');
-                });
-            })
-            ->count();
+        })->where('imt_status', 'NORMAL')->count();
 
         $imtObesitas = Timbangan::whereHas('anak.user', function ($query) use ($region) {
             $query->where('admin', '!=', 1)
                 ->where('region_id', $region->id);
-        })
-            ->whereHas('anak', function ($query) {
-                $query->whereHas('timbangans', function ($query) {
-                    $query->where('imt_status', 'RESIKO OBESITAS');
-                });
-            })
-            ->count();
+        })->where('imt_status', 'RESIKO OBESITAS')->count();
 
-        $wastedPercentage = $totalIMT != 0
-            ? ($imtWasted / $totalIMT) * 100
+        $wastedPercentage = $totalTimbanganRegion != 0
+            ? ($imtWasted / $totalTimbanganRegion) * 100
             : null;
-        $normalPercentage = $totalIMT != 0
-            ? ($imtNormal / $totalIMT) * 100
+        $normalPercentage = $totalTimbanganRegion != 0
+            ? ($imtNormal / $totalTimbanganRegion) * 100
             : null;
-        $obesitasPercentage = $totalIMT != 0
-            ? ($imtObesitas / $totalIMT) * 100
+        $obesitasPercentage = $totalTimbanganRegion != 0
+            ? ($imtObesitas / $totalTimbanganRegion) * 100
             : null;
 
         $kategoriIMT = [
@@ -195,71 +134,41 @@ class RegionController extends Controller
             'NORMAL' => round($normalPercentage, 1),
             'RESIKO OBESITAS' => round($obesitasPercentage, 1),
         ];
-
         return $kategoriIMT;
     }
 
     private function PersentaseBB($slug)
     {
         $region = Region::where('slug', $slug)->first();
-        $totalBB = Timbangan::whereIn('anak_id', function ($query) use ($region) {
-            $query->select('id')
-                ->from('anaks')
-                ->whereIn('user_id', function ($query) use ($region) {
-                    $query->select('id')
-                        ->from('users')
-                        ->where('admin', '!=', 1)
-                        ->where('region_id', $region->id);
-                });
-        })
-            ->whereHas('anak.user', function ($query) use ($region) {
-                $query->where('admin', '!=', 1)
-                    ->where('region_id', $region->id);
-            })
-            ->whereHas('anak.timbangans')
-            ->count();
+
+        $totalTimbanganRegion = Timbangan::whereHas('anak.user', function ($query) use ($region) {
+            $query->where('admin', '!=', 1)
+                ->where('region_id', $region->id);
+        })->count();
 
         $bbUnderweight = Timbangan::whereHas('anak.user', function ($query) use ($region) {
             $query->where('admin', '!=', 1)
                 ->where('region_id', $region->id);
-        })
-            ->whereHas('anak', function ($query) {
-                $query->whereHas('timbangans', function ($query) {
-                    $query->where('bb_status', 'UNDERWEIGHT');
-                });
-            })
-            ->count();
+        })->where('bb_status', 'UNDERWEIGHT')->count();
 
         $bbNormal = Timbangan::whereHas('anak.user', function ($query) use ($region) {
             $query->where('admin', '!=', 1)
                 ->where('region_id', $region->id);
-        })
-            ->whereHas('anak', function ($query) {
-                $query->whereHas('timbangans', function ($query) {
-                    $query->where('bb_status', 'NORMAL');
-                });
-            })
-            ->count();
+        })->where('bb_status', 'NORMAL')->count();
 
         $bbObesitas = Timbangan::whereHas('anak.user', function ($query) use ($region) {
             $query->where('admin', '!=', 1)
                 ->where('region_id', $region->id);
-        })
-            ->whereHas('anak', function ($query) {
-                $query->whereHas('timbangans', function ($query) {
-                    $query->where('bb_status', 'RESIKO OBESITAS');
-                });
-            })
-            ->count();
+        })->where('bb_status', 'RESIKO OBESITAS')->count();
 
-        $underweightPercentage = $totalBB != 0
-            ? ($bbUnderweight / $totalBB) * 100
+        $underweightPercentage = $totalTimbanganRegion != 0
+            ? ($bbUnderweight / $totalTimbanganRegion) * 100
             : null;
-        $normalPercentage = $totalBB != 0
-            ? ($bbNormal / $totalBB) * 100
+        $normalPercentage = $totalTimbanganRegion != 0
+            ? ($bbNormal / $totalTimbanganRegion) * 100
             : null;
-        $obesitasPercentage = $totalBB != 0
-            ? ($bbObesitas / $totalBB) * 100
+        $obesitasPercentage = $totalTimbanganRegion != 0
+            ? ($bbObesitas / $totalTimbanganRegion) * 100
             : null;
 
         $kategoriBB = [
@@ -267,7 +176,6 @@ class RegionController extends Controller
             'NORMAL' => round($normalPercentage, 1),
             'RESIKO OBESITAS' => round($obesitasPercentage, 1),
         ];
-
         return $kategoriBB;
     }
 }

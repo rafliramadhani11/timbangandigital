@@ -4,7 +4,7 @@
 @include('partials.navbar')
 <div class="p-4 sm:ml-64 bg-gray-100 min-h-screen">
 
-    <div class="px-2 pt-4 border-gray-200 rounded-lg dark:border-gray-700 mt-14">
+    <div class="px-2 pt-4 border-gray-200 rounded-lg  mt-14">
 
         <a href="{{ route('user.show', $user->username) }}" class="inline-flex items-center justify-center p-2 mb-5 text-black font-semibold  bg-white rounded-lg shadow-md hover:bg-gray-100 ">
             <svg class="w-6 h-6 text-gray-500 me-3 hover:text-gray-900 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
@@ -22,8 +22,8 @@
                 <form method="post" action="{{ route('user.update', $user->username) }}" class="lg:col-span-2 ">
                     @method('patch')
                     @csrf
-                    <div class="grid grid-cols-1 gap-4 md:grid-cols-5 ">
-                        <div class="md:grid md:grid-cols-2 lg:grid-cols-3  md:gap-x-5">
+                    <div class="grid grid-cols-1 gap-4 md:grid-cols-1 lg:grid-cols-1 ">
+                        <div class="md:grid grid grid-cols-2 gap-x-5 md:grid-cols-2 lg:grid-cols-3  md:gap-x-5">
                             <div class="mb-3">
                                 <label for="name" class="block text-sm font-medium text-slate-700">Nama Lengkap</label>
                                 <input type="text" name="name" id="name" class="block w-full px-3 py-2 mt-1 text-sm text-black bg-white border rounded-md shadow-sm placeholder-slate-400" value="{{ old('name', $user->name) }}" required autofocus />

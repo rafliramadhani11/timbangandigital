@@ -1,12 +1,12 @@
 <div>
-    <div class="px-4 md:pt-1 pt-1 pb-4 mb-5 bg-white  dark:bg-gray-800 shadow-md rounded-lg dark:border-gray-700">
-        <h1 class="text-xl pt-1 font-semibold text-gray-900 sm:text-2xl dark:text-white">
+    <div class="px-4 md:pt-1 pt-1 pb-4 mb-5 bg-white   shadow-md rounded-lg ">
+        <h1 class="text-xl pt-1 font-semibold text-gray-900 sm:text-2xl ">
             Semua User
         </h1>
         <div class="lg:flex md:items-center md:justify-between">
             <div class="mt-5 md:w-96 w-full sm:w-full">
                 <form wire:model="search" class="md:flex items-center relative">
-                    <input type="text" wire:model.live="search" class="block  text-sm text-gray-900 border border-gray-300 rounded-lg ps-10 bg-gray-50 focus:ring-blue-500 w-full focus:border-blue-500 dark:bg-gray-700  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" autofocus placeholder="Cari User berdasarkan Nama">
+                    <input type="text" wire:model.live="search" class="block  text-sm text-gray-900 border border-gray-300 rounded-lg ps-10 bg-gray-50 focus:ring-blue-500 w-full focus:border-blue-500 " autofocus placeholder="Cari User berdasarkan Nama">
                     @if ($search)
                     <svg wire:click="resetSearch" xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 cursor-pointer absolute md:right-3 top-2.5 right-3" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
@@ -19,8 +19,8 @@
             </div>
 
             <div class="mt-5">
-                <a href="{{ route('admin.create') }}" class="text-white bg-blue-700 hover:bg-blue-800  focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg shadow-md text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 transition duration-200">
-                    <svg class=" w-3.5 h-3.5 me-3 text-white dark:text-white " aria-hidden=" true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                <a href="{{ route('admin.create') }}" class="text-white bg-blue-700 hover:bg-blue-800  focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg shadow-md text-sm px-5 py-2.5 text-center inline-flex items-center  transition duration-200">
+                    <svg class=" w-3.5 h-3.5 me-3 text-white " aria-hidden=" true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16" />
                     </svg>
                     Buat User Baru
@@ -33,13 +33,13 @@
     <!-- TABLE -->
     @if ($users->count())
     <div class="overflow-x-auto p-3 shadow-md bg-white rounded-lg ">
-        <table class="min-w-full text-sm  divide-y-2 divide-gray-200 rounded-md dark:divide-gray-700 dark:bg-gray-800">
+        <table class="min-w-full text-sm  divide-y-2 divide-gray-200 rounded-md ">
             <thead class="text-left">
                 <tr>
-                    <th class="px-5 py-5 font-medium text-center text-gray-900 whitespace-nowrap dark:text-white">
+                    <th class="px-5 py-5 font-medium text-center text-gray-900 whitespace-nowrap ">
                         No
                     </th>
-                    <th class="px-10 py-5 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    <th class="px-10 py-5 font-medium text-gray-900 whitespace-nowrap ">
                         <div class="flex items-center justify-between ">
                             <a wire:click="sort('created_at')" class="cursor-pointer">
                                 Nama Lengkap
@@ -50,7 +50,7 @@
 
                         </div>
                     </th>
-                    <th class="px-10 py-5 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    <th class="px-10 py-5 font-medium text-gray-900 whitespace-nowrap ">
                         <div class="flex items-center justify-between ">
                             Pekerjaan
                             <a wire:click="sort('pekerjaan')" class="cursor-pointer"><svg class="w-3 h-3 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
@@ -59,7 +59,7 @@
                             </a>
                         </div>
                     </th>
-                    <th class="px-10 py-5 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    <th class="px-10 py-5 font-medium text-gray-900 whitespace-nowrap ">
                         <div class="flex items-center justify-between ">
                             Jenis Kelamin
                             <a <a wire:click="sort('jeniskelamin')" class="cursor-pointer"><svg class="w-3 h-3 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
@@ -68,7 +68,7 @@
                             </a>
                         </div>
                     </th>
-                    <th class="px-10 py-5 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    <th class="px-10 py-5 font-medium text-gray-900 whitespace-nowrap ">
                         <div class="flex items-center justify-between ">
                             Region
                             <a <a wire:click="sort('region_id')" class="cursor-pointer"><svg class="w-3 h-3 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
@@ -77,21 +77,21 @@
                             </a>
                         </div>
                     </th>
-                    <th class="px-10 py-5 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    <th class="px-10 py-5 font-medium text-gray-900 whitespace-nowrap ">
                         Registrasi
                     </th>
-                    <th class="px-10 py-5 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    <th class="px-10 py-5 font-medium text-gray-900 whitespace-nowrap ">
                     </th>
                 </tr>
             </thead>
 
-            <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+            <tbody class="divide-y divide-gray-200 ">
                 @foreach ($users as $key => $user )
                 <tr wire:key="{{ $user->id }}">
-                    <td class="px-5 py-2 text-center text-gray-700 whitespace-nowrap dark:text-gray-200">
+                    <td class="px-5 py-2 text-center text-gray-700 whitespace-nowrap ">
                         {{ $users->firstItem() + $key  }}
                     </td>
-                    <td class="px-10 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    <td class="px-10 py-2 font-medium text-gray-900 whitespace-nowrap ">
                         <span class="block text-sm">
                             {{ $user->name }}
                         </span>
@@ -100,25 +100,25 @@
                         </span>
                     </td>
 
-                    <td class="px-10 py-2 text-gray-700 whitespace-nowrap dark:text-gray-200">
+                    <td class="px-10 py-2 text-gray-700 whitespace-nowrap ">
                         {{ $user->pekerjaan?: '-' }}
                     </td>
-                    <td class="px-10 py-2 text-gray-700 whitespace-nowrap dark:text-gray-200">
+                    <td class="px-10 py-2 text-gray-700 whitespace-nowrap ">
                         {{ $user->jeniskelamin ?: '-' }}
                     </td>
-                    <td class="px-10 py-2 text-gray-700 whitespace-nowrap dark:text-gray-200">
+                    <td class="px-10 py-2 text-gray-700 whitespace-nowrap ">
                         {{ $user->region->name ?: '-' }}
                     </td>
-                    <td class="px-10 py-2 text-gray-700 whitespace-nowrap dark:text-gray-200">
+                    <td class="px-10 py-2 text-gray-700 whitespace-nowrap ">
                         {{ $user->created_at->format('l, j M H:i')  }}
                     </td>
 
                     <td class="px-10 py-2 whitespace-nowrap">
-                        <span class="inline-flex -space-x-px overflow-hidden bg-white border rounded-md shadow-sm dark:border-gray-800 dark:bg-gray-900">
-                            <a href="{{ route('admin.show', $user->username) }}" class="inline-block px-4 py-2 text-sm font-medium text-gray-700 hover:bg-green-100 focus:relative dark:text-gray-200 dark:hover:bg-green-800">
+                        <span class="inline-flex -space-x-px overflow-hidden bg-white border rounded-md shadow-sm ">
+                            <a href="{{ route('admin.show', $user->username) }}" class="inline-block px-4 py-2 text-sm font-medium text-gray-700 hover:bg-green-100 focus:relative  ">
                                 Lihat
                             </a>
-                            <button wire:click="delete({{ $user->id }})" href="{{ route('admin.user.delete', $user->username) }}" class="px-4 py-2 text-sm font-medium text-gray-700 hover:bg-red-100 focus:relative dark:text-gray-200 dark:hover:bg-red-800">
+                            <button wire:click="delete({{ $user->id }})" href="{{ route('admin.user.delete', $user->username) }}" class="px-4 py-2 text-sm font-medium text-gray-700 hover:bg-red-100 focus:relative  ">
                                 Hapus
                             </button>
                         </span>
@@ -128,11 +128,16 @@
             </tbody>
         </table>
     </div>
+
+    <div class="px-5 pb-3 mt-5 bg-white w-full rounded-lg shadow-md">
+        {{ $users->links('vendor.pagination.custom') }}
+    </div>
+
     @else
-    <div class="flex items-center justify-center p-4 px-4 mb-6 md:p-8">
-        <div class="flex items-center p-4 mb-4 text-sm text-red-800 dark:text-red-400" role="alert">
+    <div class="flex items-center  justify-center p-4 px-4 mb-6 md:p-8">
+        <div class="flex items-center p-4 mb-4 text-sm text-red-800 " role="alert">
             <div>
-                <h1 class="text-3xl font-medium text-red-800dark:text-red-400">
+                <h1 class="text-3xl font-medium text-red-800">
                     Tidak ada User
                 </h1>
             </div>
@@ -140,9 +145,7 @@
     </div>
     @endif
     <!-- ---------------------- -->
-    <div class="px-5 pb-3 mt-5 bg-white w-full rounded-lg shadow-md">
-        {{ $users->links('vendor.pagination.custom') }}
-    </div>
+
 
     @script
     <script>
