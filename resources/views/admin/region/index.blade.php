@@ -153,7 +153,7 @@
                             </span>
                         </th>
                         <td class="px-6 py-3">
-                            {{ $anaks->count() }}
+                            {{ $user->anaks->count() ?? '' }}
                         </td>
                         <td class="px-6 py-3">
                             {{ $user->kecamatan }}
