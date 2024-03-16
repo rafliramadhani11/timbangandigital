@@ -49,6 +49,21 @@
                             </div>
                         </div>
 
+                        <!-- USER ACCOUNT -->
+                        <span class="text-gray-400">User Account</span>
+                        <hr class="h-0.5 border-0 bg-gray-200" />
+
+                        <div class="grid grid-cols-2 my-2 gap-y-8 md:grid-cols-2 lg:grid-cols-4">
+                            <div>
+                                <label class="font-bold text-gray-400 ">Username</label>
+                                <p class="font-semibold text-gray-800 ">{{ $user->username }}</p>
+                            </div>
+                            <div>
+                                <label class="font-bold text-gray-400 ">Password</label>
+                                <p class="font-semibold text-gray-800 ">{{ $user->password }}</p>
+                            </div>
+                        </div>
+
                         <!-- USER INF0 -->
                         <span class="text-gray-400">User Info</span>
                         <hr class="h-0.5 border-0 bg-gray-200" />
@@ -137,14 +152,14 @@
                         <div class="grid gap-4 mt-6 lg:grid-cols-3">
                             <div>
                                 <label for="name" class="block mb-2 text-sm font-medium text-gray-900 ">Nama Lengkap Bayi</label>
-                                <input type="text" id="name" name="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
+                                <input type="text" id="name" name="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " value="{{ old('name') }}">
                                 @error('name')
                                 <small class="text-red-500 text-start ">{{ $message }}</small>
                                 @enderror
                             </div>
                             <div>
                                 <label for="jeniskelamin" class="block mb-2 text-sm font-medium text-gray-900 ">Jenis Kelamin</label>
-                                <select id="jeniskelamin" name="jeniskelamin" class="mt-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required>
+                                <select id="jeniskelamin" name="jeniskelamin" class="mt-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" value="{{ old('jeniskelamin') }}">
                                     <option selected disabled></option>
                                     @if(old('jeniskelamin'))
                                     <option>{{ old('jeniskelamin') }}</option>
@@ -158,21 +173,21 @@
                             </div>
                             <div>
                                 <label for="umur" class="block mb-2 text-sm font-medium text-gray-900 ">Umur Bayi ( Bulan )</label>
-                                <input type="number" id="umur" name="umur" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " value="{{ $timbangan->umur ?? '' }}" />
+                                <input type="number" id="umur" name="umur" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " value="{{ old('umur') }}" />
                                 @error('umur')
                                 <small class="text-xs text-red-500 ">{{$message}}</small>
                                 @enderror
                             </div>
                             <div>
                                 <label for="pb" class="block mb-2 text-sm font-medium text-gray-900 ">Panjang Badan (cm)</label>
-                                <input type="number" id="pb" name="pb" class="bg-gray-100 border border-gray-200 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" value="{{ $timbangan->pb ?? '0' }}" min="1" max="10000" step="0.001" />
+                                <input type="number" id="pb" name="pb" class="bg-gray-100 border border-gray-200 focus:border-gray-200 text-gray-900 text-sm rounded-lg block w-full p-2.5 cursor-default" readonly value="{{ $timbangan->pb ?? '' }}" min="1" max="10000" step="0.001" />
                                 @error('pb')
                                 <small class="text-xs text-red-500 ">{{$message}}</small>
                                 @enderror
                             </div>
                             <div>
                                 <label for="bb" class="block mb-2 text-sm font-medium text-gray-900 ">Berat Badan (Kg)</label>
-                                <input type="number" id="bb" name="bb" class="bg-gray-100 border border-gray-200 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " value="{{  $timbangan->bb ?? '0'  }}" />
+                                <input type="number" id="bb" name="bb" class="bg-gray-100 border border-gray-200 text-gray-900 text-sm rounded-lg block w-full p-2.5 cursor-default" readonly value="{{  $timbangan->bb ?? ''  }}" />
                                 @error('bb')
                                 <small class="text-xs text-red-500 ">{{$message}}</small>
                                 @enderror

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 
+use App\Models\Anak;
 use App\Models\User;
 use App\Models\Region;
 use App\Models\Timbangan;
@@ -159,22 +160,29 @@ class AdminController extends Controller
             ->pluck('total_users', 'region_name')
             ->toArray();
 
-        $totalAnak = Region::leftJoin('users', 'regions.id', '=', 'users.region_id')
+        $totalChildrenByRegion = Region::leftJoin('users', 'regions.id', '=', 'users.region_id')
             ->leftJoin('anaks', 'users.id', '=', 'anaks.user_id')
-            ->selectRaw('COUNT(anaks.id) as total_children')
-            ->groupBy('regions.id')
-            ->pluck('total_children')
+            ->selectRaw('regions.name as region_name, COUNT(anaks.id) as total_children')
+            ->groupBy('regions.id', 'regions.name')
+            ->pluck('total_children', 'region_name')
             ->toArray();
 
-        $regionNames = collect($totalUsersByRegion)->keys()->all();
-        $usersByRegion = collect($totalUsersByRegion)->values()->all();
-
+        $totalUsersAndChildrenByRegion = [];
+        foreach ($totalUsersByRegion as $regionName => $totalUsers) {
+            $totalChildren = $totalChildrenByRegion[$regionName] ?? 0;
+            $totalUsersAndChildrenByRegion[$regionName] = [
+                'total_users' => $totalUsers,
+                'total_children' => $totalChildren,
+            ];
+        }
+        $regionNames = array_keys($totalUsersAndChildrenByRegion);
+        $totalUsers = array_column($totalUsersAndChildrenByRegion, 'total_users');
+        $totalAnaks = array_column($totalUsersAndChildrenByRegion, 'total_children');
         $data = [
-            'totalAnak' => $totalAnak,
             'regionNames' => $regionNames,
-            'usersByRegion' => $usersByRegion,
+            'usersByRegion' => $totalUsers,
+            'anakByRegion' => $totalAnaks,
         ];
-
         return $data;
     }
 

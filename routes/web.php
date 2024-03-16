@@ -1,14 +1,17 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\RegionController;
 use App\Http\Controllers\TimbanganController;
+use App\Http\Controllers\AuthenticationController;
+
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\Admin\AnakController;
-use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\User\AnakController as UserAnakController;
 
+// GUEST
 Route::middleware(['guest'])->controller(AuthenticationController::class)
     ->group(function () {
         Route::group(['get'], function () {
@@ -21,6 +24,7 @@ Route::middleware(['guest'])->controller(AuthenticationController::class)
             Route::post('/register', 'store')->name('buatakun');
         });
     });
+// -----------------------------------------
 
 // USER
 Route::middleware(['auth'])->controller(UserController::class)
@@ -47,6 +51,7 @@ Route::middleware(['auth'])->group(function () {
     )
         ->name('anak.update');
 });
+//  ----------------------------------------
 
 // ADMIN
 Route::middleware(['admin'])->controller(AdminController::class)
@@ -86,16 +91,14 @@ Route::middleware(['admin'])->controller(AnakController::class)
             ->name('admin.anak.delete');
     });
 
+Route::middleware(['admin'])->controller(TimbanganController::class)
+    ->group(function () {
+        Route::put('/dashboard/admin/users/anak/{id}/timbang', 'update')->name('admin.update.timbang');
+    });
 
-
-
-
-
-
-
-Route::middleware(['admin'])->group(function () {
-    // TIMBANG UPDATE
-    Route::put('/dashboard/admin/users/anak/{id}/timbang', [TimbanganController::class, 'update'])->name('admin.update.timbang');
-    // ------------------------------
-    Route::get('/dashboard/admin/regions/{city:slug}', [RegionController::class, 'index'])->name('admin.region');
-});
+Route::middleware(['admin'])->controller(RegionController::class)
+    ->group(function () {
+        Route::get('/dashboard/admin/regions/{city:slug}',  'index')
+            ->name('admin.region');
+    });
+// ----------------------------------------

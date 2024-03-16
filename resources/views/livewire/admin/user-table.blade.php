@@ -129,7 +129,7 @@
         </table>
     </div>
 
-    <div class="px-5 pb-3 mt-5 bg-white w-full rounded-lg shadow-md">
+    <div class="px-5 pb-3 mt-5 ">
         {{ $users->links('vendor.pagination.custom') }}
     </div>
 

@@ -15,7 +15,7 @@ class UserRegister extends Component
     public function create()
     {
         $this->validate();
-        $this->form->password = bcrypt($this->form->password);
+
         User::create(
             $this->form->all()
         );

@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\TimbangRequest;
 
 class AnakController extends Controller
 {
@@ -39,7 +40,7 @@ class AnakController extends Controller
         ]);
     }
 
-    public function store($username, Request $request)
+    public function store($username, TimbangRequest $request)
     {
         $user = User::where('username', $username)->first();
         $request->validate([
@@ -52,11 +53,10 @@ class AnakController extends Controller
         ]);
         $anak = new Anak([
             'user_id' => $user->id,
-            'name' => $request->input('name'),
+            'name' => ucfirst($request->input('name')),
             'jeniskelamin' => $request->input('jeniskelamin'),
         ]);
-        $anak->save();
-
+        // $anak->save();
         // IMT RUMUS
         $umur = $request->input('umur');
 
@@ -92,6 +92,7 @@ class AnakController extends Controller
             'bb' => $bb,
             'imt' =>  round($imt, 1)
         ];
+        dd($dataTimbangan);
         Timbangan::where('anak_id', null)->update($dataTimbangan);
         return redirect()->back()->with('storedAnak', 'Berhasil menambah data anak !');
     }
@@ -100,7 +101,7 @@ class AnakController extends Controller
     {
         DB::table('anaks')
             ->where('id', $id)
-            ->update(['name' => $request->input('name')]);
+            ->update(['name' => ucfirst($request->input('name'))]);
 
         return redirect()->back()->with('updatedName', 'Berhasil memperbarui nama !');
     }

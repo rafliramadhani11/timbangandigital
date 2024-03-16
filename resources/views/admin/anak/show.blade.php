@@ -140,7 +140,7 @@
                             <!-- PANJANG -->
                             <div>
                                 <label for="pb" class="block mb-2 text-sm font-medium text-gray-900 ">Panjang Badan (cm)</label>
-                                <input type="number" id="pb" name="pb" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " value="{{ $timbangan->pb ?? '0' }}" min="1" max="10000" step="0.001" required />
+                                <input type="number" id="pb" name="pb" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg cursor-default block w-full p-2.5 " readonly value="{{ $timbangan->pb ?? '0' }}" min="1" max="10000" step="0.001" required />
                                 @error('pb')
                                 <small class="text-xs text-red-500 ">{{$message}}</small>
                                 @enderror
@@ -149,7 +149,7 @@
                             <!-- BERAT -->
                             <div>
                                 <label for="bb" class="block mb-2 text-sm font-medium text-gray-900 ">Berat Badan (Kg)</label>
-                                <input type="number" id="bb" name="bb" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " value="{{  $timbangan->bb ?? '0'  }}" required />
+                                <input type="number" id="bb" name="bb" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg cursor-default block w-full p-2.5 cu" readonly value="{{  $timbangan->bb ?? '0'  }}" required />
                                 @error('bb')
                                 <small class="text-xs text-red-500 ">{{$message}}</small>
                                 @enderror
@@ -360,6 +360,9 @@
             },
             zoom: {
                 enabled: false,
+            },
+            toolbar: {
+                show: false
             }
         },
         markers: {
@@ -378,6 +381,7 @@
         xaxis: {
             categories: Object.keys(imtChart)
         },
+
     };
     var chart = new ApexCharts(document.querySelector("#imtchart"), options);
     chart.render();

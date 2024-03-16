@@ -48,7 +48,7 @@
                     </a>
                 </div>
                 <div>
-                    <div id="imtchart" class="mt-5"></div>
+                    <div id="imtchart" class="mt-5 flex items-center "></div>
                 </div>
             </div>
             @else
@@ -158,7 +158,7 @@
             data: usersChart['usersByRegion']
         }, {
             name: 'Anak',
-            data: usersChart['totalAnak']
+            data: usersChart['anakByRegion']
         }],
         chart: {
             type: 'bar',
@@ -193,63 +193,116 @@
     // IMT CHART
     const imtChart = <?php echo json_encode($imtchart); ?>;
     var options = {
+        series: [{
+            name: 'Normal',
+            data: Object.values(imtChart),
+            color: '#00e396'
+        }],
         chart: {
-            type: 'pie',
-            height: 300
+            type: 'bar',
+            height: 300,
+            toolbar: {
+                show: false
+            }
         },
-        legend: {
-            show: true,
-            position: 'top'
+        tooltip: {
+            y: {
+                formatter: function(val) {
+                    return val + "%"
+                }
+            }
+        },
+        plotOptions: {
+            bar: {
+                borderRadius: 5,
+                horizontal: true,
+            }
         },
         dataLabels: {
-            enabled: false,
+            enabled: false
         },
-
-        series: Object.values(imtChart),
-        labels: Object.keys(imtChart),
-    }
+        xaxis: {
+            categories: Object.keys(imtChart),
+        }
+    };
     var chart = new ApexCharts(document.querySelector("#imtchart"), options);
     chart.render();
 
     // PB CHART
     const pbChart = <?php echo json_encode($pbchart); ?>;
     var options = {
+        series: [{
+            name: 'Normal',
+            data: Object.values(pbChart),
+            color: '#00e396'
+        }],
         chart: {
-            type: 'pie',
-            height: 300
+            type: 'bar',
+            height: 300,
+            toolbar: {
+                show: false
+            }
         },
-        legend: {
-            show: true,
-            position: 'top'
+        tooltip: {
+            y: {
+                formatter: function(val) {
+                    return val + "%"
+                }
+            }
+        },
+        plotOptions: {
+            bar: {
+                borderRadius: 5,
+                horizontal: true,
+            }
         },
         dataLabels: {
-            enabled: false,
+            enabled: false
         },
+        xaxis: {
+            categories: Object.keys(pbChart),
+        }
 
-        series: Object.values(pbChart),
-        labels: Object.keys(pbChart),
-    }
+
+    };
     var chart = new ApexCharts(document.querySelector("#pbchart"), options);
     chart.render();
 
-    // PB CHART
+    // BB CHART
     const bbChart = <?php echo json_encode($bbchart); ?>;
     var options = {
+        series: [{
+            name: 'Normal',
+            data: Object.values(bbChart),
+            color: '#00e396'
+        }],
         chart: {
-            type: 'pie',
-            height: 300
+            type: 'bar',
+            height: 300,
+            toolbar: {
+                show: false
+            }
         },
-        legend: {
-            show: true,
-            position: 'top'
+        tooltip: {
+            y: {
+                formatter: function(val) {
+                    return val + "%"
+                }
+            }
+        },
+        plotOptions: {
+            bar: {
+                borderRadius: 5,
+                horizontal: true,
+            }
         },
         dataLabels: {
-            enabled: false,
+            enabled: false
         },
-
-        series: Object.values(bbChart),
-        labels: Object.keys(bbChart),
-    }
+        xaxis: {
+            categories: Object.keys(bbChart),
+        }
+    };
     var chart = new ApexCharts(document.querySelector("#bbchart"), options);
     chart.render();
 </script>
