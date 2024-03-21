@@ -166,9 +166,9 @@
         </div>
 
         <!-- GRAFIK -->
-        <div class="lg:mt-7">
+        <div class="lg:mt-7 lg:grid lg:grid-cols-3 lg:gap-6">
             <!-- INDEKS MASSA TUBUH -->
-            <div class="p-4 px-4 mb-6 md:col-span-2  bg-white rounded-lg shadow-md  md:p-8 ">
+            <div class="p-4 px-4 mb-6 md:col-span-2 lg:col-span-1  bg-white rounded-lg shadow-md  md:p-8 ">
                 <div>
                     <span class="block text-2xl font-bold text-black ">
                         Indeks Massa Tubuh
@@ -225,7 +225,7 @@
             </div>
 
             <!-- PANJANG BADAN -->
-            <div class="p-4 px-4 mb-6 md:col-span-2  bg-white rounded shadow-md  md:p-8 ">
+            <div class="p-4 px-4 mb-6 md:col-span-2 lg:col-span-1  bg-white rounded shadow-md  md:p-8 ">
                 <div>
                     <span class="block text-2xl font-bold text-black ">
                         Panjang Badan
@@ -282,7 +282,7 @@
             </div>
 
             <!-- BERAT BADAN -->
-            <div class="p-4 px-4 mb-6 md:col-span-2  bg-white rounded shadow-md  md:p-8 ">
+            <div class="p-4 px-4 mb-6 md:col-span-2 lg:col-span-1  bg-white rounded shadow-md  md:p-8 ">
                 <div>
                     <span class="block text-2xl font-bold text-black ">
                         Berat Badan
@@ -354,7 +354,7 @@
         }],
         chart: {
             height: 250,
-            type: 'area',
+            type: 'line',
             toolbar: {
                 show: false
             },
@@ -368,19 +368,21 @@
         markers: {
             size: 6,
         },
-        grid: {
-            show: false,
-            position: 'back',
-        },
         dataLabels: {
             enabled: false
         },
         stroke: {
-            curve: 'smooth'
+            curve: 'straight'
         },
         xaxis: {
             categories: Object.keys(imtChart)
         },
+        yaxis: {
+            stepSize: 1
+        },
+        grid: {
+            borderColor: '#f1f1f1',
+        }
 
     };
     var chart = new ApexCharts(document.querySelector("#imtchart"), options);
@@ -395,7 +397,7 @@
         }],
         chart: {
             height: 250,
-            type: 'area',
+            type: 'line',
             toolbar: {
                 show: false
             },
@@ -407,18 +409,20 @@
             size: 6,
         },
         grid: {
-            show: false,
-            position: 'back',
+            borderColor: '#f1f1f1',
         },
         dataLabels: {
             enabled: false
         },
         stroke: {
-            curve: 'smooth'
+            curve: 'straight'
         },
         xaxis: {
             categories: Object.keys(pbChart)
         },
+        yaxis: {
+            stepSize: 5
+        }
     };
     var chart = new ApexCharts(document.querySelector("#pbChart"), options);
     chart.render();
@@ -432,7 +436,7 @@
         }],
         chart: {
             height: 250,
-            type: 'area',
+            type: 'line',
             toolbar: {
                 show: false
             },
@@ -444,18 +448,20 @@
             size: 6,
         },
         grid: {
-            show: false,
-            position: 'back',
+            borderColor: '#f1f1f1',
         },
         dataLabels: {
             enabled: false
         },
         stroke: {
-            curve: 'smooth'
+            curve: 'straight'
         },
         xaxis: {
             categories: Object.keys(bbChart)
         },
+        yaxis: {
+            stepSize: 1.5
+        }
     };
     var chart = new ApexCharts(document.querySelector("#bbChart"), options);
     chart.render();

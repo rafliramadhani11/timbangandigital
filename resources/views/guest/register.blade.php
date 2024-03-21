@@ -11,7 +11,7 @@
                 <livewire:user-register />
 
                 <div class="mt-4 text-sm text-center text-gray-600">
-                    <p>Sudah punya akun ? <a href="{{ route('login') }}" class="text-black hover:underline">Masuk disini</a>
+                    <p>Sudah punya akun ? <a href="{{ route('login') }}" class="font-medium text-blue-600  hover:underline">Masuk disini</a>
                     </p>
                 </div>
             </div>

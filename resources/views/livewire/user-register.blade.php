@@ -69,8 +69,6 @@
     </div>
     <!-- ------------------------------------------------ -->
     <div>
-        <button type="submit" class="w-full p-2 text-white transition-colors duration-300 bg-black rounded-md hover:bg-gray-800 focus:outline-none focus:bg-black focus:ring-2 focus:ring-offset-2 focus:ring-gray-900">
-            Daftar Sekarang
-        </button>
+        <button type="button" class="text-white w-full bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 ">Daftar Sekarang</button>
     </div>
 </form>

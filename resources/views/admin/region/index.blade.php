@@ -44,7 +44,8 @@
                 @else
                 <div class="flex items-center justify-center p-4 mb-4 text-sm text-red-800 " role="alert">
                     <div>
-                        <span class="text-xl font-medium">Belum ada data timbangan
+                        <span class="text-xl font-medium">
+                            Belum ada data timbangan
                     </div>
                 </div>
                 @endif

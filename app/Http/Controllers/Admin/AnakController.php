@@ -141,6 +141,7 @@ class AnakController extends Controller
             ->toArray();
 
         $data = array_combine($tanggalData, $timbanganData);
+
         return $data;
     }
 

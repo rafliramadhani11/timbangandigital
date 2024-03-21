@@ -175,6 +175,8 @@ class AdminController extends Controller
                 'total_children' => $totalChildren,
             ];
         }
+        // dd($totalUsersAndChildrenByRegion);
+
         $regionNames = array_keys($totalUsersAndChildrenByRegion);
         $totalUsers = array_column($totalUsersAndChildrenByRegion, 'total_users');
         $totalAnaks = array_column($totalUsersAndChildrenByRegion, 'total_children');

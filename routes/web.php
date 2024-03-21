@@ -1,14 +1,18 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+use App\Models\User;
 
+use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
+
 use App\Http\Controllers\RegionController;
 use App\Http\Controllers\TimbanganController;
-use App\Http\Controllers\AuthenticationController;
-
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\Admin\AnakController;
+use App\Http\Controllers\AuthenticationController;
+use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\User\AnakController as UserAnakController;
 
 // GUEST
@@ -17,11 +21,32 @@ Route::middleware(['guest'])->controller(AuthenticationController::class)
         Route::group(['get'], function () {
             Route::get('/login', 'login')->name('login');
             Route::get('/register', 'register')->name('register');
+
+            Route::get('forgot-password', function () {
+                return view('guest.forgot-password');
+            });
+
+            Route::get('reset-password/{id}/{token}', function ($id, $token) {
+                $user = User::where('id', $id)->first();
+                if (!$user) {
+                    return 'Whoopss User not found';
+                }
+                $key = 'example_key';
+
+                $payload = JWT::decode($token, new Key($key, 'HS256'));
+                return view('guest.reset-password', [
+                    'username' => $payload->username,
+                    'user' => $user
+                ]);
+            })->name('reset-password');;
         });
 
         Route::group(['post'], function () {
             Route::post('/login', 'auth')->name('login');
             Route::post('/register', 'store')->name('buatakun');
+
+            Route::post('forgot-password', 'forgotPassword');
+            Route::post('reset-password/{id}/{token}', 'resetPassword');
         });
     });
 // -----------------------------------------

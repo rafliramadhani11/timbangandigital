@@ -29,12 +29,21 @@
                 </x-alert>
                 @endif
 
+                @if (session()->has('changePassword'))
+                <x-alert class="text-green-800 bg-green-100">
+                    {{ session('changePassword') }}
+                    <x-slot:close class="text-green-500 bg-green-100 focus:ring-green-400 hover:bg-green-200 ">
+                        </x-slot>
+                </x-alert>
+                @endif
+
                 <form action="{{ route('login') }}" method="post" class="space-y-4">
                     @csrf
 
                     <!-- USERNAME -->
                     <div>
                         <x-input-label for="username" :value="__('Username')" />
+
                         <x-text-input id="username" type="text" name="username" autofocus autocomplete="username" />
                         <x-input-error :messages="$errors->get('username')" />
                     </div>
@@ -47,16 +56,23 @@
                         <x-input-error :messages="$errors->get('password')" />
                     </div>
 
+                    <span class="text-sm text-gray-600">
+                        <a href="/forgot-password" class="font-medium text-blue-600  hover:underline">Lupa Password ?</a>
+
+                    </span>
+
                     <div>
-                        <x-submit-button type="submit" :name="__('Masuk')" />
+                        <x-submit-button type="submit" class="-mt-2" :name="__('Masuk')" />
                     </div>
 
                 </form>
 
 
+
+
                 <div class="mt-4 text-sm text-center text-gray-600">
                     <p>Belum punya akun ?
-                        <a href="{{ route('register') }}" class="mx-1 text-black hover:underline">
+                        <a href="{{ route('register') }}" class="font-medium text-blue-600  hover:underline">
                             {{ __('Daftar disini') }}
                         </a>
                     </p>

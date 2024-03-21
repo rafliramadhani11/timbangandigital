@@ -48,7 +48,7 @@
                     </a>
                 </div>
                 <div>
-                    <div id="imtchart" class="mt-5 flex items-center "></div>
+                    <div id="imtchart" class="mt-5 "></div>
                 </div>
             </div>
             @else
@@ -152,7 +152,15 @@
 <script>
     // USERS
     const usersChart = <?php echo json_encode($usersKategori); ?>;
+    console.log(Object.values(usersChart));
     var options = {
+        chart: {
+            type: 'bar',
+            height: 350,
+            toolbar: {
+                show: false
+            }
+        },
         series: [{
             name: 'Users',
             data: usersChart['usersByRegion']
@@ -160,12 +168,11 @@
             name: 'Anak',
             data: usersChart['anakByRegion']
         }],
-        chart: {
-            type: 'bar',
-            height: 350,
-            toolbar: {
-                show: false
-            }
+        xaxis: {
+            categories: usersChart['regionNames'],
+        },
+        yaxis: {
+            stepSize: 1
         },
         plotOptions: {
             bar: {
@@ -182,10 +189,6 @@
             width: 10,
             colors: ['transparent']
         },
-        xaxis: {
-            categories: usersChart['regionNames'],
-        },
-
     };
     var chart = new ApexCharts(document.querySelector("#usersChart"), options);
     chart.render();
@@ -210,7 +213,7 @@
                 formatter: function(val) {
                     return val + "%"
                 }
-            }
+            },
         },
         plotOptions: {
             bar: {
@@ -223,6 +226,12 @@
         },
         xaxis: {
             categories: Object.keys(imtChart),
+            labels: {
+                formatter: function(val) {
+                    return val + "%"
+                }
+            },
+            stepSize: 20
         }
     };
     var chart = new ApexCharts(document.querySelector("#imtchart"), options);
@@ -261,6 +270,12 @@
         },
         xaxis: {
             categories: Object.keys(pbChart),
+            labels: {
+                formatter: function(val) {
+                    return val + "%"
+                }
+            },
+            stepSize: 20
         }
 
 
@@ -301,6 +316,12 @@
         },
         xaxis: {
             categories: Object.keys(bbChart),
+            labels: {
+                formatter: function(val) {
+                    return val + "%"
+                }
+            },
+            stepSize: 20
         }
     };
     var chart = new ApexCharts(document.querySelector("#bbchart"), options);

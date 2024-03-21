@@ -49,8 +49,8 @@
                             </div>
                         </div>
 
-                        <!-- USER ACCOUNT -->
-                        <span class="text-gray-400">User Account</span>
+                        <!-- USER INF0 -->
+                        <span class="text-gray-400">User Info</span>
                         <hr class="h-0.5 border-0 bg-gray-200" />
 
                         <div class="grid grid-cols-2 my-2 gap-y-8 md:grid-cols-2 lg:grid-cols-4">
@@ -58,17 +58,6 @@
                                 <label class="font-bold text-gray-400 ">Username</label>
                                 <p class="font-semibold text-gray-800 ">{{ $user->username }}</p>
                             </div>
-                            <div>
-                                <label class="font-bold text-gray-400 ">Password</label>
-                                <p class="font-semibold text-gray-800 ">{{ $user->password }}</p>
-                            </div>
-                        </div>
-
-                        <!-- USER INF0 -->
-                        <span class="text-gray-400">User Info</span>
-                        <hr class="h-0.5 border-0 bg-gray-200" />
-
-                        <div class="grid grid-cols-2 my-2 gap-y-8 md:grid-cols-2 lg:grid-cols-4">
                             <div>
                                 <label class="font-bold text-gray-400 ">Nama Lengkap</label>
                                 <p class="font-semibold text-gray-800 ">{{ $user->name }}</p>
