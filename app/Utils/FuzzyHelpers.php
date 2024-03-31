@@ -31,14 +31,10 @@ function low_membership_function($value, $range)
 
 function medium_membership_function($value, $range)
 {
-    list($min, $max) = $range;
-    if ($value <= $min) {
-        return 0;
-    } else if ($value >= $max) {
-        return 1;
-    } else {
-        return ($value - $min) / ($max - $min);
-    }
+    list($a, $d) = $range;
+    $b = $a + 1;
+    $c = $d - 1;
+    return max(min(($value - $a) / ($b - $a), 1, ($d - $value) / ($d - $c)), 0);
 }
 
 function high_membership_function($value, $range)
@@ -330,7 +326,9 @@ function fuzzy_tb_usia($usia, $tb, $isMale)
 }
 
 
-// Contoh penggunaan fungsi
-// echo "tb dan usia : " . fuzzy_tb_usia(5, 50, true) . "\n";
-// echo "bb dan usia : " . fuzzy_bb_usia(5, 18, true) . "\n";
-// echo "imt dan usia : " . fuzzy_imt_usia(5, 13, true) . "\n";
+/*
+Contoh penggunaan fungsi
+echo "tb dan usia : " . fuzzy_tb_usia(5, 50, true) . "\n";
+echo "bb dan usia : " . fuzzy_bb_usia(5, 18, true) . "\n";
+echo "imt dan usia : " . fuzzy_tb_usia(5, 13, true) . "\n";
+*/

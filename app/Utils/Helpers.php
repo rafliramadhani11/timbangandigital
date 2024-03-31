@@ -6,7 +6,7 @@ function calculateIMTU($umur, $imt, $isMale)
 {
 
 
-    
+
     $res = Fuzzy::method(FUZZY_METHOD_MAMDANI)
         ->attributes(
             [
