@@ -152,7 +152,6 @@
 <script>
     // USERS
     const usersChart = <?php echo json_encode($usersKategori); ?>;
-    console.log(Object.values(usersChart));
     var options = {
         chart: {
             type: 'bar',
