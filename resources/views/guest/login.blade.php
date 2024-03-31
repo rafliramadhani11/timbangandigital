@@ -1,14 +1,12 @@
 <x-guest-layout>
-
-    <div class="flex h-screen ">
-
+    <div class="flex h-screen lg:grid lg:grid-cols-2">
         <!-- Left Pane -->
         <div class="items-center justify-center flex-1 hidden text-black bg-white lg:flex">
             <x-left-content />
         </div>
 
         <!-- Right Pane -->
-        <div class="flex items-center justify-center w-full bg-gray-100 lg:w-1/2">
+        <div class="flex items-center justify-center w-full bg-gray-100 ">
             <div class="w-full max-w-md p-6">
                 <h1 class="mb-6 text-3xl font-semibold text-center text-black">Masukan Akun</h1>
                 <h1 class="mb-6 text-sm font-semibold text-center text-gray-500">Timbang Tuntas, Kontrol Penuh: Selamat Datang di Dashboard Timbangan Digital Kami!
@@ -31,12 +29,21 @@
                 </x-alert>
                 @endif
 
+                @if (session()->has('changePassword'))
+                <x-alert class="text-green-800 bg-green-100">
+                    {{ session('changePassword') }}
+                    <x-slot:close class="text-green-500 bg-green-100 focus:ring-green-400 hover:bg-green-200 ">
+                        </x-slot>
+                </x-alert>
+                @endif
+
                 <form action="{{ route('login') }}" method="post" class="space-y-4">
                     @csrf
 
                     <!-- USERNAME -->
                     <div>
                         <x-input-label for="username" :value="__('Username')" />
+
                         <x-text-input id="username" type="text" name="username" autofocus autocomplete="username" />
                         <x-input-error :messages="$errors->get('username')" />
                     </div>
@@ -49,16 +56,23 @@
                         <x-input-error :messages="$errors->get('password')" />
                     </div>
 
+                    <span class="text-sm text-gray-600">
+                        <a href="/forgot-password" class="font-medium text-blue-600  hover:underline">Lupa Password ?</a>
+
+                    </span>
+
                     <div>
-                        <x-submit-button type="submit" :name="__('Masuk')" />
+                        <x-submit-button type="submit" class="-mt-2" :name="__('Masuk')" />
                     </div>
 
                 </form>
 
 
+
+
                 <div class="mt-4 text-sm text-center text-gray-600">
                     <p>Belum punya akun ?
-                        <a href="{{ route('register') }}" class="mx-1 text-black hover:underline">
+                        <a href="{{ route('register') }}" class="font-medium text-blue-600  hover:underline">
                             {{ __('Daftar disini') }}
                         </a>
                     </p>
@@ -68,6 +82,7 @@
             </div>
         </div>
     </div>
+
     <script type="text/javascript">
         $('#notShow').on('click', function() {
             var inputPassword = document.getElementById('password')

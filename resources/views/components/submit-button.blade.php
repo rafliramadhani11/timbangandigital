@@ -1,4 +1,4 @@
 @props(['name'])
-<button {{ $attributes->merge(['class' => 'w-full p-2 text-white transition-colors duration-300 bg-orange-500 rounded-md hover:bg-orange-800 focus:outline-none focus:bg-orange-500 focus:ring-2 focus:ring-offset-2 focus:ring-orange-300']) }}>
+<button {{ $attributes->merge(['class' => 'text-white w-full bg-orange-500 hover:bg-orange-600 focus:outline-none shadow-md focus:ring-4 focus:ring-orange-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 transition duration-200']) }}>
     {{ $name ?? $slot }}
 </button>

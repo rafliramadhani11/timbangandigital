@@ -41,6 +41,8 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
+
+
     public function anaks()
     {
         return $this->hasMany(Anak::class);
