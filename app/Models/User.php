@@ -41,16 +41,9 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function getRouteKeyName()
+    public function isAdmin()
     {
-        return $this->username;
-    }
-
-    public function scopeFilter($query, array $filters)
-    {
-        $query->when($filters['search'] ?? false, function ($query, $search) {
-            return $query->where('name', 'like', '%' . $search . '%');
-        });
+        return $this->role === 'admin';
     }
 
     public function anaks()
@@ -62,4 +55,11 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Region::class);
     }
+
+    /**
+     * Scope a query to order users in ascending order.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
 }

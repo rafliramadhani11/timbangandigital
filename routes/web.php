@@ -1,35 +1,129 @@
 <?php
 
+use App\Models\User;
+
+use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
 use Illuminate\Support\Facades\Route;
-
-
-use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\AnakController;
+
+use App\Http\Controllers\RegionController;
+use App\Http\Controllers\TimbanganController;
+use App\Http\Controllers\User\UserController;
+use App\Http\Controllers\Admin\AnakController;
 use App\Http\Controllers\AuthenticationController;
+use App\Http\Controllers\ForgotPasswordController;
+use App\Http\Controllers\User\AnakController as UserAnakController;
 
+// GUEST
+Route::middleware(['guest'])->controller(AuthenticationController::class)
+    ->group(function () {
+        Route::group(['get'], function () {
+            Route::get('/login', 'login')->name('login');
+            Route::get('/register', 'register')->name('register');
 
-Route::middleware(['guest'])->group(function () {
-    Route::post('/login', [AuthenticationController::class, 'auth'])->name('authlogin');
-    Route::get('/login', [AuthenticationController::class, 'login'])->name('login');
-    Route::get('/register', [AuthenticationController::class, 'register'])->name('register');
-    Route::post('/register', [AuthenticationController::class, 'store'])->name('buatakun');;
+            Route::get('forgot-password', function () {
+                return view('guest.forgot-password');
+            });
+
+            Route::get('reset-password/{id}/{token}', function ($id, $token) {
+                $user = User::where('id', $id)->first();
+                if (!$user) {
+                    return 'Whoopss User not found';
+                }
+                $key = 'example_key';
+
+                $payload = JWT::decode($token, new Key($key, 'HS256'));
+                return view('guest.reset-password', [
+                    'username' => $payload->username,
+                    'user' => $user
+                ]);
+            })->name('reset-password');;
+        });
+
+        Route::group(['post'], function () {
+            Route::post('/login', 'auth')->name('login');
+            Route::post('/register', 'store')->name('buatakun');
+
+            Route::post('forgot-password', 'forgotPassword');
+            Route::post('reset-password/{id}/{token}', 'resetPassword');
+        });
+    });
+// -----------------------------------------
+
+// USER
+Route::middleware(['auth'])->controller(UserController::class)
+    ->group(function () {
+        Route::group(['get'], function () {
+            Route::get('dashboard/user', 'index')->name('user.index');
+            Route::get('dashboard/user/{user}', 'show')->name('user.show');
+            Route::get('dashboard/user/{user}/edit', 'edit')->name('user.edit');
+        });
+
+        Route::group(['post', 'patch'], function () {
+            Route::post('user/logout', 'logout')
+                ->name('user.logout');
+            Route::patch('dashboard/user/{user}/update', 'update')
+                ->name('user.update');
+        });
+    });
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/dashboard/user/{user}/anak/{anak:id}', [UserAnakController::class, 'show'])->name('anak.show');
+    Route::put(
+        '/dashboard/user/anak/{id}',
+        [UserAnakController::class, 'update']
+    )
+        ->name('anak.update');
 });
+//  ----------------------------------------
 
-Route::middleware('auth')->group(function () {
-    Route::post('/logout', [AuthenticationController::class, 'logout'])->name('logout');
-    Route::resource('/dashboard/user', UserController::class)->except(['store', 'create', 'destroy']);
-});
+// ADMIN
+Route::middleware(['admin'])->controller(AdminController::class)
+    ->group(function () {
+        Route::group(['get'], function () {
+            Route::get('/dashboard/admin', 'index')
+                ->name('admin.index');
+            Route::get('/dashboard/admin/users', 'allUsers')
+                ->name('admin.users');
+            Route::get('/dashboard/admin/users/{username}', 'showUser')
+                ->name('admin.show');
+            Route::get('/dashboard/admin/{username}/edit', 'editUser')
+                ->name('admin.edit');
+            Route::get('/dashboard/admin/create', 'create')
+                ->name('admin.create');
+        });
 
+        Route::group(['post', 'put', 'delete'], function () {
+            Route::post('/dashboard/admin', 'logout')
+                ->name('admin.logout');
+            Route::post('/dashboard/admin/create/user', 'store')
+                ->name('admin.store');
+            Route::put('/dashboard/admin/{username}', 'updateUser')
+                ->name('admin.user.update');
+            Route::delete('/dashboard/admin/users/{username}', 'delete')
+                ->name('admin.user.delete');
+        });
+    });
 
-Route::middleware('admin')->group(function () {
-    Route::get('/dashboard/admin', [AdminController::class, 'index'])->name('admin.index');
-    Route::get('/dashboard/admin/users', [AdminController::class, 'allUsers'])->name('admin.users');
-    Route::get('/dashboard/admin/users/{username}', [AdminController::class, 'showUser'])->name('admin.show');
-    Route::get('/dashboard/admin/{username}/edit', [AdminController::class, 'editUser'])->name('admin.edit');
-    Route::get('/dashboard/admin/users/regions/{city:slug}', [AdminController::class, 'allRegions'])->name('admin.regions');
+Route::middleware(['admin'])->controller(AnakController::class)
+    ->group(function () {
+        Route::get('/dashboard/admin/users/{username}/anak/{anak:id}', 'show')->name('admin.anak.show')->scopeBindings();
+        Route::post('/dashboard/admin/users/{username}/anak/create', 'store')->name('admin.anak.store');
+        Route::put('/dashboard/admin/users/anak/{id}',  'update')
+            ->name('admin.anak.update');
+        Route::delete('/dashboard/admin/users/anak/{id}', 'delete')
+            ->name('admin.anak.delete');
+    });
 
-    Route::put('/dashboard/admin/{username}', [AdminController::class, 'updateUser'])->name('admin.user.update');
+Route::middleware(['admin'])->controller(TimbanganController::class)
+    ->group(function () {
+        Route::put('/dashboard/admin/users/anak/{id}/timbang', 'update')->name('admin.update.timbang');
+    });
 
-    Route::delete('/dashboard/admin/users/{username}', [AdminController::class, 'delete'])->name('admin.user.delete');
-});
+Route::middleware(['admin'])->controller(RegionController::class)
+    ->group(function () {
+        Route::get('/dashboard/admin/regions/{city:slug}',  'index')
+            ->name('admin.region');
+    });
+// ----------------------------------------

@@ -19,15 +19,10 @@ class RegisterRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
-    public function rules(): array
+    public function rules()
     {
         return [
-            'region_id' => 'required',
-
-            'name' => 'required|string|max:255',
-            'type' => 'required|string|in:Ayah,Ibu,Wali',
-            'username' => 'required|string|max:50|unique:users',
-            'password' => 'required|string|min:3',
+            'name' => 'required|max:5',
         ];
     }
 }
