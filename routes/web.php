@@ -19,7 +19,7 @@ use App\Http\Controllers\User\AnakController as UserAnakController;
 Route::middleware(['guest'])->controller(AuthenticationController::class)
     ->group(function () {
         Route::group(['get'], function () {
-            Route::get('/login', 'login')->name('login');
+            Route::get('/', 'login')->name('login');
             Route::get('/register', 'register')->name('register');
 
             Route::get('forgot-password', function () {
@@ -42,7 +42,7 @@ Route::middleware(['guest'])->controller(AuthenticationController::class)
         });
 
         Route::group(['post'], function () {
-            Route::post('/login', 'auth')->name('login');
+            Route::post('/', 'auth')->name('login.post');
             Route::post('/register', 'store')->name('buatakun');
 
             Route::post('forgot-password', 'forgotPassword');
