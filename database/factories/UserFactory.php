@@ -35,10 +35,10 @@ class UserFactory extends Factory
         return [
             'region_id' => rand(1, 5),
 
-            'name' => fake()->name(),
-            'username' => fake()->bothify('user###'),
+            'name' => "Admin",
+            'username' => "admin",
             'type' => $type,
-            'password' => bcrypt(123),
+            'password' => "admin",
 
             'jeniskelamin' => $jeniskelamin,
             'nohp' => rand(),

@@ -14,28 +14,21 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // Region::factory()->create([
-        //     'name' => 'Surabaya Pusat',
-        //     'slug' => Str::slug('Surabaya Pusat')
-        // ]);
-        // Region::factory()->create([
-        //     'name' => 'Surabaya Timur',
-        //     'slug' => Str::slug('Surabaya Timur')
-        // ]);
-        // Region::factory()->create([
-        //     'name' => 'Surabaya Utara',
-        //     'slug' => Str::slug('Surabaya Utara')
-        // ]);
-        // Region::factory()->create([
-        //     'name' => 'Surabaya Selatan',
-        //     'slug' => Str::slug('Surabaya Selatan')
-        // ]);
-        // Region::factory()->create([
-        //     'name' => 'Surabaya Barat',
-        //     'slug' => Str::slug('Surabaya Barat')
-        // ]);
+        Region::factory()->create([
+            'name' => 'Surabaya Tengah',
+            'slug' => Str::slug('Surabaya Tengah')
+        ]);
+        Region::factory()->create([
+            'name' => 'Surabaya Timur',
+            'slug' => Str::slug('Surabaya Timur')
+        ]);
+        Region::factory()->create([
+            'name' => 'Surabaya Utara',
+            'slug' => Str::slug('Surabaya Utara')
+        ]);
 
-        \App\Models\User::factory(13)->create();
+
+        \App\Models\User::factory(1)->create();
         // \App\Models\Anak::factory(10)->create();
         // \App\Models\Timbangan::factory(15)->create();
     }
